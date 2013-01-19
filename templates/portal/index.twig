@@ -1,0 +1,195 @@
+{% extends 'portal/base.twig' %}
+
+{% block conteudo %}
+    <section>
+	
+		<div class="CaixaCadastro">
+	    
+	    	<h1>Cadastre-se, é GRATUITO</h1>
+	        Nome<br>
+	        <input type="text" class="input"><br>
+	        
+	        Usuário (e-mail)<br>
+	        <input type="text" class="input"><br>
+	        
+	        Senha<br>
+	        <input type="password" class="input"><br>
+	        <input type="submit" value="Cadastrar" class="BtCadastrar">
+	    	<div style="clear:both"></div>
+	        
+	    </div>
+	    
+	    <div style="float:left;margin-left:20px;width:643px;">
+	    	<div id="tabs" class="Buscador">
+			    <ul>
+			        <li><a href="#tabs-1">carros</a></li>
+			        <li><a href="#tabs-2">motos</a></li>
+			        <li><a href="#tabs-3">caminhões</a></li>
+			        <li><a href="#tabs-4">ônibus</a></li>
+			        <li><a href="#tabs-5">naútica</a></li>
+			        <li><a href="#tabs-6">outros</a></li>
+			    </ul>
+			    <div id="tabs-1">
+			    
+			    	<div class="Campos">Marca<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Veículo<br><input type="text" class="input"></div>
+			        <div class="Campos">Ano<br><select class="select"><option>Selecione</option></select></div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    	<div class="Campos">Estado<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Cidade<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos" id="Botao"><input type="submit" value="Buscar" class="BtBusca"> <input type="checkbox"> Apenas lojas</div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    </div>
+			    <div id="tabs-2">
+			    
+			    	<div class="Campos">Marca<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Veículo<br><input type="text" class="input"></div>
+			        <div class="Campos">Ano<br><select class="select"><option>Selecione</option></select></div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    	<div class="Campos">Estado<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Cidade<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos" id="Botao"><input type="submit" value="Buscar" class="BtBusca"> <input type="checkbox"> Apenas lojas</div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    </div>
+			    <div id="tabs-3">
+			    
+			    	<div class="Campos">Marca<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Veículo<br><input type="text" class="input"></div>
+			        <div class="Campos">Ano<br><select class="select"><option>Selecione</option></select></div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    	<div class="Campos">Estado<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Cidade<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos" id="Botao"><input type="submit" value="Buscar" class="BtBusca"> <input type="checkbox"> Apenas lojas</div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    </div>
+			    <div id="tabs-4">
+			    
+			    	<div class="Campos">Marca<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Veículo<br><input type="text" class="input"></div>
+			        <div class="Campos">Ano<br><select class="select"><option>Selecione</option></select></div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    	<div class="Campos">Estado<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Cidade<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos" id="Botao"><input type="submit" value="Buscar" class="BtBusca"> <input type="checkbox"> Apenas lojas</div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    </div>
+			    <div id="tabs-5">
+			    
+			    	<div class="Campos">Marca<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Veículo<br><input type="text" class="input"></div>
+			        <div class="Campos">Ano<br><select class="select"><option>Selecione</option></select></div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    	<div class="Campos">Estado<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Cidade<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos" id="Botao"><input type="submit" value="Buscar" class="BtBusca"> <input type="checkbox"> Apenas lojas</div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    </div>
+			    <div id="tabs-6">
+			    
+			    	<div class="Campos">Marca<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Veículo<br><input type="text" class="input"></div>
+			        <div class="Campos">Ano<br><select class="select"><option>Selecione</option></select></div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    	<div class="Campos">Estado<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos">Cidade<br><select class="select"><option>Selecione</option></select></div>
+			        <div class="Campos" id="Botao"><input type="submit" value="Buscar" class="BtBusca"> <input type="checkbox"> Apenas lojas</div>
+			        
+			        <div style="clear:both"></div>
+			    
+			    </div>
+			</div>
+	    </div>
+	    
+	    <div class="BannerHome"></div>
+	    
+	    <div style="clear:both"></div>
+	    
+	    <div id="tabsHome" class="DestaquesHome">
+	        <ul>
+	            <li><a href="#tabs-1_home">carros</a></li>
+	            <li><a href="#tabs-2_home">motos</a></li>
+	            <li><a href="#tabs-3_home">caminhões</a></li>
+	            <li><a href="#tabs-4_home">ônibus</a></li>
+	            <li><a href="#tabs-5_home">naútica</a></li>
+	            <li><a href="#tabs-6_home">outros</a></li>
+	        </ul>
+	        <div id="tabs-1_home">
+	        
+	        	<ul class="prettyGallery">
+					{% for i in 1..20 %}
+	                <li>
+	                
+	                	<div class="DestaqueHomeItem">
+	                    
+	                    	<div class="imagem"><a href="index.php" class="LinkFotoDestaque"></a></div>
+	                        <div class="DadosDestaque">
+	                            <strong>Chevrolet - Vectra</strong><br>
+	                            Ano 2011/2012<br>
+	                            Gaudério Veículos<br>
+	                            <span class="ValorDestaque">R$ 22.000,00</span>
+	                        </div>
+	                    
+	                    </div>
+	                
+	                </li>
+	                {% endfor %}
+	            </ul>
+	            
+	            <div style="clear:both"></div>
+	        
+	        </div>
+	        <div id="tabs-2_home">
+	        
+	        	<ul class="prettyGallery">
+	            	{% for i in 1..20 %}
+	                <li>
+	                
+	                	<div class="DestaqueHomeItem">
+	                    
+	                    	<div class="imagem"><a href="index.php" class="LinkFotoDestaque"></a></div>
+	                        <div class="DadosDestaque">
+	                            <strong>Chevrolet - Vectra</strong><br>
+	                            Ano 2011/2012<br>
+	                            Gaudério Veículos<br>
+	                            <span class="ValorDestaque">R$ 22.000,00</span>
+	                        </div>
+	                    
+	                    </div>
+	                
+	                </li>
+	                {% endfor %}
+	            </ul>
+	            
+	            <div style="clear:both"></div>
+	        
+	        </div>
+	        <div id="tabs-3_home"></div>
+	        <div id="tabs-4_home"></div>
+	        <div id="tabs-5_home"></div>
+	        <div id="tabs-6_home"></div>
+	    </div>
+	
+	</section>
+{% endblock %}
