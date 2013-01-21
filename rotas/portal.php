@@ -29,6 +29,6 @@ $app->get('/', $portal_init, function() use($app) {
 	
 	$tipos_de_veiculos = Model::factory('CV\TipoDeVeiculo')->order_by_asc('cod_tipo_veiculo')->find_many();
 	
-	$app->render('portal/index.twig');
+	$app->render('portal/index.twig', compact('tipos_de_veiculos'));
 	
 })->name('portal/index');

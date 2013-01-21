@@ -1,3 +1,4 @@
+/** base **/
 body{
 	margin: 0;
 	font-family: Arial, Helvetica, sans-serif;
@@ -133,12 +134,6 @@ header {
 }
 
 .header-login-form button {
-	background-color: #0A80C0;
-	border: 1px solid #45A6DA;
-	font-size: 12px;
-	color: #FFFFFF;
-	padding: 4px 10px 3px;
-	font-family: Arial, Helvetica, sans-serif;
 	margin: 0 5px;
 	float: left;
 }
@@ -157,8 +152,114 @@ header {
 }
 
 #conteudo {
-	margin-top: 30px;
+	width: 920px;
+	margin: auto;
+	background-color: #F5F5F5;
+	border-color: #DDDDDD;
+	border-style: solid;
+	border-width: 0 1px 0 1px;
+	padding:20px;
 }
+
+.btn-cv {
+	background-color: hsl(202, 90%, 34%) !important;
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0b8bd5", endColorstr="#086ba4");
+	background-image: -khtml-gradient(linear, left top, left bottom, from(#0b8bd5), to(#086ba4));
+	background-image: -moz-linear-gradient(top, #0b8bd5, #086ba4);
+	background-image: -ms-linear-gradient(top, #0b8bd5, #086ba4);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #0b8bd5), color-stop(100%, #086ba4));
+	background-image: -webkit-linear-gradient(top, #0b8bd5, #086ba4);
+	background-image: -o-linear-gradient(top, #0b8bd5, #086ba4);
+	background-image: linear-gradient(#0b8bd5, #086ba4);
+	border-color: #086ba4 #086ba4 hsl(202, 90%, 31.5%);
+	color: #fff !important;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.16);
+	-webkit-font-smoothing: antialiased;
+}
+
+.has-placeholder.empty {
+	color: #999;
+}
+
+/** base **/
+
+/** box-cadastro **/
+
+#box-cadastro {
+	float:left;
+	width: 215px;
+	border: 1px solid #E9E9E9;
+	padding: 20px;
+	
+	background-color: #FFFFFF;
+	color: #0A6190;
+}
+
+#box-cadastro .mensagem {
+	margin: 0 0 10px 0;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #E1E1E1;
+	
+	font-size: 16px;
+	color: #0A6190;
+}
+
+#box-cadastro label {
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0;
+}
+
+#box-cadastro input {
+	width: 201px;
+	margin: 0;
+}
+
+/** box-cadastro **/
+
+/** box-busca **/
+
+#box-busca {
+	float: left;
+	margin-left: 20px;
+	width: 643px;
+}
+
+#box-busca .nav {
+	margin-bottom: 0;
+}
+
+#box-busca .tab-content {
+	background-color: #FFFFFF;
+	border-color: #DDDDDD;
+	border-style: solid;
+	border-width: 0 1px 1px 1px;
+}
+
+#box-busca form {
+	margin: 10px;
+}
+
+/** box-busca **/
+
+.CaixaCadastro .input{
+	border:1px solid #e1e1e1;padding:6px;color:#666666;width:201px
+}
+
+.CaixaCadastro .BtCadastrar{
+	background:				-moz-linear-gradient(top, #f5f5f5 0%, #E1E1E1 100%); /* FF3.6+ */
+	background:				-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#E1E1E1)); /* Chrome,Safari4+ */
+	background:				-webkit-linear-gradient(top, #f5f5f5 0%,#E1E1E1 100%); /* Chrome10+,Safari5.1+ */
+	background:				-o-linear-gradient(top, #f5f5f5 0%,#E1E1E1 100%); /* Opera 11.10+ */
+	background:				-ms-linear-gradient(top, #f5f5f5 0%,#E1E1E1 100%); /* IE10+ */
+	background:				linear-gradient(top, #f5f5f5 0%,#E1E1E1 100%); /* W3C */
+	filter:					progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#E1E1E1',GradientType=0 ); /* IE6-8 */
+	
+	border:1px solid #E1E1E1;font-size:13px;color:#999999;text-shadow:1px 1px 1px #ffffff;padding:10px 25px;float:right;margin-top:15px
+}
+
+/** box-cadastro **/
 
 /* BUSCADOR */
 

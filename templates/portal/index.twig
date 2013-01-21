@@ -1,24 +1,130 @@
 {% extends 'portal/base.twig' %}
 
 {% block conteudo %}
-    <section>
+<div id="box-cadastro">
+	<div class="mensagem">Cadastre-se, é GRATUITO</div>
 	
-		<div class="CaixaCadastro">
-	    
-	    	<h1>Cadastre-se, é GRATUITO</h1>
-	        Nome<br>
-	        <input type="text" class="input"><br>
-	        
-	        Usuário (e-mail)<br>
-	        <input type="text" class="input"><br>
-	        
-	        Senha<br>
-	        <input type="password" class="input"><br>
-	        <input type="submit" value="Cadastrar" class="BtCadastrar">
-	    	<div style="clear:both"></div>
-	        
-	    </div>
-	    
+	<form action="{#urlFor('cadastro') #}" method="post" class="form-vertical">
+		<div class="control-group">
+			<label class="control-label" for="box-cadastro-nome">Nome</label>
+			<div class="controls">
+				<input type="text" id="box-cadastro-nome" name="nome" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="box-cadastro-email">E-mail</label>
+			<div class="controls">
+				<input type="email" id="box-cadastro-email" name="email" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="box-cadastro-senha">Senha</label>
+			<div class="controls">
+				<input type="password" id="box-cadastro-senha" name="senha" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="box-cadastro-confirmar-senha">Confirmar senha</label>
+			<div class="controls">
+				<input type="password" id="box-cadastro-confirmar-senha" name="confirmar-senha" />
+			</div>
+		</div>
+		
+		<div class="pull-right">
+			<button type="submit" class="btn">Cadastrar</button>
+		</div>
+	</form>
+</div>
+
+<div id="box-busca">
+	<ul class="nav nav-tabs">
+		{% for tipo in tipos_de_veiculos %}
+		<li{% if loop.first %} class="active"{% endif %}><a href="#{{ tipo.codigo }}" data-toggle="tab">{{ tipo.descricao_plural }}</a></li>
+		{% endfor %}
+	</ul>
+	<div class="tab-content">
+		{% for tipo in tipos_de_veiculos %}
+		<div class="tab-pane {% if loop.first %}active{% endif %}" id="{{ tipo.codigo }}">
+			<form>
+				<div class="row-fluid">
+					<div class="span4">
+						<div class="control-group">
+							<label class="control-label">Marca</label>
+							<div class="controls">
+								<select class="span12" name="marca"><option>Selecione</option></select>
+							</div>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="control-group">
+							<label class="control-label">Veículo</label>
+							<div class="controls">
+								<input type="text" name="veiculo" class="span12" />
+							</div>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="control-group">
+							<label class="control-label">Ano</label>
+							<div class="controls">
+								<select class="span12 has-placeholder" name="ano">
+									<option value="">Selecione</option>
+									{% for ano in range('now' | date('Y'), 1960) %}
+									<option value="{{ ano }}">{{ ano }}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row-fluid">
+					<div class="span4">
+						<div class="control-group">
+							<label class="control-label">Marca</label>
+							<div class="controls">
+								<input type="text" name="" />
+							</div>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="control-group">
+							<label class="control-label">Marca</label>
+							<div class="controls">
+								<input type="text" name="" />
+							</div>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="control-group">
+							<label class="control-label">Marca</label>
+							<div class="controls">
+								<input type="text" name="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="Campos">Marca<br><select class="select"><option>Selecione</option></select></div>
+				        <div class="Campos">Veículo<br><input type="text" class="input"></div>
+				        <div class="Campos">Ano<br><select class="select"><option>Selecione</option></select></div>
+				        
+				        <div style="clear:both"></div>
+				    
+				    	<div class="Campos">Estado<br><select class="select"><option>Selecione</option></select></div>
+				        <div class="Campos">Cidade<br><select class="select"><option>Selecione</option></select></div>
+				        <div class="Campos" id="Botao"><input type="submit" value="Buscar" class="BtBusca"> <input type="checkbox"> Apenas lojas</div>
+				        
+				        <div style="clear:both"></div>
+			</form>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
 	    <div style="float:left;margin-left:20px;width:643px;">
 	    	<div id="tabs" class="Buscador">
 			    <ul>
@@ -191,5 +297,51 @@
 	        <div id="tabs-6_home"></div>
 	    </div>
 	
-	</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+onReady(function() {
+	var $form = $('#box-cadastro form');
+	var $nome = $form.find('input[name="nome"]');
+	var $email = $form.find('input[name="email"]');
+	var $senha = $form.find('input[name="senha"]');
+	var $confirmarSenha = $form.find('input[name="confirmar-senha"]');
+
+	var onChange = function() {
+		$(this).closest('.control-group').removeClass('error');
+	};
+	
+	$nome.on('keydown paste input change', onChange);
+	$email.on('keydown paste input change', onChange);
+	$senha.on('keydown paste input change', onChange);
+	$confirmarSenha.on('keydown paste input change', onChange);
+
+	$form.on('submit', function(event) {
+		var form_valido = true;
+
+		if (!($nome.val().length > 0)) {
+			form_valido = false;
+			$nome.closest('.control-group').addClass('error');
+		}
+		if (!($email.val().length > 0) || /^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+$/.test($email.val())) {
+			form_valido = false;
+			$email.closest('.control-group').addClass('error');
+		}
+		if (!($senha.val().length > 0 || $confirmarSenha.val().length > 0 && $senha.val() == $confirmarSenha.val())) {
+			form_valido = false;
+			$senha.closest('.control-group').addClass('error');
+			$confirmarSenha.closest('.control-group').addClass('error');
+		}
+
+		if (!form_valido)
+			return event.preventDefault();
+	});
+
+	$('.has-placeholder').on('keyup change', function() {
+		 $(this)[($(this).val() == '') ? 'addClass' : 'removeClass']('empty');
+	});
+	$('.has-placeholder').trigger('change');
+});
+</script>
 {% endblock %}
