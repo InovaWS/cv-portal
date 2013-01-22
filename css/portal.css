@@ -1,15 +1,21 @@
 /** base **/
 body{
 	margin: 0;
-	font-family: Arial, Helvetica, sans-serif;
+	padding: 0;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	background-color: #E1E1E1;
 }
 
-header {
-	z-index: 1;
+/** base **/
+
+/** header **/
+
+#header {
+	
 }
 
-.header-topo {
+#header-links {
+	background: #D7DBE0;
 	background:	-moz-linear-gradient(top, #D7DBE0 0%, #F0F2F3 100%); /* FF3.6+ */
 	background:	-webkit-gradient(linear, left top, left bottom, color-stop(0%,#D7DBE0), color-stop(100%,#F0F2F3)); /* Chrome,Safari4+ */
 	background:	-webkit-linear-gradient(top, #D7DBE0 0%,#F0F2F3 100%); /* Chrome10+,Safari5.1+ */
@@ -20,23 +26,24 @@ header {
 	height: 40px;
 }
 
-.header-topo-inner {
-	width: 998px;
-	margin: 0 auto;
+#header-links .span3 {
 	position: relative;
 }
 
-#logo-cv {
+#header-logo {
 	position: absolute;
 	top: 0;
-	left: 10px;
-	z-index: 2;
+	left: 0;
 	width: 230px;
 	height: 100px;
-	background-image: url(../img/logo.png);
 }
 
-.header-topo-links {
+#header-logo img {
+	width: 100%;
+	height: 100%;
+}
+
+#header-links-left {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -44,10 +51,9 @@ header {
 	font-size: 14px;
 	color: #CCCCCC;
 	font-weight: normal;
-	margin-left: 240px;
 }
 
-.header-topo-links li {
+#header-links-left li {
 	margin: 0;
 	padding: 0;
 	float: left;
@@ -55,105 +61,98 @@ header {
 	list-style: none;
 }
 
-.header-topo-links .separador{
+#header-links-left .separador{
 	display: block;
 	padding: 10px 0;
 	font-weight: bold;
 	text-decoration: none;
-	font-size: 16px;
+	font-size: 14px;
 }
 
-.header-topo-links li a{
+#header-links-left li a{
 	display: block;
 	padding: 10px 10px;
 	font-weight: bold;
 	text-decoration: none;
-	font-size: 16px;
+	font-size: 14px;
 }
 
-.header-topo-links li a:hover{
+#header-links-left li a:hover {
 	text-decoration: underline;
 }
 
-.header-topo-link-a {
+.header-link-a, .header-link-a:hover {
 	color: #0066FB;
 }
 
-.header-topo-link-b {
+.header-link-b, .header-link-b:hover {
 	color: #FF6600;
 }
 
-.header-topo-link-c {
+.header-link-c, .header-link-c:hover {
 	color: #5A9900;
 }
 
-.header-topo-link-d {
-	color: #333333;
-}
 
-.header-topo-redes-sociais {
-	float: left;
-	margin-left: 90px;
-}
-
-.header-topo-redes-sociais .texto {
+#header-links-right {
+	float: right;
 	font-size: 12px;
-	color: #999999;
-	float: left;
-	padding-top: 10px;
-	padding-right: 5px;
+	padding: 5px;
 }
 
-.header-topo-redes-sociais .links {
-	float: left;
-	padding-top: 5px;
-}
-
-.header-login {
-	background-image: url(../img/degrade_topo_login.jpg);
-	background-repeat: repeat-x;
+#header-login {
+	background: rgb(13,156,234); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(13,156,234,1) 0%, rgba(6,97,144,1) 92%, rgba(25,119,170,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(13,156,234,1)), color-stop(92%,rgba(6,97,144,1)), color-stop(100%,rgba(25,119,170,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(13,156,234,1) 0%,rgba(6,97,144,1) 92%,rgba(25,119,170,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(13,156,234,1) 0%,rgba(6,97,144,1) 92%,rgba(25,119,170,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(13,156,234,1) 0%,rgba(6,97,144,1) 92%,rgba(25,119,170,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(13,156,234,1) 0%,rgba(6,97,144,1) 92%,rgba(25,119,170,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d9cea', endColorstr='#1977aa',GradientType=0 ); /* IE6-9 */
 	height: 40px;
 }
 
-.header-login-inner {
-	width: 980px;
-	margin: 0 auto;
+#header-login .container {
+	height: 40px;
 }
 
-.header-login-form {
-	float: right;
-	padding: 5px 10px;
+#header-login-form {
+	padding: 0;
+	margin: 0;
+	height: 40px;
 }
 
-.header-login-form input {
+#header-login-form input {
 	border: 1px solid #CCCCCC;
 	color: #999999;
-	padding: 4px;
-	margin: 0 5px;
+	height: 20px;
+	padding: 5px 3px;
+	margin: 4px;
 	float: left;
 }
 
-.header-login-form button {
-	margin: 0 5px;
+#header-login-form button {
+	margin: 4px 5px;
+	height: 32px;
 	float: left;
 }
 
-.header-login-esqueci {
+#header-login-form span {
 	display: block;
 	float: left;
-	line-height: 26px;
+	line-height: 40px;
 }
 
-.header-login-esqueci a {
+#header-login-form span a {
 	font-size: 10px;
 	color: #FFFFFF;
 	text-decoration: none;
 	vertical-align: middle;
 }
 
+/** header **/
+
 #conteudo {
-	width: 920px;
-	margin: auto;
 	background-color: #F5F5F5;
 	border-color: #DDDDDD;
 	border-style: solid;
@@ -182,13 +181,11 @@ header {
 	color: #999;
 }
 
-/** base **/
+
 
 /** box-cadastro **/
 
 #box-cadastro {
-	float:left;
-	width: 215px;
 	border: 1px solid #E9E9E9;
 	padding: 20px;
 	
@@ -361,54 +358,118 @@ section{
 
 /* CONTEUDO */
 
-/* FOOTER */
+/* footer */
 
-footer{
-	background-image:url(../img/fundo_rodape.jpg);width:960px;margin:0 auto 20px auto
+footer {
+	background-image:url(../img/rodape-background.png);
+	margin: 0 0 20px 0;
 }
 
-footer .divRodape{
-	float:left;width:255px;padding:30px;border-left:1px solid #333333
+#footer-menu {
+	list-style: none;
+	margin: 30px 0;
+	padding: 0 30px;
+	width: 250px;
+	float: left;
+	border-right: 1px solid #333333;
 }
 
-.MenuRodape{
-	margin:0;padding:0
+#footer-menu li {
+	list-style: none;
+	margin: 0;
+	padding: 6px 0;
+	border-bottom: 1px solid #000000;
+	box-shadow: 0 1px 0 #333333;
 }
 
-.MenuRodape li{
-	margin:0;list-style:none;padding:6px 0;background-image:url(../img/linha_menu_rodape.jpg);background-position:bottom;background-repeat:repeat-x;
+.no-boxshadow #footer-menu li {
+	border-bottom: 1px solid #333333;
 }
 
-.MenuRodape li a{
-	color:#666666;font-size:11px;font-family:verdana;font-weight:normal;text-decoration:none;
+#footer-menu li a {
+	color: #666666;
+	font-size: 11px;
+	font-weight: normal;
+	text-decoration: none;
 }
 
-.MenuRodape li a:hover{
-	text-decoration:underline
+#footer-noticias {
+	padding: 30px;
+	color: #FFFFFF;
+	position: relative;
+	overflow: hidden;
 }
 
-.divRodape h1{
-	margin:0;padding:0;font-size:16px;color:#FFFFFF;font-weight:normal
+#footer-noticias h4 {
+	font-weight: normal;
 }
 
-.NoticiasRodape{
-	margin:0;padding:0;font-family:arial
+#footer-noticias ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
-.NoticiasRodape li{
-	margin:0;list-style:none;padding:15px 0 25px 0;background-image:url(../img/linha_menu_rodape.jpg);background-position:bottom;background-repeat:repeat-x;
+#footer-noticias li {
+	list-style: none;
+	margin: 0;
+	padding: 6px 0;
+	border-bottom: 1px solid #000000;
+	box-shadow: 0 1px 0 #333333;
 }
 
-.NoticiasRodape li a{
-	color:#ffffff;font-size:11px;font-family:verdana;font-weight:normal;text-decoration:none;
+.no-boxshadow #footer-noticias li {
+	border-bottom: 1px solid #333333;
 }
 
-.NoticiasRodape li a:hover{
-	text-decoration:underline
+#footer-noticias li a {
+	color: #FFFFFF;
+	font-size: 11px;
+	font-weight: normal;
+	text-decoration: none;
 }
 
-.NoticiasRodape .ImgNoticiaRodape{
-	width:35px;height:30px;float:left;margin-right:10px;background-color:#FFFFFF
+#footer-noticias .imagem {
+	background: white;
+	width: 32px;
+	height: 32px;
+	float: left;
 }
 
-/* FOOTER */
+#footer-noticias .titulo {
+	position: relative;
+	overflow: hidden;
+	padding-left: 10px;
+}
+
+#footer-copyright {
+	background-color: #111111;
+	font-size: 10px;
+	color: #666666;
+	padding: 12px;
+	margin: 0 -12px;
+	position: relative;
+}
+
+#footer-copyright .left,
+#footer-copyright .right {
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 6px;
+	border-style: solid;
+}
+
+#footer-copyright .left {
+	border-color: transparent #000000 #000000 transparent;
+	top: -12px;
+	left: 0;
+}
+
+#footer-copyright .right {
+	border-color: transparent transparent #000000 #000000;
+	top: -12px;
+	right: 0;
+}
+
+/* footer */
