@@ -13,36 +13,33 @@
 	
 	<link href="{{ root }}/vendor/frontend/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" charset="utf-8">
 	<link href="{{ root }}/vendor/frontend/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" charset="utf-8">
+	<link href="{{ root }}/vendor/frontend/jqueryui/css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" type="text/css" charset="utf-8">
+	<link href="{{ root }}/vendor/frontend/prettyGallery/css/prettyGallery.css" rel="stylesheet" type="text/css" charset="utf-8">
 	<link href="{{ root }}/css/portal.css" rel="stylesheet" type="text/css" charset="utf-8">
 	
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <!--[if IE 8]>
+    <style>
+    
+    </style>
+    <![endif]-->
+
     <script src="{{ root }}/vendor/frontend/modernizr/modernizr-2.6.2.min.js"></script>
 	<script src="{{ root }}/vendor/frontend/yepnope/yepnope.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="{{ root }}/vendor/frontend/jqueryui/js/jquery-1.9.0.js"></script>
+	<script src="{{ root }}/vendor/frontend/jqueryui/js/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="{{ root }}/vendor/frontend/prettyGallery/js/jquery.prettyGallery.js"></script>
+	<script src="{{ root }}/vendor/frontend/maskedinput/jquery.maskedinput-1.2.2.js"></script>
+	<script src="{{ root }}/js/plugins.js"></script>
+	<script src="{{ root }}/js/main.js"></script>
 	<script>
 		window['root'] = {{ root | json_encode | raw }};
-
-		function onReady(callback) {
-			yepnope({
-				test: window.jQuery,
-				nope: root + '/vendor/frontend/jqueryui/js/jquery-1.9.0.js',
-				load: [
-						root + '/vendor/frontend/bootstrap/js/bootstrap.min.js',
-						root + '/vendor/frontend/jqueryui/js/jquery-ui-1.10.0.custom.min.js',
-						root + '/vendor/frontend/jqueryui/css/ui-lightness/jquery-ui-1.8.18.custom.css',
-						root + '/vendor/frontend/prettyGallery/css/prettyGallery.css',
-						root + '/vendor/frontend/prettyGallery/js/jquery.prettyGallery.js',
-						root + '/vendor/frontend/maskedinput/jquery.maskedinput-1.2.2.js',
-						root + '/js/plugins.js',
-						root + '/js/main.js'
-					],
-				complete: callback
-			});
-		}
-
-		onReady(function() {});
+		
+		Modernizr.addTest("boxsizing", function() {
+		    return Modernizr.testAllProps("boxSizing") && (document.documentMode === undefined || document.documentMode > 7);
+		});
 	</script>
 </head>
 
@@ -64,15 +61,15 @@
 						<ul id="header-links-left">
 			                <li><a href="{{ urlFor('portal/index') }}" class="header-link-a">notícias</a></li>
 			                <li class="separador">|</li>
-			                <li><a href="{{ urlFor('portal/index') }}" class="header-link-b">anúncie</a></li>
+			                <li><a href="{{ urlFor('portal/index') }}" class="header-link-b">anuncie</a></li>
 			                <li class="separador">|</li>
 			                <li><a href="{{ urlFor('portal/index') }}" class="header-link-c">entrar</a></li>
 			            </ul>
 			            
 			            <div id="header-links-right">
 			            	Estamos também aqui:         	
-		            		<a href="http://www.facebook.com/central.doveiculo" target="_blank" title="Nossa página no Facebook"><img src="{{ app.request.rootUri }}/img/redes/face.jpg" alt="Facebook" /></a>
-		            		<a href="http://twitter.com/portalcv" target="_blank" title="Nosso perfil no Twitter"><img src="{{ app.request.rootUri }}/img/redes/twitter.jpg" alt="Twitter" /></a>
+		            		<a href="http://www.facebook.com/portalcv" target="_blank" title="Nossa página no Facebook"><img src="{{ app.request.rootUri }}/img/redes/face.jpg" alt="Facebook" /> /portalcv</a>
+		            		<a href="http://twitter.com/portalcv" target="_blank" title="Nosso perfil no Twitter"><img src="{{ app.request.rootUri }}/img/redes/twitter.jpg" alt="Twitter" /> @portalcv</a>
 			            </div>
 					</div>
 				</div>
@@ -95,7 +92,6 @@
 	
 	<div class="container">
 		<div id="conteudo">
-			<div style="height: 12px; background: yellow"></div>
 			{% block conteudo %}{% endblock %}
 		</div>
 		

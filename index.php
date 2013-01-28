@@ -25,8 +25,11 @@ $app->config(array(
 ));
 
 $root = $app->request()->getRootUri();
+$browser = null;
 
-$app->view()->appendData(compact('app', 'root'));
+$ie7 = preg_match('#MSIE\s+7#', $app->request()->headers('User-Agent'));
+
+$app->view()->appendData(compact('app', 'root', 'ie7'));
 
 Twig::$twigExtensions = array(
 'Twig_Extensions_Slim',
