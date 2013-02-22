@@ -1,5 +1,5 @@
 <?php
-namespace Evan\View;
+namespace CV\View;
 
 use Slim\View;
 

@@ -1,7 +1,7 @@
 <?php
-namespace Evan\Controller;
+namespace CV\Controller;
 
-use Evan\Controller;
+use CV\Controller;
 
 class IndexController extends Controller
 {

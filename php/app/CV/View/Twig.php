@@ -1,5 +1,5 @@
 <?php
-namespace Evan\View;
+namespace CV\View;
 
 class Twig extends \Twig_Extension
 {

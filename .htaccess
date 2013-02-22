@@ -545,5 +545,5 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 <IfModule mod_rewrite.c>
   RewriteCond %{SCRIPT_FILENAME} !-d
   RewriteCond %{SCRIPT_FILENAME} !-f
-  RewriteRule ^ index.php [L,QSA]
+  RewriteRule ^(.*)$ index.php [L,QSA]
 </IfModule>

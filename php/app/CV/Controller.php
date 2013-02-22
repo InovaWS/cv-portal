@@ -1,5 +1,5 @@
 <?php
-namespace Evan;
+namespace CV;
 
 use Slim\Slim;
 
@@ -8,7 +8,7 @@ abstract class Controller
 	
 	public static function create($controller)
 	{
-		$class = "\\Evan\\Controller\\" . str_replace(' ', '', ucwords(str_replace('-', ' ', $controller))) . 'Controller';
+		$class = "\\CV\\Controller\\" . str_replace(' ', '', ucwords(str_replace('-', ' ', $controller))) . 'Controller';
 		
 		if (class_exists($class))
 			return new $class();
@@ -46,5 +46,4 @@ abstract class Controller
 	protected function afterInvoke() {}
 	
 	protected abstract function getIndexAction();
-	
 }

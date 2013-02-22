@@ -10,4 +10,4 @@ spl_autoload_register(function($classname) {
 		require $path;
 }, false, true);
 
-\Evan\Application::main();
+\CV\Application::main();
