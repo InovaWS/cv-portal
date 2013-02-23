@@ -10,6 +10,7 @@ class LoginController extends Controller
 	
 	protected function getIndexAction()
 	{
+		$this->app->render('templates/login.twig');
 	}
 	
 	protected function postIndexAction()
@@ -19,9 +20,11 @@ class LoginController extends Controller
 			'senha' => FILTER_SANITIZE_STRING
 		));
 		
-		var_dump($dados);
+		if (!in_array(false, $dados)) {
+			
+		}
 		
-		// TODO: cadastro
+		$this->app->render('templates/login.twig', $dados);
 	}
 	
 }
