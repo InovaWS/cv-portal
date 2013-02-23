@@ -5,7 +5,7 @@ use CV\Application;
 use CV\Filter;
 use CV\Controller;
 
-class LoginController extends Controller
+class LoginController extends AbstractPortalController
 {
 	
 	protected function getIndexAction()
@@ -24,6 +24,7 @@ class LoginController extends Controller
 			
 		}
 		
+		$this->app->flash('erro_login', 'Login inválido.');
 		$this->app->render('templates/login.twig', $dados);
 	}
 	

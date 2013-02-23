@@ -7,32 +7,32 @@
 			<h1>Cadastre-se</h1>
 			<p>Se você ainda não é nosso cliente, não perca tempo, cadastre-se é GRATUITO e comece a utilizar nossos serviços.</p>
 			
-			<form action="{{ url('/cadastro') }}" method="post" class="form-horizontal">
+			<form action="{{ url('/cadastro') }}" method="post" name="cadastro" class="form-horizontal">
 				<div class="control-group">
-					<label class="control-label">Nome completo</label>
+					<label class="control-label" for="cadastro-nome">Nome completo</label>
 					<div class="controls">
-						<input type="text" name="nome" />
+						<input type="text" id="cadastro-nome" name="nome" />
 					</div>
 				</div>
 				
 				<div class="control-group">
-					<label class="control-label">E-mail</label>
+					<label class="control-label" for="cadastro-email">E-mail</label>
 					<div class="controls">
-						<input type="text" name="email" />
+						<input type="text" id="cadastro-email" name="email" />
 					</div>
 				</div>
 				
 				<div class="control-group">
-					<label class="control-label">Senha</label>
+					<label class="control-label" for="cadastro-senha">Senha</label>
 					<div class="controls">
-						<input type="password" name="senha" />
+						<input type="password" id="cadastro-senha" name="senha" />
 					</div>
 				</div>
 				
 				<div class="control-group">
-					<label class="control-label">Confirmar senha</label>
+					<label class="control-label" for="cadastro-confirmar-senha">Confirmar senha</label>
 					<div class="controls">
-						<input type="password" name="confirmar-senha" />
+						<input type="password" id="cadastro-confirmar-senha" name="confirmar-senha" />
 					</div>
 				</div>
 				
@@ -50,18 +50,24 @@
 			<h1>Login</h1>
 			<p>Entre com seus dados de usuário para acessar seu painel e cadastrar seus veículos.</p>
 			
-			<form action="{{ url('/login') }}" method="post" class="form-horizontal">
+			<form action="{{ url('/login') }}" method="post" name="login" class="form-horizontal">
+				{% if flash.erro_login %}
+				<div class="alert alert-warning">
+					{{ flash.erro_login }}
+				</div>
+				{% endif %}
+				
 				<div class="control-group">
-					<label class="control-label">Login</label>
+					<label class="control-label" for="login-login">Login</label>
 					<div class="controls">
-						<input type="text" name="login"{% if login %} value="{{ login }}"{% endif %} />
+						<input type="text" id="login-login" name="login"{% if login %} value="{{ login }}"{% endif %} />
 					</div>
 				</div>
 				
 				<div class="control-group">
-					<label class="control-label">Senha</label>
+					<label class="control-label" for="login-senha">Senha</label>
 					<div class="controls">
-						<input type="password" name="senha"{% if senha %} value="{{ senha }}"{% endif %} />
+						<input type="password" id="login-senha" name="senha"{% if senha %} value="{{ senha }}"{% endif %} />
 					</div>
 				</div>
 				

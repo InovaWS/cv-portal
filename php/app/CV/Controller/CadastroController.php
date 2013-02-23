@@ -7,7 +7,7 @@ use CV\Filter;
 
 use CV\Controller;
 
-class CadastroController extends Controller
+class CadastroController extends AbstractPortalController
 {
 	
 	protected function getIndexAction()

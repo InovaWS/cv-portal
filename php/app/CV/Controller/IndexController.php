@@ -3,7 +3,7 @@ namespace CV\Controller;
 
 use CV\Controller;
 
-class IndexController extends Controller
+class IndexController extends AbstractPortalController
 {
 	
 	protected function getIndexAction()

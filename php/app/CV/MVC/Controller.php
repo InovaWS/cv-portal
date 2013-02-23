@@ -1,10 +1,12 @@
 <?php
-namespace CV;
+namespace CV\MVC;
 
 use Slim\Slim;
 
 abstract class Controller
 {
+	
+	public function __construct() {}
 	
 	public static function create($controller)
 	{
