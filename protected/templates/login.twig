@@ -8,6 +8,12 @@
 			<p>Se você ainda não é nosso cliente, não perca tempo, cadastre-se é GRATUITO e comece a utilizar nossos serviços.</p>
 			
 			<form action="{{ url('/cadastro') }}" method="post" name="cadastro" class="form-horizontal">
+				{% if flash.erro_cadastro %}
+				<div class="alert alert-warning">
+					{{ flash.erro_cadastro }}
+				</div>
+				{% endif %}
+			
 				<div class="control-group">
 					<label class="control-label" for="cadastro-nome">Nome completo</label>
 					<div class="controls">

@@ -1,7 +1,11 @@
 <?php
+use Slim\Environment;
+
+use CV\Control\Filter;
+
 $app->get('/login', function() use($app) {
 	$app->render('login.twig');
-});
+})->name('/login');
 
 $app->post('/login', function() use($app) {
 	$dados = Filter::get(INPUT_POST, array(
@@ -18,17 +22,19 @@ $app->post('/login', function() use($app) {
 });
 
 $app->get('/cadastro', function() use($app) {
-	$app->redirect(Application::getInstance()->url('/login'));
+	$app->redirect($app->request()->getRootUri() . '/login');
+})->name('/cadastro');
+
+$app->post('/cadastro', function() use($app, $container) {
+	$resultado = $container->vendedores->cadastrar($app->request()->post());
+	
+	$app->redirect($app->urlFor('/cadastro/sucesso'));
 });
 
-$app->post('/cadastro', function() use($app) {
-	$dados = Filter::get(INPUT_POST, array(
-			'nome' => FILTER_SANITIZE_STRING,
-			'email' => FILTER_VALIDATE_EMAIL,
-			'senha' => FILTER_SANITIZE_STRING,
-			'confirmar-senha' => FILTER_SANITIZE_STRING
-	));
-
-	if (in_array(false, $dados))
-		$app->redirect(Application::getInstance()->url('/login'));
-});
+$app->get('/cadastro/sucesso', function() use($app, $container) {
+	
+	if (!$container->usuario)
+		$app->redirect($app->urlFor('/'));
+	
+	$app->render('cadastro/sucesso-primeira-etapa.twig');
+})->name('/cadastro/sucesso');
