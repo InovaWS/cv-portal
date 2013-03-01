@@ -26,7 +26,16 @@ $app->get('/cadastro', function() use($app) {
 })->name('/cadastro');
 
 $app->post('/cadastro', function() use($app, $container) {
-	$resultado = $container->vendedores->cadastrar($app->request()->post());
+	
+	$filtro = new Filter($app->request()->post());
+	var_dump($filtro->fields('nome', 'email', 'senha', 'confirmar-senha')
+	       ->trim('nome', 'email', 'senha', 'confirmar-senha')
+	       ->email('email')
+	       ->length('senha', range(6, 10))
+	       ->equals('senha', 'confirmar-senha')
+	       ->data());
+	
+	$resultado = $container->vendedores->cadastrar($dados);
 	
 	$app->redirect($app->urlFor('/cadastro/sucesso'));
 });

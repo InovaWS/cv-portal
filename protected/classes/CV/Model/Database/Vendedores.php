@@ -1,6 +1,8 @@
 <?php
 namespace CV\Model\Database;
 
+use CV\Control\Filter;
+
 use CV\Model\DatabaseAccessor;
 
 class Vendedores extends DatabaseAccessor
@@ -8,14 +10,6 @@ class Vendedores extends DatabaseAccessor
 	
 	public function cadastrar($dados)
 	{
-		/*
-		$dados = Filter::get(INPUT_POST, array(
-				'nome' => FILTER_SANITIZE_STRING,
-				'email' => FILTER_VALIDATE_EMAIL,
-				'senha' => Filter::FILTER_TRIM,
-				'confirmar-senha' => Filter::FILTER_TRIM
-		));
-		
 		if (in_array(false, $dados)) {
 			$app->flash('erro_cadastro', 'Dados incompletos ou inválidos.');
 			$app->redirect($app->urlFor('/login'));
@@ -35,7 +29,6 @@ class Vendedores extends DatabaseAccessor
 			$app->flash('erro_cadastro', 'Já existe um usuário cadastrado com este e-mail');
 			$app->redirect($app->urlFor('/login'));
 		}
-		*/
 	}
 	
 }
