@@ -8,49 +8,107 @@ class Filter
 	private $data;
 	private $errors;
 	
-	public function __construct($data)
+	private $errorMessage;
+	private $stopOnError;
+	private $bypass;
+	
+	private function __construct($data)
 	{
 		$this->originalData = $data;
 		$this->data = $data;
 		$this->errors = array();
+		$this->message = null;
+		$this->stopOnError = false;
+		$this->bypass = false;
+	}
+	
+	private function filter($callback, $errorMessage = "", array $args)
+	{
+		if ($this->bypass)
+			return $this;
+		
+		if ($this->errorMessage) {
+			$errorMessage = $this->errorMessage;
+			$this->errorMessage = null;
+		}
+		
+		if (!call_user_func_array($callback, $args)) {
+			$this->errors[] = $errorMessage;
+			
+			if ($this->stopOnError)
+				$this->bypass = true;
+		}
+		
+		return $this;
 	}
 	
 	public function fields()
 	{
-		return $this->map(func_get_args(), function($value) {
-			return $value;
-		});
+		return $this->filter(array($this, '_fields'), "", func_get_args());
+	}
+	
+	private function _fields()
+	{
+		foreach ($this->data as $field => $value) {
+			if (!in_array($field, func_get_args()))
+				$this->data[$field] = null;
+		}
+			
+		return true;
 	}
 	
 	public function trim()
 	{
-		return $this->map(func_get_args(), function($value) {
-			return trim($value);
-		});
+		return $this->filter(array($this, '_trim'), "", func_get_args());
+	}
+	
+	private function _trim()
+	{
+		foreach ($this->data as $field => $value) {
+			if (!in_array($field, func_get_args()))
+				$this->data[$field] = null;
+		}
+		
+		return true;
 	}
 	
 	public function email()
 	{
-		return $this->map(func_get_args(), function($value) {
-			return preg_match('/^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i', $value) ? $value : null;
+		return $this->map(func_get_args(), function($field, $value) {
+			
 		});
+	}
+	
+	private function _email() {
+		foreach ($this->data as $field => $value) {
+			if (!in_array($field, func_get_args()))
+				$this->data[$field] = null;
+		}
 	}
 	
 	public function length($fieldName, array $lengths)
 	{
-		if (!in_array(mb_strlen($this->data[$fieldName]), $lengths))
+		if ($this->bypass)
+			return $this;
+		
+		if (!in_array(mb_strlen($this->data[$fieldName]), $lengths)) {
+			$this->errorMessage("length($fieldName)");
 			$this->data[$fieldName] = null;
+		}
 		
 		return $this;
 	}
 	
 	private function map($fieldNames, $callback)
 	{
+		if ($this->bypass)
+			return $this;
+		
 		foreach ($fieldNames as $fieldName) {
 			if (empty($this->data[$fieldName]))
 				$this->data[$fieldName] = null;
 			else
-				$this->data[$fieldName] = $callback($this->data[$fieldName]);
+				$this->data[$fieldName] = $callback($fieldName, $this->data[$fieldName]);
 		}
 		
 		return $this;
@@ -58,8 +116,11 @@ class Filter
 	
 	public function equals($fieldNameA, $fieldNameB)
 	{
+		if ($this->bypass)
+			return $this;
+		
 		if ($this->data[$fieldNameA] != $this->data[$fieldNameB])
-			$this->errors[] = "equals($fieldNameA, $fieldNameB)";
+			$this->errorMessage("equals($fieldNameA, $fieldNameB)");
 		
 		return $this;
 	}
@@ -67,6 +128,38 @@ class Filter
 	public function data()
 	{
 		return $this->data;
+	}
+	
+	public function errors() {
+		return $this->errors;
+	}
+	
+	public function onError($message, $stopOnError = null)
+	{
+		if ($this->bypass)
+			return $this;
+		
+		$this->errorMessage = $message;
+		if ($this->stopOnError !== null)
+			$this->stopOnError = $stopOnError;
+		return $this;
+	}
+	
+	private function errorMessage($defaultMessage)
+	{
+		if ($this->errorMessage) {
+			$defaultMessage = $this->errorMessage;
+			$this->errorMessage = null;
+		}
+		
+		$this->errors[] = $defaultMessage;
+		if ($this->stopOnError)
+			$this->bypass = true;
+	}
+	
+	public static function create($data)
+	{
+		return new Filter($data);
 	}
 	
 	const INPUT_GET = INPUT_GET;

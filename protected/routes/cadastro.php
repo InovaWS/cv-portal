@@ -27,13 +27,15 @@ $app->get('/cadastro', function() use($app) {
 
 $app->post('/cadastro', function() use($app, $container) {
 	
-	$filtro = new Filter($app->request()->post());
-	var_dump($filtro->fields('nome', 'email', 'senha', 'confirmar-senha')
-	       ->trim('nome', 'email', 'senha', 'confirmar-senha')
-	       ->email('email')
-	       ->length('senha', range(6, 10))
-	       ->equals('senha', 'confirmar-senha')
-	       ->data());
+	$filtro = Filter::create($app->request()->post())
+		->fields('nome', 'email', 'senha', 'confirmar-senha')
+		->trim('nome', 'email', 'senha', 'confirmar-senha')
+		#->onError("E-mail inválido")->email('email')
+		#->length('senha', range(6, 10))
+		#->equals('senha', 'confirmar-senha')
+		;
+	
+	var_dump($filtro->errors());
 	
 	$resultado = $container->vendedores->cadastrar($dados);
 	
