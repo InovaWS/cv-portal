@@ -31,6 +31,7 @@ class Vendedores extends ModelAccessor
 					(SELECT id FROM cv2_tipos_vendedores LIMIT 1)
 				)"
 		);
+		
 		$stmt->bindValue('nome', $vendedor['nome']);
 		$stmt->execute();
 		
@@ -43,6 +44,7 @@ class Vendedores extends ModelAccessor
 			'status' => 'em cadastro',
 			'id_vendedor' => $vendedor['id']
 		);
+		
 		$stmt = $this->container->db->prepare(
 			"INSERT INTO
 				cv2_usuarios(
