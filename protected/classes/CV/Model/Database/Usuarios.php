@@ -1,9 +1,9 @@
 <?php
 namespace CV\Model\Database;
 
-use CV\Model\DatabaseAccessor;
+use CV\Model\ModelAccessor;
 
-class Usuarios extends DatabaseAccessor
+class Usuarios extends ModelAccessor
 {
 	
 	public function existe(array $params)
@@ -12,7 +12,7 @@ class Usuarios extends DatabaseAccessor
 		foreach ($params as $key => $value)
 			$whereParams[] = "$key=:$key";
 		
-		$query = $this->db->prepare(
+		$query = $this->container->db->prepare(
 			"SELECT
 				COUNT(id) AS count
 			FROM

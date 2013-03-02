@@ -4,10 +4,13 @@ use CV\Model\Container;
 use Skull\Views\ExtensionBasedView;
 use Slim\Extras\Log\DateTimeFileWriter;
 
-$app = new Slim(array(
-	'mode' => $_SERVER['SERVER_NAME'],
-	'debug' => true
-));
+$modeMapping = array(
+	'localhost' => 'desenvolvimento',
+	'www.centraldoveiculo.com.br' => 'producao',
+	'centraldoveiculo.com.br' => 'producao'
+);
+
+$app = new Slim(array('mode' => $modeMapping[$_SERVER['SERVER_NAME']]));
 
 // Model
 $app->getLog()->setWriter(new DateTimeFileWriter(array(
@@ -16,7 +19,9 @@ $app->getLog()->setWriter(new DateTimeFileWriter(array(
 
 $container = new Container();
 
-$app->configureMode('localhost', function() use($app, $container) {
+$app->configureMode('desenvolvimento', function() use($app, $container) {
+	$app->config('debug', true);
+	
 	$container->db = Container::share(function() {
 		$pdo = new PDO(
 			'mysql:host=localhost;dbname=centraldoveicu',
@@ -34,7 +39,9 @@ $app->configureMode('localhost', function() use($app, $container) {
 	
 });
 
-$app->configureMode('www.centraldoveiculo.com.br', function() use($app, $container) {
+$app->configureMode('producao', function() use($app, $container) {
+	$app->config('debug', false);
+	
 	$container->db = Container::share(function() {
 		$pdo = new PDO(
 			'mysql:host=mysql.centraldoveiculo.com.br;dbname=centraldoveicu',
@@ -43,7 +50,6 @@ $app->configureMode('www.centraldoveiculo.com.br', function() use($app, $contain
 			array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 		);
 		
-
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 		$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -55,8 +61,8 @@ $app->configureMode('www.centraldoveiculo.com.br', function() use($app, $contain
 $createAccessorFactory = function($className) {
 	return Container::share(function($container) use($className) {
 		$className = "\\CV\\Model\\Database\\$className";
-		$accessor = new $className();
-		$accessor->setDatabaseConnection($container->db);
+		$accessor = new $className($container);
+		$accessor->setContainer($container);
 		return $accessor;
 	});
 };

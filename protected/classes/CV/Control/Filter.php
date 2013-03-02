@@ -4,125 +4,126 @@ namespace CV\Control;
 class Filter
 {
 	
+	public static function create($data)
+	{
+		return new Filter($data);
+	}
+	
 	private $originalData;	
 	private $data;
-	private $errors;
+	private $errors = array();
 	
-	private $errorMessage;
-	private $stopOnError;
-	private $bypass;
+	private $fields = array();
+	private $errorMessage = null;
 	
 	private function __construct($data)
 	{
 		$this->originalData = $data;
 		$this->data = $data;
-		$this->errors = array();
-		$this->message = null;
-		$this->stopOnError = false;
-		$this->bypass = false;
-	}
-	
-	private function filter($callback, $errorMessage = "", array $args)
-	{
-		if ($this->bypass)
-			return $this;
-		
-		if ($this->errorMessage) {
-			$errorMessage = $this->errorMessage;
-			$this->errorMessage = null;
-		}
-		
-		if (!call_user_func_array($callback, $args)) {
-			$this->errors[] = $errorMessage;
-			
-			if ($this->stopOnError)
-				$this->bypass = true;
-		}
-		
-		return $this;
 	}
 	
 	public function fields()
 	{
-		return $this->filter(array($this, '_fields'), "", func_get_args());
+		$this->fields = func_get_args();
+		
+		return $this;
 	}
 	
-	private function _fields()
+	public function crop()
 	{
-		foreach ($this->data as $field => $value) {
-			if (!in_array($field, func_get_args()))
-				$this->data[$field] = null;
-		}
-			
-		return true;
+		$data = array();
+		foreach ($this->fields as $field)
+			$data[$field] = $this->data[$field];
+		
+		$this->data = $data;
+		
+		return $this;
+	}
+	
+	public function delete()
+	{
+		foreach ($this->fields as $field)
+			unset($this->data[$field]);
+		
+		return $this;
 	}
 	
 	public function trim()
 	{
-		return $this->filter(array($this, '_trim'), "", func_get_args());
+		foreach ($this->fields as $field)
+			$this->data[$field] = trim($this->data[$field]);
+		
+		return $this;
 	}
 	
-	private function _trim()
+	public function errorMessage($message)
 	{
-		foreach ($this->data as $field => $value) {
-			if (!in_array($field, func_get_args()))
-				$this->data[$field] = null;
-		}
+		$this->errorMessage = $message;
 		
-		return true;
+		return $this;
 	}
 	
 	public function email()
 	{
-		return $this->map(func_get_args(), function($field, $value) {
-			
-		});
-	}
-	
-	private function _email() {
-		foreach ($this->data as $field => $value) {
-			if (!in_array($field, func_get_args()))
+		$errorMessage = $this->getErrorMessage('email(%field%)');
+		
+		foreach ($this->fields as $field) {
+			if (!preg_match('#^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $this->data[$field])) {
 				$this->data[$field] = null;
-		}
-	}
-	
-	public function length($fieldName, array $lengths)
-	{
-		if ($this->bypass)
-			return $this;
-		
-		if (!in_array(mb_strlen($this->data[$fieldName]), $lengths)) {
-			$this->errorMessage("length($fieldName)");
-			$this->data[$fieldName] = null;
+				$this->errors[] = str_replace('%field%', $field, $errorMessage);
+			}
 		}
 		
 		return $this;
 	}
 	
-	private function map($fieldNames, $callback)
+	public function length()
 	{
-		if ($this->bypass)
-			return $this;
+		$errorMessage = $this->getErrorMessage('length(%field%, %lengths%)');
+		$lengths = func_num_args() > 0 ?
+		           (is_array(func_get_arg(0)) ? func_get_arg(0) : func_get_args()) :
+		           null;
 		
-		foreach ($fieldNames as $fieldName) {
-			if (empty($this->data[$fieldName]))
-				$this->data[$fieldName] = null;
-			else
-				$this->data[$fieldName] = $callback($fieldName, $this->data[$fieldName]);
+		if ($lengths) {
+			foreach ($this->fields as $field) {
+				if (!in_array(mb_strlen($this->data[$field]), $lengths)) {
+					$this->data[$field] = null;
+					$this->errors[] = str_replace(array('%field%', '%lengths%'), array($field, implode(', ', $lengths)), $errorMessage);
+				}
+			}
+		}
+		else {
+			foreach ($this->fields as $field) {
+				if (mb_strlen($this->data[$field]) == 0) {
+					$this->data[$field] = null;
+					$this->errors[] = str_replace(array('%field%', '%lengths%'), array($field, '>0'), $errorMessage);
+				}
+			}
 		}
 		
 		return $this;
 	}
 	
-	public function equals($fieldNameA, $fieldNameB)
+	public function equals()
 	{
-		if ($this->bypass)
-			return $this;
+		$errorMessage = $this->getErrorMessage('equals(%fields%)');
 		
-		if ($this->data[$fieldNameA] != $this->data[$fieldNameB])
-			$this->errorMessage("equals($fieldNameA, $fieldNameB)");
+		$values = array();
+		
+		foreach ($this->fields as $field)
+			$values[] = $this->data[$field];
+		
+		if (count(array_unique($values)) != 1)
+			$this->errors[] = str_replace('%fields%', implode(', ', $this->fields), $errorMessage);
 		
 		return $this;
+	}
+	
+	private function getErrorMessage($default)
+	{
+		$error = $this->errorMessage ? $this->errorMessage : $default;
+		$this->errorMessage = null;
+		return $error;
 	}
 	
 	public function data()
@@ -130,71 +131,16 @@ class Filter
 		return $this->data;
 	}
 	
-	public function errors() {
+	public function errors()
+	{
 		return $this->errors;
 	}
 	
-	public function onError($message, $stopOnError = null)
+	public function reset()
 	{
-		if ($this->bypass)
-			return $this;
-		
-		$this->errorMessage = $message;
-		if ($this->stopOnError !== null)
-			$this->stopOnError = $stopOnError;
-		return $this;
+		$this->data = $this->originalData;
+		$this->errors = array();
+		$this->fields = array();
+		$this->errorMessage = null;
 	}
-	
-	private function errorMessage($defaultMessage)
-	{
-		if ($this->errorMessage) {
-			$defaultMessage = $this->errorMessage;
-			$this->errorMessage = null;
-		}
-		
-		$this->errors[] = $defaultMessage;
-		if ($this->stopOnError)
-			$this->bypass = true;
-	}
-	
-	public static function create($data)
-	{
-		return new Filter($data);
-	}
-	
-	const INPUT_GET = INPUT_GET;
-	const INPUT_POST = INPUT_POST;
-	
-	const FILTER_STRING = 'trim';
-	const FILTER_EMAIL = 'email';
-	
-	public static function get($input, $filters)
-	{
-		return filter_input_array($input, $filters);
-	}
-	
-	public static function apply($data, $filters)
-	{
-		$retorno = array();
-		
-		foreach ($filters as $field => $filter) {
-			
-			switch ($filter['filter']) {
-				case self::FILTER_EMAIL:
-					
-					break;
-				
-				case self::FILTER_TRIM:
-					
-					break;
-			}
-			
-		}
-		
-		var_dump($retorno);
-		exit;
-		
-		return $retorno;
-	}
-	
 }

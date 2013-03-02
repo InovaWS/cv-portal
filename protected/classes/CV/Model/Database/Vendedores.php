@@ -3,32 +3,85 @@ namespace CV\Model\Database;
 
 use CV\Control\Filter;
 
-use CV\Model\DatabaseAccessor;
+use CV\Model\ModelAccessor;
 
-class Vendedores extends DatabaseAccessor
+class Vendedores extends ModelAccessor
 {
 	
 	public function cadastrar($dados)
 	{
-		if (in_array(false, $dados)) {
-			$app->flash('erro_cadastro', 'Dados incompletos ou inválidos.');
-			$app->redirect($app->urlFor('/login'));
-		}
+		if ($this->container->usuarios->existe(array('usuario' => $dados['email'])))
+			throw new RuntimeException('já existe um usuário cadastrado com este e-mail');
 		
-		if ($dados['senha'] != $dados['confirmar-senha']) {
-			$app->flash('erro_cadastro', 'As senhas fornecidas não são iguais.');
-			$app->redirect($app->urlFor('/login'));
-		}
+		$this->container->db->beginTransaction();
 		
-		if (!in_array(mb_strlen($dados['senha'], 'UTF-8'), range(6, 10))) {
-			$app->flash('erro_cadastro', 'A senha deve possuir entre 6 e 10 caracteres.');
-			$app->redirect($app->urlFor('/login'));
-		}
+		$vendedor = array(
+			'codvendedor' => null,
+			'nome' => $dados['nome']
+		);
 		
-		if ($container->usuarios->existe(array('usuario' => $dados['email']))) {
-			$app->flash('erro_cadastro', 'Já existe um usuário cadastrado com este e-mail');
-			$app->redirect($app->urlFor('/login'));
-		}
+		$stmt = $this->container->db->prepare(
+			"INSERT INTO
+				cv2_vendedores(
+					nome,
+					id_tipo
+				)
+				VALUES(
+					:nome,
+					(SELECT id FROM cv2_tipos_vendedores LIMIT 1)
+				)"
+		);
+		$stmt->bindValue('nome', $vendedor['nome']);
+		$stmt->execute();
+		
+		$vendedor['id'] = $this->container->db->lastInsertId();
+		
+		$usuario = array(
+			'nome' => $dados['nome'],
+			'usuario' => $dados['email'],
+			'senha' => $dados['senha'],
+			'status' => 'em cadastro',
+			'id_vendedor' => $vendedor['id']
+		);
+		$stmt = $this->container->db->prepare(
+			"INSERT INTO
+				cv2_usuarios(
+					usuario,
+					senha,
+					nome,
+					status,
+					id_vendedor,
+					id_grupos_usuarios
+				)
+				VALUES(
+					:usuario,
+					:senha,
+					:nome,
+					:status,
+					:id_vendedor,
+					2
+				)"
+		);
+		$stmt->bindValue('nome', $usuario['nome']);
+		$stmt->bindValue('usuario', $usuario['usuario']);
+		$stmt->bindValue('senha', $usuario['senha']);
+		$stmt->bindValue('status', $usuario['status']);
+		$stmt->bindValue('id_vendedor', $usuario['id_vendedor']);
+		$stmt->execute();
+		
+		$vendedor['chave'] = $vendedor['id'] . md5($dados['senha']);
+		$stmt = $this->container->db->prepare(
+			"UPDATE cv2_vendedores SET chave=:chave WHERE id=:id"
+		);
+		$stmt->bindValue('id', $vendedor['id']);
+		$stmt->bindValue('chave', $vendedor['chave']);
+		$stmt->execute();
+		
+		$template = new View_Template('templates/emails/cadastro.php');
+		$template->nome = $nome;
+		$template->link = absolute_path('index.php?p=cadastro-seg-etapa&chave=' . $vendedor->chave);
+		
+		$this->container->db->commit();
 	}
 	
 }

@@ -28,17 +28,23 @@ $app->get('/cadastro', function() use($app) {
 $app->post('/cadastro', function() use($app, $container) {
 	
 	$filtro = Filter::create($app->request()->post())
-		->fields('nome', 'email', 'senha', 'confirmar-senha')
-		->trim('nome', 'email', 'senha', 'confirmar-senha')
-		#->onError("E-mail inválido")->email('email')
-		#->length('senha', range(6, 10))
-		#->equals('senha', 'confirmar-senha')
-		;
+		->fields('nome', 'email', 'senha', 'confirmar-senha')->crop()
+		->fields('nome', 'email')->trim()
+		->fields('nome')->errorMessage('você deve informar o seu nome')->length()
+		->fields('email')->errorMessage('você deve informar um e-mail')->length()
+		->fields('senha')->errorMessage('você deve informar uma senha')->length()
+		->fields('confirmar-senha')->errorMessage('você deve informar uma confirmação de senha')->length()
+		->fields('email')->errorMessage('e-mail inválido')->email()
+		->fields('senha')->errorMessage('a senha deve conter entre 6 e 10 caracteres')->length(range(6, 10))
+		->fields('senha', 'confirmar-senha')->errorMessage('a senha não coincide com a senha de confirmação')->equals()
+		->fields('confirmar-senha')->delete();
 	
-	var_dump($filtro->errors());
+	if ($filtro->errors()) {
+		die('erro');
+	}
 	
-	$resultado = $container->vendedores->cadastrar($dados);
-	
+	$resultado = $container->vendedores->cadastrar($filtro->data());
+	exit;
 	$app->redirect($app->urlFor('/cadastro/sucesso'));
 });
 
