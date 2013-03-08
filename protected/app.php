@@ -3,9 +3,11 @@ use Slim\Slim;
 use CV\Model\Container;
 use Skull\Views\ExtensionBasedView;
 use Slim\Extras\Log\DateTimeFileWriter;
+use CV\Model\Session;
 
 $modeMapping = array(
 	'localhost' => 'desenvolvimento',
+	$_SERVER['SERVER_ADDR'] => 'desenvolvimento',
 	'www.centraldoveiculo.com.br' => 'producao',
 	'centraldoveiculo.com.br' => 'producao'
 );
@@ -58,6 +60,8 @@ $app->configureMode('producao', function() use($app, $container) {
 	});
 });
 
+$container->sessao =  new Session();
+
 $createAccessorFactory = function($className) {
 	return Container::share(function($container) use($className) {
 		$className = "\\CV\\Model\\Database\\$className";
@@ -69,6 +73,7 @@ $createAccessorFactory = function($className) {
 
 $container->usuarios = $createAccessorFactory('Usuarios');
 $container->vendedores = $createAccessorFactory('Vendedores');
+
 
 // View
 $app->config('templates.path', realpath(PROTECTED_DIR . '/templates'));

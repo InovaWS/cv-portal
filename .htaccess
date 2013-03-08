@@ -336,7 +336,7 @@ FileETag None
   Options +FollowSymlinks
 # Options +SymLinksIfOwnerMatch
   RewriteEngine On
- RewriteBase /github/cv2-portal/
+ RewriteBase /cv2-portal/
 </IfModule>
 
 

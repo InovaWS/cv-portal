@@ -4,19 +4,21 @@ namespace CV\Model;
 class Container
 {
 	
-	private $callbacks = array();
+	private $objects = array();
 	
-	public function __set($name, $callback)
+	public function __set($name, $object)
 	{
-		if (!is_callable($callback))
-			throw new Exception();
-		$this->callbacks[$name] = $callback;
+		$this->objects[$name] = $object;
 	}
 	
 	public function __get($name)
 	{
-		if (array_key_exists($name, $this->callbacks))
-			return $this->callbacks[$name]($this);
+		if (array_key_exists($name, $this->objects)) {
+			if (is_callable($this->objects[$name]))
+				return $this->objects[$name]($this);
+			else
+				return $this->objects[$name];
+		}
 		else
 			return null;
 	}
