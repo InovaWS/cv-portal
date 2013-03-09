@@ -153,169 +153,125 @@
 	
 </form>
 {#}
-<?php
-	switch (Model2_Usuarios::etapaDeCadastro()) {
-		case 0:
-			location('index.php?p=cadastro-prim-etapa');
-			break;
-		
-		case 1:
-			location('index.php?p=cadastro-sucesso-prim-etapa');
-			break;
-	}
-	
-	$usuario = Model2_Usuarios::ativo();
-	$vendedor = Model2_Vendedores::vendedor($usuario->chave_vendedor);
-	
-	if (is_post()) {
-		try {
-			if (in_array(post('tipo_vendedor'), array('fisica', 'fisico'))) {
-				$tipo_vendedor = 'fisico';
-				$cpf = Text_Format::filtrarCPF(post('cpfCadastro'));
-				$cnpj = null;
-				$razao_social = null;
-				$nome_fantasia = null;
-			}
-			else {
-				$tipo_vendedor = 'juridico';
-				$cpf = null;
-				$cnpj = Text_Format::filtrarCNPJ(post('cnpjCadastro'));
-				$razao_social = post('razaoSocial');
-				$nome_fantasia = post('nomeFantasia');
-			}
-			
-			$endereco = post('endereco');
-			$numero = post('numero');
-			$complemento = post('complemento');
-			$bairro = post('bairro');
-			$cod_cidade = post('cidade');
-			$cod_uf = post('uf');
-			$cep = post('cepCadastro');
-			$telefone_fixo = post('telefoneCadastro');
-			$telefone_celular = post('celularCadastro');
-			
-			$telefone_fixo = Text_Format::filtrarFone($telefone_fixo);
-			$telefone_celular = Text_Format::filtrarFone($telefone_celular);
-			
-			if (post('cpfCadastro') && !$cpf)
-				throw new Exception('CPF inválido');
-			
-			if (post('cnpjCadastro') && !$cnpj)
-				throw new Exception('CNPJ inválido');
-			
-			if (post('telefoneCadastro') && !$telefone_fixo)
-				throw new Exception('Telefone fixo inválido');
-				
-			if (post('celularCadastro') && !$telefone_celular)
-				throw new Exception('Telefone celular inválido');
-			
-			Core_Model::database()->beginTransaction();
-						
-			$vendedor->tipo_vendedor = $tipo_vendedor;
-			$vendedor->cpf = $cpf;
-			$vendedor->cnpj = $cnpj;
-			$vendedor->razao_social = $razao_social;
-			$vendedor->nome_fantasia = $nome_fantasia;
-			
-			$localizacoes = Model2_Localizacoes::localizacoesDoVendedor($vendedor->cod_vendedor);
-			
-			if (count($localizacoes) == 0) {
-				$cod_endereco = Model2_Localizacoes::adicionar(array(
-					'descricao' => 'Localização do meu cadastro',
-					'endereco' => $endereco,
-					'numero' => $numero,
-					'complemento' => $complemento,
-					'bairro' => $bairro,
-					'cep' => $cep,
-					'chave_uf' => $cod_uf,
-					'chave_cidade' => $cod_cidade,
-					'chave_vendedor' => $vendedor->cod_vendedor
-				));
-				
-				$localizacoes = array(Model2_Localizacoes::localizacao($cod_endereco));
-			}
-			else {
-				Model2_Localizacoes::atualizar(array(
-					'cod_endereco' => $localizacoes[0]->cod_endereco,
-					'descricao' => $localizacoes[0]->descricao,
-					'endereco' => $endereco,
-					'numero' => $numero,
-					'complemento' => $complemento,
-					'bairro' => $bairro,
-					'cep' => $cep,
-					'chave_uf' => $cod_uf,
-					'chave_cidade' => $cod_cidade,
-					'chave_vendedor' => $vendedor->cod_vendedor
-				));
-			}
-			
-			if ($telefone_fixo) {
-				$telefones_fixos = Model2_Contatos::contatosDoVendedorDoTipo($vendedor->cod_vendedor, Model2_Contatos::TELEFONE_FIXO);
-				if (count($telefones_fixos) == 0)
-					Model2_Contatos::adicionar(Model2_Contatos::construir($telefone_fixo, Model2_Contatos::TELEFONE_FIXO, $vendedor));
-				else {
-					$telefones_fixos[0]->contato = $telefone_fixo;
-					Model2_Contatos::atualizar($telefones_fixos[0]);
-				}
-			}
-			
-			if ($telefone_celular) {
-				$telefones_celulares = Model2_Contatos::contatosDoVendedorDoTipo($vendedor->cod_vendedor, Model2_Contatos::TELEFONE_CELULAR);
-				if (count($telefones_celulares) == 0)
-					Model2_Contatos::adicionar(Model2_Contatos::construir($telefone_celular, Model2_Contatos::TELEFONE_CELULAR, $vendedor));
-				else {
-					$telefones_celulares[0]->contato = $telefone_celular;
-					Model2_Contatos::atualizar($telefones_celulares[0]);
-				}
-			}
-			
-			Model2_Vendedores::atualizar($vendedor);
-			
-			$usuario->status = 'cadastrado';
-			Model2_Usuarios::atualizar($usuario);
-			
-			Core_Model::database()->commit();
-			
-			Model2_Usuarios::ativar($usuario->cod_usuario);
+$usuario = Model2_Usuarios::ativo();
+$vendedor = Model2_Vendedores::vendedor($usuario->chave_vendedor);
 
-			location('index.php?p=cadastro-sucesso');		
+if (is_post()) {
+	try {
+		if (in_array(post('tipo_vendedor'), array('fisica', 'fisico'))) {
+			$tipo_vendedor = 'fisico';
+			$cpf = Text_Format::filtrarCPF(post('cpfCadastro'));
+			$cnpj = null;
+			$razao_social = null;
+			$nome_fantasia = null;
 		}
-		catch (Exception $e) {
-			$erro = $e->getMessage();
+		else {
+			$tipo_vendedor = 'juridico';
+			$cpf = null;
+			$cnpj = Text_Format::filtrarCNPJ(post('cnpjCadastro'));
+			$razao_social = post('razaoSocial');
+			$nome_fantasia = post('nomeFantasia');
 		}
-	}
-	
-	$ufs = new Model_UFs;
-	
-	$header = new View_Template('templates/header.php');
-	$busca = new View_Template('templates/busca.php');
-	$footer = new View_Template('templates/footer.php');
-	
-	$header->render();
-	$busca->render();
-?>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		/*$('#uf').change(function() {
-			if($(this).val())
-				$('#cidade').load('index.php?p=cidades&uf=' + $(this).val());
-		});
 		
-		$('#cidade').load('index.php?p=cidades&uf=' + $('#uf').val());*/
-	});
-</script>
+		$endereco = post('endereco');
+		$numero = post('numero');
+		$complemento = post('complemento');
+		$bairro = post('bairro');
+		$cod_cidade = post('cidade');
+		$cod_uf = post('uf');
+		$cep = post('cepCadastro');
+		$telefone_fixo = post('telefoneCadastro');
+		$telefone_celular = post('celularCadastro');
+		
+		$telefone_fixo = Text_Format::filtrarFone($telefone_fixo);
+		$telefone_celular = Text_Format::filtrarFone($telefone_celular);
+		
+		if (post('cpfCadastro') && !$cpf)
+			throw new Exception('CPF inválido');
+		
+		if (post('cnpjCadastro') && !$cnpj)
+			throw new Exception('CNPJ inválido');
+		
+		if (post('telefoneCadastro') && !$telefone_fixo)
+			throw new Exception('Telefone fixo inválido');
+			
+		if (post('celularCadastro') && !$telefone_celular)
+			throw new Exception('Telefone celular inválido');
+		
+		Core_Model::database()->beginTransaction();
+					
+		$vendedor->tipo_vendedor = $tipo_vendedor;
+		$vendedor->cpf = $cpf;
+		$vendedor->cnpj = $cnpj;
+		$vendedor->razao_social = $razao_social;
+		$vendedor->nome_fantasia = $nome_fantasia;
+		
+		$localizacoes = Model2_Localizacoes::localizacoesDoVendedor($vendedor->cod_vendedor);
+		
+		if (count($localizacoes) == 0) {
+			$cod_endereco = Model2_Localizacoes::adicionar(array(
+				'descricao' => 'Localização do meu cadastro',
+				'endereco' => $endereco,
+				'numero' => $numero,
+				'complemento' => $complemento,
+				'bairro' => $bairro,
+				'cep' => $cep,
+				'chave_uf' => $cod_uf,
+				'chave_cidade' => $cod_cidade,
+				'chave_vendedor' => $vendedor->cod_vendedor
+			));
+			
+			$localizacoes = array(Model2_Localizacoes::localizacao($cod_endereco));
+		}
+		else {
+			Model2_Localizacoes::atualizar(array(
+				'cod_endereco' => $localizacoes[0]->cod_endereco,
+				'descricao' => $localizacoes[0]->descricao,
+				'endereco' => $endereco,
+				'numero' => $numero,
+				'complemento' => $complemento,
+				'bairro' => $bairro,
+				'cep' => $cep,
+				'chave_uf' => $cod_uf,
+				'chave_cidade' => $cod_cidade,
+				'chave_vendedor' => $vendedor->cod_vendedor
+			));
+		}
+		
+		if ($telefone_fixo) {
+			$telefones_fixos = Model2_Contatos::contatosDoVendedorDoTipo($vendedor->cod_vendedor, Model2_Contatos::TELEFONE_FIXO);
+			if (count($telefones_fixos) == 0)
+				Model2_Contatos::adicionar(Model2_Contatos::construir($telefone_fixo, Model2_Contatos::TELEFONE_FIXO, $vendedor));
+			else {
+				$telefones_fixos[0]->contato = $telefone_fixo;
+				Model2_Contatos::atualizar($telefones_fixos[0]);
+			}
+		}
+		
+		if ($telefone_celular) {
+			$telefones_celulares = Model2_Contatos::contatosDoVendedorDoTipo($vendedor->cod_vendedor, Model2_Contatos::TELEFONE_CELULAR);
+			if (count($telefones_celulares) == 0)
+				Model2_Contatos::adicionar(Model2_Contatos::construir($telefone_celular, Model2_Contatos::TELEFONE_CELULAR, $vendedor));
+			else {
+				$telefones_celulares[0]->contato = $telefone_celular;
+				Model2_Contatos::atualizar($telefones_celulares[0]);
+			}
+		}
+		
+		Model2_Vendedores::atualizar($vendedor);
+		
+		$usuario->status = 'cadastrado';
+		Model2_Usuarios::atualizar($usuario);
+		
+		Core_Model::database()->commit();
+		
+		Model2_Usuarios::ativar($usuario->cod_usuario);
 
-<table border="0" cellpadding="0" cellspacing="0" style="width:1003px;margin:auto">
-	<tr>
-    	<td valign="top" class="Paginas">
-			<form action="index.php?p=cadastro-terc-etapa" method="post" class="validavel">
-				
-				<div style="width:400px;margin:auto;text-align:center;padding:15px 0"><input type="submit" value="Cadastrar" class="BtPadrao"></div>
-			</form>
-
-		</td>
-	</tr>
-</table>
+		location('index.php?p=cadastro-sucesso');		
+	}
+	catch (Exception $e) {
+		$erro = $e->getMessage();
+	}
+}
 {#}
 {% endblock %}
