@@ -27,12 +27,13 @@
     <![endif]-->
 
 <script src="{{ url('/js/vendor/modernizr-2.6.2.min.js') }}"></script>
-<script src="{{ url('/js/vendor/yepnope.js') }}"></script>
 <script src="{{ url('/js/vendor/jquery-1.8.3.min.js') }}"></script>
 <script src="{{ url('/js/vendor/jquery-ui-1.10.0.custom.min.js') }}"></script>
 <script src="{{ url('/js/vendor/jquery.prettyGallery.js') }}"></script>
 <script src="{{ url('/js/vendor/jquery.maskedinput-1.2.2.js') }}"></script>
+<script src="{{ url('/js/vendor/bootstrap.js') }}"></script>
 <script src="{{ url('/js/plugins.js') }}"></script>
+<script src="{{ url('/js/routes.js') }}"></script>
 <script src="{{ url('/js/main.js') }}"></script>
 <script>
 	Modernizr.addTest("boxsizing", function() {
@@ -206,7 +207,7 @@
 			</div>
 		</footer>
 	</div>
-
+	
 	{% block scripts %}{% endblock %}
 	<script>
 		var _gaq=[['_setAccount','UA-36161745-1'],['_trackPageview']];

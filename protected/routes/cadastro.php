@@ -80,5 +80,5 @@ $app->get('/cadastro/completar', function() use($app, $container) {
 	
 	$container->vendedores->ativar($key);
 	
-	$app->redirect($app->urlFor('/cadastro/editar'));
+	$app->render('cadastro/completar.twig', array('usuario' => $container->sessao->usuario, 'ufs' => $container->ufs->getAll()));
 })->name('/cadastro/completar');

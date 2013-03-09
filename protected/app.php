@@ -73,6 +73,8 @@ $createAccessorFactory = function($className) {
 
 $container->usuarios = $createAccessorFactory('Usuarios');
 $container->vendedores = $createAccessorFactory('Vendedores');
+$container->ufs = $createAccessorFactory('UFs');
+$container->cidades = $createAccessorFactory('Cidades');
 
 
 // View

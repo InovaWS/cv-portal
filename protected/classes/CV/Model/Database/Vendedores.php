@@ -129,7 +129,6 @@ class Vendedores extends ModelAccessor
 		$stmt->bindValue('nome', $usuario['nome']);
 		$stmt->bindValue('usuario', $usuario['usuario']);
 		$stmt->bindValue('senha', $usuario['senha']);
-		$stmt->bindValue('status', $usuario['status']);
 		$stmt->bindValue('id_vendedor', $usuario['id_vendedor']);
 		$stmt->execute();
 		
@@ -162,10 +161,10 @@ class Vendedores extends ModelAccessor
 		$vendedor = $this->get(array('id' => $usuario->id_vendedor));
 		
 		$usuario->status = true;
-		$vendedor->bloqueado = false;
+		//$vendedor->bloqueado = false;
 		
 		$this->container->usuarios->salvar($usuario);
-		$this->salvar($vendedor);
+		//$this->salvar($vendedor);
 		
 		$this->container->sessao->usuario = $usuario;
 	}
