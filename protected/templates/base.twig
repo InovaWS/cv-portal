@@ -20,11 +20,8 @@
 <link href="{{ url('/css/portal.css') }}" rel="stylesheet" type="text/css" charset="utf-8">
 
 <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-<!--[if IE 8]>
-    <style></style>
-    <![endif]-->
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 
 <script src="{{ url('/js/vendor/modernizr-2.6.2.min.js') }}"></script>
 <script src="{{ url('/js/vendor/jquery-1.8.3.min.js') }}"></script>
@@ -81,6 +78,19 @@
 
 		<div id="header-login">
 			<div class="container">
+				{% if usuario_logado %}
+				<div id="usuario-logado">
+					<p class="mensagem">Olá, <strong>{{ usuario_logado.nome }}</strong>!</p>
+					<p class="acoes">
+						{% if vendedor_logado.status == 0 %}
+						<a href="{{ urlFor('/cadastro') }}" title="Completar cadastro">Completar cadastro</a>
+						{% else %}
+						<a href="{{ urlFor('/logout') }}" title="Fazer logout">Sair</a>
+						{% endif %}
+						<a href="{{ urlFor('/logout') }}" title="Fazer logout">Sair</a>
+					</p>
+				</div>
+				{% else %}
 				<form action="{{ url('/login') }}" method="post" id="header-login-form" class="clearfix">
 					<div class="pull-right">
 						<input type="text" name="login" placeholder="Usuário" class="input-medium" />
@@ -89,6 +99,8 @@
 						<span><a href={{ url('/login/esqueci-minha-senha') }}>Esqueci minha senha</a> </span>
 					</div>
 				</form>
+				{% endif %}
+				</div>
 			</div>
 		</div>
 	</header>

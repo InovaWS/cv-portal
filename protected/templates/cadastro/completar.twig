@@ -16,6 +16,8 @@
 {% endif %}
 
 <form action="{{ urlFor('/cadastro/completar') }}" method="post" class="form-horizontal">
+	<input type="hidden" name="chave" value="{{ chave }}">
+	
 	<h2>Seus dados</h2>
 	
 	<div class="control-group">

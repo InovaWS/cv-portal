@@ -134,25 +134,33 @@ class Vendedores extends ModelAccessor
 		
 		$usuario['id'] = $this->container->db->lastInsertId();
 		
-		$this->container->sessao->usuario = $this->container->usuarios->get(array('id' => $usuario['id']));
+		$chave = $this->gerarChave($usuario['senha'], $usuario['id_vendedor']);
+		
+		$this->container->sessao->cadastro = array(
+			'login' => $usuario['usuario'],
+			'nome' => $usuario['nome'],
+			'chave' => $chave
+		);
+		
+		$this->enviarEmailDeCadastro();
 		
 		$this->container->db->commit();
 		
-		$this->enviarEmailDeCadastro();
+		return $chave;
+	}
+	
+	private function gerarChave($senha, $id_vendedor)
+	{
+		return $id_vendedor . md5($senha);
 	}
 	
 	public function enviarEmailDeCadastro()
 	{
-		$key = $this->container->sessao->usuario->id_vendedor . md5($this->container->sessao->usuario->senha);
-		
 		$view = Slim::getInstance()->view();
-		$view->appendData(array(
-				'nome' => $this->container->sessao->usuario->nome,
-				'key' => $key
-		));
+		$view->appendData($this->container->sessao->cadastro);
 		$html = $view->render('emails/cadastro.twig');
 		
-		MailSender::sendHTMLMail($this->container->sessao->usuario->usuario, 'cadastro', 'Complete seu casdastro!', $html);
+		MailSender::sendHTMLMail($this->container->sessao->cadastro['login'], 'cadastro', 'Complete seu cadastro!', $html);
 	}
 	
 	public function ativar($key)
@@ -167,6 +175,7 @@ class Vendedores extends ModelAccessor
 		//$this->salvar($vendedor);
 		
 		$this->container->sessao->usuario = $usuario;
+		$this->container->sessao->vendedor = $vendedor;
 	}
 	
 	public function salvar(&$vendedor)

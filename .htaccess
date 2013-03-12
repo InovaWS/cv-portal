@@ -335,8 +335,8 @@ FileETag None
 <IfModule mod_rewrite.c>
   Options +FollowSymlinks
 # Options +SymLinksIfOwnerMatch
-  RewriteEngine On
- RewriteBase /cv2-portal/
+	RewriteEngine On
+	RewriteBase /github/cv2-portal/
 </IfModule>
 
 
@@ -543,7 +543,9 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 </IfModule>
 
 <IfModule mod_rewrite.c>
-  RewriteCond %{SCRIPT_FILENAME} !-d
-  RewriteCond %{SCRIPT_FILENAME} !-f
-  RewriteRule ^(.*)$ index.php [L,QSA]
+	RewriteRule ^protected\/ index.php [L,QSA]
+	
+	RewriteCond %{SCRIPT_FILENAME} !-d
+	RewriteCond %{SCRIPT_FILENAME} !-f
+	RewriteRule ^(.*)$ index.php [L,QSA]
 </IfModule>

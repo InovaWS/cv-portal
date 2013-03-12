@@ -76,7 +76,6 @@ $container->vendedores = $createAccessorFactory('Vendedores');
 $container->ufs = $createAccessorFactory('UFs');
 $container->cidades = $createAccessorFactory('Cidades');
 
-
 // View
 $app->config('templates.path', realpath(PROTECTED_DIR . '/templates'));
 $app->view(new ExtensionBasedView());

@@ -205,6 +205,26 @@ label {
 	vertical-align: middle;
 }
 
+#usuario-logado {
+	float: right;
+	overflow: hidden;
+	*zoom: 1;
+}
+
+#usuario-logado,
+#usuario-logado a {
+	color: #ffffff;
+}
+
+#usuario-logado .mensagem,
+#usuario-logado .acoes {
+	float: right;
+	clear: both;
+	overflow: hidden;
+	*zoom: 1;
+	margin: 0;
+}
+
 /** header **/
 
 #conteudo {

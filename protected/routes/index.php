@@ -1,4 +1,16 @@
 <?php
+use CV\Control\CallableMiddleware;
+
+$app->add(new CallableMiddleware(function(CallableMiddleware $mid) use($app, $container) {
+	if (isset($container->sessao->usuario)) {
+		$app->view()->appendData(array(
+			'usuario_logado' => $container->sessao->usuario,
+			'vendedor_logado' => $container->sessao->vendedor
+		));
+	}
+	$mid->getNextMiddleware()->call();
+}));
+
 $app->notFound(function() use($app) {
 	$app->render('404.html');
 });
