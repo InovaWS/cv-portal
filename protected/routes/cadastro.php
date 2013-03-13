@@ -61,9 +61,9 @@ $app->post('/cadastro', function() use($app, $container) {
 	$dados = $filtro->data();
 	$erros = $filtro->errors();
 	
-	if (!$erros) {
+	if (empty($erros)) {
 		try {
-			$chave = $container->vendedores->cadastrar($dados);
+			$chave = $container->cadastro->cadastrar($dados);
 			$app->redirect($app->urlFor('/cadastro/sucesso'));
 		}
 		catch (RuntimeException $e) {
@@ -86,7 +86,7 @@ $app->get('/cadastro/sucesso/reenviar', function() use($app, $container) {
 	if (empty($container->sessao->cadastro) && !is_array($container->sessao->cadastro))
 		$app->redirect($app->urlFor('/'));
 	
-	$container->vendedores->enviarEmailDeCadastro();
+	$container->cadastro->enviarEmailDeCadastro();
 
 	$app->flash('reenviado', true);
 	$app->redirect($app->urlFor('/cadastro/sucesso'));
@@ -99,22 +99,68 @@ $app->get('/cadastro/completar', function() use($app, $container) {
 		$app->redirect($app->urlFor('/'));
 	
 	$usuario = $container->usuarios->get(array('key' => $chave));
-	
-	$app->render('cadastro/completar.twig', array('usuario' => $usuario, 'chave' => $chave, 'ufs' => $container->ufs->getAll()));
+		
+	$app->render('cadastro/completar.twig', array(
+		'usuario' => $usuario,
+		'chave' => $chave,
+		'ufs' => $container->ufs->getAll(),
+		'erros' => $container->sessao->get('erros'),
+		'dados' => $container->sessao->get('dados'),
+		'id_tipo_vendedor_fisico' => 1,
+		'id_tipo_vendedor_juridico' => 2
+	));
 })->name('/cadastro/completar');
 
 $app->post('/cadastro/completar', function() use($app, $container) {
 	$filtro = Filter::create($app->request()->post())
-	                ->fields( 'chave', 'cpf', 'cnpj', 'razao_social', 'nome_fantasia', 'endereco',
+	                ->fields( 'chave', 'id_tipo', 'cpf', 'cnpj', 'razao_social', 'nome_fantasia', 'endereco',
 	                          'numero', 'complemento', 'bairro', 'uf', 'cidade', 'cep', 'telefone',
-	                          'celular')->crop()
-	                ->fields('chave', 'endereco', 'numero', 'bairro', 'uf', 'cidade', 'cep')->length();
+	                          'celular')->crop()->trim()
+	                ->fields('chave')->errorMessage('chave')->length()
+	                ->fields('id_tipo')->errorMessage('você deve informar o tipo de pessoa')->length()
+	                ->fields('endereco')->errorMessage('você deve informar o logradouro')->length()
+	                ->fields('numero')->errorMessage('você deve informar o número do endereço')
+	                ->fields('bairro')->errorMessage('você deve informar o bairro')->length()
+	                ->fields('uf')->errorMessage('você deve informar a UF')->length()
+	                ->fields('cidade')->errorMessage('você deve informar a cidade')->length()
+	                ->fields('cep')->errorMessage('você deve informar o CEP')->length();
 	
-	$backUri = $app->urlFor('/cadastro/completar') . '?chave=' . $container->sessao->cadastro['chave'];
+	$dados = $filtro->data();
+	$erros = $filtro->errors();
 	
-	$chave = $app->request()->get('chave');
+	if (in_array('chave', $erros))
+		$app->redirect($app->urlFor('/'));
+	
+	switch ($dados['id_tipo']) {
+		case 1:
+			$filtro->fields('cpf')->errorMessage('você deve informar o CPF')->length()
+			                      ->errorMessage('você deve informar um CPF válido')->cpf()
+			       ->fields('cnpj', 'razao_social', 'nome_fantasia')->delete();
+			break;
+		case 2:
+			$filtro->fields('cnpj')->errorMessage('você deve informar o CNPJ')->length()
+			                       ->errorMessage('você deve informar um CNPJ válido')->cnpj()
+			       ->fields('razao_social')->errorMessage('você deve informar a razão social')->length()
+			       ->fields('cpf')->delete();
+			break;
+	}
+	
+	$erros = $filtro->errors();
+	$dados = $filtro->data();
+	
+	if (empty($erros)) {
+		$container->cadastro->ativar($dados);
+		$app->redirect($app->urlFor('/'));
+	}
 		
-	$usuario = $container->usuarios->get(array('key' => $chave));
-	
-	$app->render('cadastro/completar.twig', array('usuario' => $usuario, 'chave' => $chave, 'ufs' => $container->ufs->getAll()));
+	$app->render('cadastro/completar.twig', array(
+		'usuario' => $container->usuarios->get(array('key' => $dados['chave'])),
+		'chave' => $dados['chave'],
+		'ufs' => $container->ufs->getAll(),
+		'cidades' => isset($dados['uf']) ? $container->cidades->getDoEstado($dados['uf']) : array(),
+		'erros' => $erros,
+		'dados' => $app->request()->post(),
+		'id_tipo_vendedor_fisico' => 1,
+		'id_tipo_vendedor_juridico' => 2
+	));
 });

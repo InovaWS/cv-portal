@@ -2,16 +2,20 @@
 
 {% block conteudo %}
 <h1>Complete seu cadastro</h1>
-<p>Complete seu cadastro abaixo. Após completo, você já poderá cadastrar seu veículo e assim o quanto antes ter seu anúncio publicado no portal Central do Veículo.</p>
+<p>
+	Complete seu cadastro abaixo.
+	Após completo, você já poderá cadastrar seu veículo e assim o quanto
+	antes ter seu anúncio publicado no portal Central do Veículo.
+</p>
 
 {% if erros %}
 <div class="alert alert-warning">
-<p><strong>Não foi possível completar o seu cadastro!</strong></p>
-<ul>
-{% for erro in erros %}
-	<li>{{ erro }}</li>
-{% endfor %}
-</ul>
+	<p><strong>Não foi possível completar o seu cadastro!</strong></p>
+	<ul>
+	{% for erro in erros %}
+		<li>{{ erro }}</li>
+	{% endfor %}
+	</ul>
 </div>
 {% endif %}
 
@@ -36,8 +40,8 @@
 	
 	<div class="control-group">
 		<div class="controls">
-			<label class="radio inline"><input type="radio" id="id_tipo_vendedor_fisico" name="id_tipo" checked="checked" value="{{ id_tipo_vendedor_fisico }}" /> Pessoa fisíca</label> 
-			<label class="radio inline"><input type="radio" id="id_tipo_vendedor_juridico" name="id_tipo" value="{{ id_tipo_vendedor_juridico }}" /> Pessoa jurídica</label>
+			<label class="radio inline"><input type="radio" id="id_tipo_vendedor_fisico" name="id_tipo" checked="checked" value="{{ id_tipo_vendedor_fisico }}"{% if dados.id_tipo == id_tipo_vendedor_fisico %} checked="checked"{% endif %} /> Pessoa fisíca</label> 
+			<label class="radio inline"><input type="radio" id="id_tipo_vendedor_juridico" name="id_tipo" value="{{ id_tipo_vendedor_juridico }}"{% if dados.id_tipo == id_tipo_vendedor_juridico %} checked="checked"{% endif %} /> Pessoa jurídica</label>
 		</div>
 	</div>
 	
@@ -45,7 +49,7 @@
 		<div class="control-group">
 			<label class="control-label">CPF</label>
 			<div class="controls">
-				<input type="text" id="cpf" name="cpf">
+				<input type="text" id="cpf" name="cpf"{% if dados.cpf %} value="{{ dados.cpf }}"{% endif %}>
 				<a href="#" data-content="Ao solicitar o seu CPF, garantimos segurança a todos os usuários do portal Central do Veículo, pois assim o usuário poderá ter somente um cadastro ativo.<br>Seu CPF será mantido em sigilo, não sendo publicado." data-original-title="Porque..." data-toggle="popover" title="Porque...">Por que pedimos o seu CPF?</a>
 			</div>
 		</div>
@@ -55,7 +59,7 @@
 		<div class="control-group">
 			<label class="control-label">CNPJ</label>
 			<div class="controls">
-				<input type="text" id="cnpj" name="cnpj">
+				<input type="text" id="cnpj" name="cnpj"{% if dados.cnpj %} value="{{ dados.cnpj }}"{% endif %}>
 				<a href="#" data-content=" Ao solicitar o seu CNPJ, garantimos segurança a todos os usuários do portal Central do Veículo, pois assim o usuário poderá ter somente um cadastro ativo.<br>Seu CNPJ será mantido em sigilo, não sendo publicado." data-original-title="Porque..." data-toggle="popover" title="Porque...">Por que pedimos o seu CNPJ?</a>
 			</div>
 		</div>
@@ -63,14 +67,14 @@
 		<div class="control-group">
 			<label class="control-label">Razão social</label>
 			<div class="controls">
-				<input type="text" id="razao_social" name="razao_social" class="span4">
+				<input type="text" id="razao_social" name="razao_social" class="span4"{% if dados.razao_social %} value="{{ dados.razao_social }}"{% endif %}>
 			</div>
 		</div>
 		
 		<div class="control-group">
 			<label class="control-label">Nome fantasia</label>
 			<div class="controls">
-				<input type="text" id="nome_fantasia" name="nome_fantasia" class="span4">
+				<input type="text" id="nome_fantasia" name="nome_fantasia" class="span4"{% if dados.nome_fantasia %} value="{{ dados.nome_fantasia }}"{% endif %}>
 			</div>
 		</div>
 	</div>
@@ -80,28 +84,28 @@
 	<div class="control-group">
 		<label class="control-label">Logradouro</label>
 		<div class="controls">
-			<input type="text" name="endereco" class="span5">
+			<input type="text" name="endereco" class="span5"{% if dados.endereco %} value="{{ dados.endereco }}"{% endif %}>
 		</div>
 	</div>
 	
 	<div class="control-group">
 		<label class="control-label">Número</label>
 		<div class="controls">
-			<input type="text" name="numero" class="span1">
+			<input type="text" name="numero" class="span1"{% if dados.numero %} value="{{ dados.numero }}"{% endif %}>
 		</div>
 	</div>
 	
 	<div class="control-group">
 		<label class="control-label">Complemento</label>
 		<div class="controls">
-			<input type="text" name="complemento" class="span2">
+			<input type="text" name="complemento" class="span2"{% if dados.complemento %} value="{{ dados.complemento }}"{% endif %}>
 		</div>
 	</div>
 	
 	<div class="control-group">
 		<label class="control-label">Bairro</label>
 		<div class="controls">
-			<input type="text" name="bairro">
+			<input type="text" name="bairro"{% if dados.bairro %} value="{{ dados.bairro }}"{% endif %}>
 		</div>
 	</div>
 	
@@ -111,7 +115,7 @@
 			<select name="uf" id="uf">
 				<option value=""></option>
 				{% for uf in ufs %}
-				<option value="{{ uf.sigla }}">{{ uf.nome }}</option>
+				<option value="{{ uf.id }}"{% if dados.uf == uf.id %} selected="selected"{% endif %}>{{ uf.nome }}</option>
 				{% endfor %}
 			</select>
 		</div>
@@ -122,6 +126,9 @@
 		<div class="controls">
 			<select name="cidade" id="cidade">
 				<option value=""></option>
+				{% for cidade in cidades %}
+				<option value="{{ cidade.id }}"{% if dados.cidade == cidade.id %} selected="selected"{% endif %}>{{ cidade.nome }}</option>
+				{% endfor %}
 			</select>
 		</div>
 	</div>
@@ -129,21 +136,21 @@
 	<div class="control-group">
 		<label class="control-label">CEP</label>
 		<div class="controls">
-			<input type="text" name="cep" id="cep">
+			<input type="text" name="cep" id="cep"{% if dados.cep %} value="{{ dados.cep }}"{% endif %}>
 		</div>
 	</div>
 	
 	<div class="control-group">
 		<label class="control-label">Telefone</label>
 		<div class="controls">
-			<input type="text" name="telefone" id="telefone" class="span2">
+			<input type="text" name="telefone" id="telefone" class="span2"{% if dados.telefone %} value="{{ dados.telefone }}"{% endif %}>
 		</div>
 	</div>
 	
 	<div class="control-group">
 		<label class="control-label">Celular</label>
 		<div class="controls">
-			<input type="text" name="celular" id="celular" class="span2">
+			<input type="text" name="celular" id="celular" class="span2"{% if dados.celular %} value="{{ dados.celular }}"{% endif %}>
 		</div>
 	</div>
 	
@@ -156,19 +163,6 @@
 </form>
 {#}
 <?php
-	switch (Model2_Usuarios::etapaDeCadastro()) {
-		case 0:
-			location('index.php?p=cadastro-prim-etapa');
-			break;
-		
-		case 1:
-			location('index.php?p=cadastro-sucesso-prim-etapa');
-			break;
-	}
-	
-	$usuario = Model2_Usuarios::ativo();
-	$vendedor = Model2_Vendedores::vendedor($usuario->chave_vendedor);
-	
 	if (is_post()) {
 		try {
 			if (in_array(post('tipo_vendedor'), array('fisica', 'fisico'))) {

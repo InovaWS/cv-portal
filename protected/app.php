@@ -75,6 +75,7 @@ $container->usuarios = $createAccessorFactory('Usuarios');
 $container->vendedores = $createAccessorFactory('Vendedores');
 $container->ufs = $createAccessorFactory('UFs');
 $container->cidades = $createAccessorFactory('Cidades');
+$container->cadastro = $createAccessorFactory('Cadastro');
 
 // View
 $app->config('templates.path', realpath(PROTECTED_DIR . '/templates'));
