@@ -8,38 +8,32 @@
 
 			<div class="row-fluid">
 				<div class="span12">
-					<form action="{{ url('/cadastro') }}" method="post"
-						class="form-vertical">
+					<form action="{{ url('/cadastro') }}" method="post"	class="form-vertical">
 						<div class="control-group">
 							<label class="control-label" for="box-cadastro-nome">Nome</label>
 							<div class="controls">
-								<input type="text" id="box-cadastro-nome" name="nome"
-									class="span12" />
+								<input type="text" id="box-cadastro-nome" name="nome" class="span12" />
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="box-cadastro-email">E-mail</label>
 							<div class="controls">
-								<input type="email" id="box-cadastro-email" name="email"
-									class="span12" />
+								<input type="email" id="box-cadastro-email" name="email" class="span12" />
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="box-cadastro-senha">Senha</label>
 							<div class="controls">
-								<input type="password" id="box-cadastro-senha" name="senha"
-									class="span12" />
+								<input type="password" id="box-cadastro-senha" name="senha"	class="span12" />
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label" for="box-cadastro-confirmar-senha">Confirmar
-								senha</label>
+							<label class="control-label" for="box-cadastro-confirmar-senha">Confirmar senha</label>
 							<div class="controls">
-								<input type="password" id="box-cadastro-confirmar-senha"
-									name="confirmar-senha" class="span12" />
+								<input type="password" id="box-cadastro-confirmar-senha" name="confirmar-senha" class="span12" />
 							</div>
 						</div>
 
@@ -529,6 +523,7 @@
 {% endblock %} {% block scripts %}
 <script>
 $(function() {
+	/*
 	var $form = $('#box-cadastro form');
 	var $nome = $form.find('input[name="nome"]');
 	var $email = $form.find('input[name="email"]');
@@ -563,7 +558,7 @@ $(function() {
 
 		if (!form_valido)
 			return event.preventDefault();
-	});
+	});*/
 
 	$('.has-placeholder').on('keyup change', function() {
 		 $(this)[($(this).val() == '') ? 'addClass' : 'removeClass']('empty');
