@@ -20,13 +20,13 @@
 			$cidade.find('option[value!=""]').remove();
 			
 			if ($uf.val()) {
-				$cidade.fadeTo(400, .5, function() {
+				$cidade.stop(true, true).fadeTo(400, .5, function() {
 					$.get(url('/cidades/' + $uf.val()), function(result) {
 						for (var i = 0; i < result.length; ++i) {
 							var $option = $('<option>').attr('value', result[i].id).text(result[i].nome);
 							$cidade.append($option);
 						}
-						$cidade.fadeTo(400, 1);
+						$cidade.stop(true, true).fadeTo(400, 1);
 					});
 				});
 			}

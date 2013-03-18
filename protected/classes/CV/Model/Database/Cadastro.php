@@ -1,6 +1,11 @@
 <?php
 namespace CV\Model\Database;
 
+use CV\Model\MailSender;
+
+use Slim\Slim;
+
+use \RuntimeException;
 use Slim\Exception\Pass;
 
 use CV\Model\ModelAccessor;
@@ -115,8 +120,18 @@ class Cadastro extends ModelAccessor
 		if (empty($vendedor) || !$vendedor->bloqueado)
 			throw new RuntimeException('vendedor não encontrado ou já desbloqueado');
 	
-		$usuario->status = true;
-		$vendedor->bloqueado = false;
+		$usuario->status = 1;
+		$vendedor->bloqueado = 0;
+		
+		$vendedor->nome_fantasia = isset($dados['nome_fantasia']) ? $dados['nome_fantasia'] : null;
+		$vendedor->razao_social = isset($dados['razao_social']) ? $dados['razao_social'] : null;
+		$vendedor->cpf = isset($dados['cpf']) ? $dados['cpf'] : null;
+		$vendedor->cnpj = isset($dados['cnpj']) ? $dados['cnpj'] : null;
+		$vendedor->celular = $dados['celular'];
+		$vendedor->telefone = $dados['telefone'];
+		$vendedor->data = time();
+		$vendedor->email = $usuario->usuario;
+		$vendedor->id_tipo = $dados['id_tipo'];
 	
 		$this->container->usuarios->salvar($usuario);
 		$this->container->vendedores->salvar($vendedor);

@@ -104,8 +104,6 @@ $app->get('/cadastro/completar', function() use($app, $container) {
 		'usuario' => $usuario,
 		'chave' => $chave,
 		'ufs' => $container->ufs->getAll(),
-		'erros' => $container->sessao->get('erros'),
-		'dados' => $container->sessao->get('dados'),
 		'id_tipo_vendedor_fisico' => 1,
 		'id_tipo_vendedor_juridico' => 2
 	));
@@ -150,9 +148,9 @@ $app->post('/cadastro/completar', function() use($app, $container) {
 	
 	if (empty($erros)) {
 		$container->cadastro->ativar($dados);
-		$app->redirect($app->urlFor('/'));
+		$app->redirect($app->urlFor('/cadastro/ativado'));
 	}
-		
+	
 	$app->render('cadastro/completar.twig', array(
 		'usuario' => $container->usuarios->get(array('key' => $dados['chave'])),
 		'chave' => $dados['chave'],
@@ -163,4 +161,19 @@ $app->post('/cadastro/completar', function() use($app, $container) {
 		'id_tipo_vendedor_fisico' => 1,
 		'id_tipo_vendedor_juridico' => 2
 	));
+});
+
+$requireLogin = function() use($app, $container) {
+	if (isset($container->sessao->usuario)) {
+		$container->sessao->usuario = $container->usuarios->get(array('id' => $container->sessao->usuario->id));
+		if (isset($container->sessao->usuario)) {
+			$container->sessao->vendedor = $container->vendedores->get(array('id' => $container->sessao->usuario->id_vendedor));
+		}
+	}
+	if (!isset($container->sessao->usuario) || !isset($container->sessao->vendedor))
+		$app->redirect($app->urlFor('/login'));
+};
+
+$app->get('/cadastro/ativado', $requireLogin, function() use($app) {
+	$app->render('cadastro/ativado.twig');
 });

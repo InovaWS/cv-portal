@@ -74,7 +74,7 @@ class EntityWriter
 		foreach ($this->array as $key => $value) {
 			$type = \PDO::PARAM_STR;
 			if (is_bool($value))
-				$type = \PDO::PARAM_BOOL;
+				$type = \PDO::PARAM_INT; // mysql fix
 			elseif (is_integer($value))
 				$type = \PDO::PARAM_INT;
 			$stmt->bindValue($key, $value, $type);

@@ -1,7 +1,9 @@
 <?php
+use CV\View\TwigExtension;
+
 use Slim\Slim;
 use CV\Model\Container;
-use Skull\Views\ExtensionBasedView;
+use Slim\Extras\Views\Twig;
 use Slim\Extras\Log\DateTimeFileWriter;
 use CV\Model\Session;
 
@@ -79,7 +81,18 @@ $container->cadastro = $createAccessorFactory('Cadastro');
 
 // View
 $app->config('templates.path', realpath(PROTECTED_DIR . '/templates'));
-$app->view(new ExtensionBasedView());
+Twig::$twigOptions = array(
+	'charset' => 'utf-8',
+	'cache' => realpath(PROTECTED_DIR . '/cache'),
+	'auto_reload' => true,
+	'strict_variables' => false,
+	'autoescape' => true
+);
+Twig::$twigExtensions = array(
+	new TwigExtension(),
+	new Twig_Extension_Slim()
+);
+$app->view(new Twig());
 
 // Routes
 
