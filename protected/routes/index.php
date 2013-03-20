@@ -33,18 +33,7 @@ $app->get('/', function() use($app) {
 	$app->render('index.twig');
 })->name('/');
 
-$app->get('/v/v/all.css', function() use($app) {
-	$app->contentType('text/css; charset=UTF-8');
-
-	$assets = new AssetCollection(
-		array (
-			new GlobAsset(PROTECTED_DIR . '/../css/vendor/*.css')
-		)
-	);
-	echo $assets->dump();
-});
-
-$app->get('/css/all.:data.css', function($data) use($app) {
+$app->get('/css/all(.:data).css', function($data) use($app) {
 	$app->contentType('text/css; charset=UTF-8');
 	
 	$assets = new AssetCollection(
@@ -59,7 +48,7 @@ $app->get('/css/all.:data.css', function($data) use($app) {
 	echo $assets->dump();
 })->conditions(array('data' => '\d+'))->name('/css/all.css');
 
-$app->get('/js/all.:data.js', function($data) use($app) {
+$app->get('/js/all(.:data).js', function($data) use($app) {
 	$app->contentType('text/javascript; charset=UTF-8');
 
 	$assets = new AssetCollection(
@@ -78,13 +67,18 @@ $app->get('/js/all.:data.js', function($data) use($app) {
 	echo $assets->dump();
 })->conditions(array('data' => '\d+'))->name('/js/all.js');
 
-$app->get('/js/all.async.:data.js', function($data) use($app) {
+$app->get('/js/all.async(.:data).js', function($data) use($app) {
 	$app->contentType('text/javascript; charset=UTF-8');
 	
 	$routes = array();
 	foreach ($app->router()->getNamedRoutes() as $name => $route)
 		$routes[$name] = $route->getPattern();
-
+	
+	$routes = json_encode($routes);
+	$scheme = json_encode($app->request()->getScheme());
+	$host = json_encode($app->request()->getHost());
+	$root = json_encode($app->request()->getRootUri());
+	
 	$assets = new AssetCollection(
 		array (
 			new StringAsset(
@@ -94,19 +88,19 @@ $app->get('/js/all.async.:data.js', function($data) use($app) {
 				s.parentNode.insertBefore(g,s)}(document,'script'));"
 			),
 			new StringAsset(
-				'function urlFor(name, conditions) {
-				   	var routes = ', json_encode($routes), ';
+				"function urlFor(name, conditions) {
+				   	var routes = $routes;
 				   	var route = routes[name];
 				   	for (var prop in conditions)
-				  		route = route.replace(new RegExp(":" + prop, "g"), conditions[prop]);
+				  		route = route.replace(new RegExp(':' + prop, 'g'), conditions[prop]);
 				   	return route;
 				}
 				function url(uri, complete) {
 					if (complete)
-						return ', json_encode($app->request()->getScheme()), ' + "://" + ' , json_encode($app->request()->getHost() . $app->request()->getRootUri()), ' + uri;
+						return $scheme + '://' + $host + $root + uri;
 					else
-						return ', json_encode($app->request()->getRootUri()), ' + uri;
-				}'
+						return $root + uri;
+				}"
 			)
 		)
 	);

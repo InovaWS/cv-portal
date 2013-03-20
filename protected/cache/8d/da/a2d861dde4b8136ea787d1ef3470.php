@@ -10,6 +10,7 @@ class __TwigTemplate_8ddaa2d861dde4b8136ea787d1ef3470 extends Twig_Template
         $this->parent = false;
 
         $this->blocks = array(
+            'lateral' => array($this, 'block_lateral'),
             'conteudo' => array($this, 'block_conteudo'),
             'scripts' => array($this, 'block_scripts'),
         );
@@ -62,133 +63,131 @@ class __TwigTemplate_8ddaa2d861dde4b8136ea787d1ef3470 extends Twig_Template
         }
         // line 24
         echo "\t
+\t<link href=\"http://fonts.googleapis.com/css?family=Oxygen:400,700\" rel=\"stylesheet\" type=\"text/css\">
 \t<link href=\"";
-        // line 25
+        // line 26
         echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url((("/css/all." . twig_date_format_filter($this->env, "now", "Ymd")) . ".css")), "html", null, true);
         echo "\" rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\">
 </head>
 
-<body>
-\t<header id=\"header\">
-\t\t<div id=\"header-links\">
+<body id=\"main-body\">
+\t<header id=\"main-header\">
+\t\t<div class=\"first-row\">
 \t\t\t<div class=\"container\">
-\t\t\t\t<div class=\"row\">
-\t\t\t\t\t<div class=\"span3\">
-\t\t\t\t\t\t<div id=\"header-logo\">
-\t\t\t\t\t\t\t<a href=\"";
-        // line 35
+\t\t\t\t<h1 class=\"logo-place\">
+\t\t\t\t\t<a id=\"logo\" href=\"";
+        // line 34
         echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/"), "html", null, true);
-        echo "\" title=\"Ir para a página inicial\"><img src=\"";
-        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/img/logo.png"), "html", null, true);
-        echo "\" alt=\"Logotipo da Central do Veículo\" /></a>
-\t\t\t\t\t\t</div>
-\t\t\t\t\t</div>
-\t\t\t\t\t<div class=\"span9\">
-\t\t\t\t\t\t<ul id=\"header-links-left\">
-\t\t\t\t\t\t\t<li><a href=\"";
-        // line 40
+        echo "\" title=\"Ir para a página inicial\">
+\t\t\t\t\t\tCentral do Veículo
+\t\t\t\t\t</a>
+\t\t\t\t</h1>
+\t\t\t\t
+\t\t\t\t<div id=\"header-links\" class=\"dropdown\">
+\t\t\t\t \t<a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-menu-invoker\">Menu</a>
+\t\t\t\t \t\t\t\t\t
+\t\t\t\t\t<ul class=\"normal\">
+\t\t\t\t\t\t<li><a href=\"";
+        // line 43
         echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/"), "html", null, true);
-        echo "\" class=\"header-link-a\">notícias</a></li>
-\t\t\t\t\t\t\t<li class=\"separador\">|</li>
-\t\t\t\t\t\t\t<li><a href=\"";
-        // line 42
-        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/"), "html", null, true);
-        echo "\" class=\"header-link-b\">anuncie</a></li>
-\t\t\t\t\t\t\t<li class=\"separador\">|</li>
-\t\t\t\t\t\t\t<li><a href=\"";
+        echo "\" title=\"Ir para a página inicial\">Home</a></li>
+\t\t\t\t\t\t<li><a href=\"";
         // line 44
-        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/"), "html", null, true);
-        echo "\" class=\"header-link-c\">entrar</a></li>
-\t\t\t\t\t\t</ul>
-
-\t\t\t\t\t\t<div id=\"header-links-right\">
-\t\t\t\t\t\t\tEstamos também aqui:
-\t\t\t\t\t\t\t<a href=\"http://www.facebook.com/portalcv\" target=\"_blank\" title=\"Nossa página no Facebook\">
-\t\t\t\t\t\t\t\t<img src=\"";
-        // line 50
-        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/img/redes/face.jpg"), "html", null, true);
-        echo "\" alt=\"Facebook\" /> /portalcv
-\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t<a href=\"http://twitter.com/portalcv\" target=\"_blank\" title=\"Nosso perfil no Twitter\">
-\t\t\t\t\t\t\t\t<img src=\"";
-        // line 53
-        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/img/redes/twitter.jpg"), "html", null, true);
-        echo "\" alt=\"Twitter\" /> @portalcv
-\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t</div>
-\t\t\t\t\t</div>
-\t\t\t\t</div>
-\t\t\t</div>
-\t\t</div>
-
-\t\t<div id=\"header-login\">
-\t\t\t<div class=\"container\">
-\t\t\t\t";
-        // line 63
+        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/noticias"), "html", null, true);
+        echo "\" title=\"Ver as notícias\">Notícias</a></li>
+\t\t\t\t\t\t<li><a href=\"";
+        // line 45
+        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/anuncie"), "html", null, true);
+        echo "\" title=\"Veja os motivos para anunciar conosco\">Anuncie</a></li>
+\t\t\t\t\t\t";
+        // line 46
         if (isset($context["usuario_logado"])) { $_usuario_logado_ = $context["usuario_logado"]; } else { $_usuario_logado_ = null; }
         if ($_usuario_logado_) {
-            // line 64
-            echo "\t\t\t\t<div id=\"usuario-logado\">
-\t\t\t\t\t<p class=\"mensagem\">Olá, <strong>";
-            // line 65
-            if (isset($context["usuario_logado"])) { $_usuario_logado_ = $context["usuario_logado"]; } else { $_usuario_logado_ = null; }
-            echo twig_escape_filter($this->env, $this->getAttribute($_usuario_logado_, "nome"), "html", null, true);
-            echo "</strong>!</p>
-\t\t\t\t\t<p class=\"acoes\">
+            // line 47
+            echo "\t\t\t\t\t\t<li><a href=\"";
+            echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/logout"), "html", null, true);
+            echo "\" title=\"Encerrar a sua sessão de login\">Sair</a></li>
 \t\t\t\t\t\t";
-            // line 67
-            if (isset($context["vendedor_logado"])) { $_vendedor_logado_ = $context["vendedor_logado"]; } else { $_vendedor_logado_ = null; }
-            if ($this->getAttribute($_vendedor_logado_, "bloqueado")) {
-                // line 68
-                echo "\t\t\t\t\t\t<a href=\"";
-                echo twig_escape_filter($this->env, $this->env->getExtension('slim')->urlFor("/cadastro"), "html", null, true);
-                echo "\" title=\"Completar cadastro\">Completar cadastro</a>
-\t\t\t\t\t\t";
-            } else {
-                // line 70
-                echo "\t\t\t\t\t\t<a href=\"";
-                echo twig_escape_filter($this->env, $this->env->getExtension('slim')->urlFor("/logout"), "html", null, true);
-                echo "\" title=\"Fazer logout\">Sair</a>
-\t\t\t\t\t\t";
-            }
-            // line 72
-            echo "\t\t\t\t\t</p>
-\t\t\t\t</div>
-\t\t\t\t";
         } else {
-            // line 75
-            echo "\t\t\t\t<form action=\"";
+            // line 49
+            echo "\t\t\t\t\t\t<li><a href=\"";
             echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/login"), "html", null, true);
-            echo "\" method=\"post\" id=\"header-login-form\" class=\"clearfix\">
-\t\t\t\t\t<div class=\"pull-right\">
-\t\t\t\t\t\t<input type=\"text\" name=\"login\" placeholder=\"Usuário\" class=\"input-medium\" />
-\t\t\t\t\t\t<input type=\"password\" name=\"senha\" placeholder=\"Senha\" class=\"input-medium\" />
-\t\t\t\t\t\t<button type=\"submit\" class=\"btn btn-cv\">Entrar</button>
-\t\t\t\t\t\t<span><a href=";
-            // line 80
-            echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/login/esqueci-minha-senha"), "html", null, true);
-            echo ">Esqueci minha senha</a> </span>
-\t\t\t\t\t</div>
-\t\t\t\t</form>
-\t\t\t\t";
+            echo "\" title=\"Entre no nosso sistema para anunciar\">Entrar</a></li>
+\t\t\t\t\t\t";
         }
-        // line 84
-        echo "\t\t\t\t</div>
+        // line 51
+        echo "\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t\t
+\t\t\t\t<div id=\"social-media\">
+\t\t\t\t\t<span class=\"text\">Estamos também aqui:</span>
+\t\t\t\t\t<a href=\"http://facebook.com/portalcv\" title=\"Página da Central do Veículo no Facebook\" target=\"_blank\"><img src=\"";
+        // line 56
+        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/img/redes/facebook-icon.png"), "html", null, true);
+        echo "\" alt=\"Facebook\"></a>
+\t\t\t\t\t<a href=\"http://twitter.com/portalcv\" title=\"Perfil da Central do Veículo no Twitter\" target=\"_blank\"><img src=\"";
+        // line 57
+        echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/img/redes/twitter-icon.png"), "html", null, true);
+        echo "\" alt=\"Twitter\"></a>
+\t\t\t\t</div>
 \t\t\t</div>
 \t\t</div>
+\t\t
+\t\t<div class=\"second-row\">
+\t\t\t
+\t\t</div>
 \t</header>
-
-\t<div class=\"container\">
-\t\t<div id=\"conteudo\">";
-        // line 90
+\t
+\t<div id=\"main-content\" class=\"container\">
+\t\t<div class=\"container\">
+\t\t\t<div class=\"row\">
+\t\t\t\t<div class=\"span3\">
+\t\t\t\t\t<div id=\"lateral\" class=\"well well-small\">
+\t\t\t\t\t\t";
+        // line 72
+        if (array_key_exists("usuario_logado", $context)) {
+            // line 73
+            echo "\t\t\t\t\t\t";
+            $this->displayBlock('lateral', $context, $blocks);
+            // line 74
+            echo "\t\t\t\t\t\t";
+        } else {
+            // line 75
+            echo "\t\t\t\t\t\t<h4>Cadastre-se, é <strong>gratuito</strong></h4>
+\t\t\t\t\t\t<form action=\"";
+            // line 76
+            echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/cadastro"), "html", null, true);
+            echo "\" method=\"post\" class=\"form-vertical\">
+\t\t\t\t\t\t\t<div class=\"control-group\">
+\t\t\t\t\t\t\t\t<label class=\"control-label\">Nome</label>
+\t\t\t\t\t\t\t\t<div class=\"controls\">
+\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"nome\">
+\t\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</form>
+\t\t\t\t\t\t";
+        }
+        // line 85
+        echo "\t\t\t\t\t</div>
+\t\t\t\t</div>
+\t\t\t\t<div class=\"span9\">
+\t\t\t\t\tTeste
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t\t
+\t\t\t";
+        // line 92
         $this->displayBlock('conteudo', $context, $blocks);
-        echo "</div>
-
-\t\t<footer>
+        // line 93
+        echo "\t\t</div>
+\t</div>
+\t
+\t<footer id=\"main-footer\">
+\t\t<div class=\"container\">
 \t\t\t<div class=\"clearfix\">
 \t\t\t\t<ul id=\"footer-menu\">
 \t\t\t\t\t<li><a href=\"";
-        // line 95
+        // line 100
         echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url("/"), "html", null, true);
         echo "\">Home</a></li>
 \t\t\t\t\t<li><a href=\"#\">Notícias</a></li>
@@ -198,10 +197,10 @@ class __TwigTemplate_8ddaa2d861dde4b8136ea787d1ef3470 extends Twig_Template
 \t\t\t\t\t<li><a href=\"#\">Twitter</a></li>
 \t\t\t\t\t<li><a href=\"#\">Google+</a></li>
 \t\t\t\t</ul>
-
+\t\t
 \t\t\t\t<div id=\"footer-noticias\">
 \t\t\t\t\t<h4>Últimas notícias</h4>
-
+\t\t
 \t\t\t\t\t<div class=\"row-fluid\">
 \t\t\t\t\t\t<div class=\"span6\">
 \t\t\t\t\t\t\t<ul>
@@ -278,11 +277,11 @@ class __TwigTemplate_8ddaa2d861dde4b8136ea787d1ef3470 extends Twig_Template
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t</div>
-
+\t\t
 \t\t\t<div id=\"footer-copyright\" class=\"clearfix\">
 \t\t\t\t<div class=\"left\"></div>
 \t\t\t\t<div class=\"right\"></div>
-
+\t\t
 \t\t\t\t<div class=\"pull-left\">
 \t\t\t\t\t<p class=\"muted\">Copyright © 2013 Central do Veículo. Todos os direitos reservados.</p>
 \t\t\t\t</div>
@@ -295,17 +294,17 @@ class __TwigTemplate_8ddaa2d861dde4b8136ea787d1ef3470 extends Twig_Template
 \t\t\t\t\t</p>
 \t\t\t\t</div>
 \t\t\t</div>
-\t\t</footer>
-\t</div>
+\t\t</div>
+\t</footer>
 \t
 \t<script src=\"";
-        // line 203
+        // line 208
         echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url((("/js/all." . twig_date_format_filter($this->env, "now", "Ymd")) . ".js")), "html", null, true);
         echo "\"></script>
 \t";
-        // line 204
+        // line 209
         $this->displayBlock('scripts', $context, $blocks);
-        // line 205
+        // line 210
         echo "\t<script src=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('Skull Twig')->url((("/js/all.async." . twig_date_format_filter($this->env, "now", "Ymd")) . ".js")), "html", null, true);
         echo "\" async=\"async\"></script>
@@ -314,12 +313,17 @@ class __TwigTemplate_8ddaa2d861dde4b8136ea787d1ef3470 extends Twig_Template
 ";
     }
 
-    // line 90
+    // line 73
+    public function block_lateral($context, array $blocks = array())
+    {
+    }
+
+    // line 92
     public function block_conteudo($context, array $blocks = array())
     {
     }
 
-    // line 204
+    // line 209
     public function block_scripts($context, array $blocks = array())
     {
     }
@@ -336,6 +340,6 @@ class __TwigTemplate_8ddaa2d861dde4b8136ea787d1ef3470 extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  323 => 204,  318 => 90,  309 => 205,  307 => 204,  303 => 203,  192 => 95,  184 => 90,  176 => 84,  169 => 80,  160 => 75,  155 => 72,  149 => 70,  143 => 68,  140 => 67,  134 => 65,  131 => 64,  128 => 63,  115 => 53,  109 => 50,  100 => 44,  95 => 42,  90 => 40,  80 => 35,  67 => 25,  64 => 24,  57 => 22,  54 => 21,  51 => 20,  47 => 18,  40 => 16,  37 => 15,  21 => 1,);
+        return array (  327 => 209,  322 => 92,  317 => 73,  308 => 210,  306 => 209,  191 => 100,  182 => 93,  180 => 92,  171 => 85,  159 => 76,  156 => 75,  150 => 73,  148 => 72,  130 => 57,  126 => 56,  119 => 51,  113 => 49,  107 => 47,  104 => 46,  100 => 45,  96 => 44,  92 => 43,  80 => 34,  69 => 26,  65 => 24,  58 => 22,  55 => 21,  52 => 20,  48 => 18,  41 => 16,  38 => 15,  22 => 1,  853 => 524,  850 => 523,  835 => 512,  815 => 497,  811 => 496,  801 => 488,  781 => 473,  777 => 472,  551 => 248,  521 => 231,  509 => 230,  505 => 228,  494 => 219,  482 => 218,  478 => 216,  464 => 204,  452 => 203,  448 => 201,  396 => 153,  388 => 152,  370 => 151,  366 => 149,  346 => 147,  337 => 145,  319 => 144,  315 => 142,  312 => 141,  302 => 208,  295 => 131,  270 => 119,  257 => 117,  253 => 116,  241 => 106,  228 => 104,  224 => 103,  209 => 90,  196 => 88,  192 => 87,  161 => 60,  153 => 74,  135 => 58,  131 => 56,  105 => 54,  87 => 53,  42 => 11,  33 => 4,  30 => 3,);
     }
 }
