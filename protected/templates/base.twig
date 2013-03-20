@@ -64,7 +64,7 @@
 		</div>
 	</header>
 	
-	<div id="main-content" class="container">
+	<div id="main-content">
 		<div class="container">
 			<div class="row">
 				<div class="span3">
@@ -75,9 +75,36 @@
 						<h4>Cadastre-se, é <strong>gratuito</strong></h4>
 						<form action="{{ url('/cadastro') }}" method="post" class="form-vertical">
 							<div class="control-group">
-								<label class="control-label">Nome</label>
+								<label class="control-label" for="box-cadastro-nome">Nome</label>
 								<div class="controls">
-									<input type="text" name="nome">
+									<input type="text" id="box-cadastro-nome" name="nome">
+								</div>
+							</div>
+							
+							<div class="control-group">
+								<label class="control-label" for="box-cadastro-email">E-mail</label>
+								<div class="controls controls-row">
+									<input type="email" id="box-cadastro-email" name="email" />
+								</div>
+							</div>
+	
+							<div class="control-group">
+								<label class="control-label" for="box-cadastro-senha">Senha</label>
+								<div class="controls">
+									<input type="password" id="box-cadastro-senha" name="senha" />
+								</div>
+							</div>
+	
+							<div class="control-group">
+								<label class="control-label" for="box-cadastro-confirmar-senha">Confirmar senha</label>
+								<div class="controls">
+									<input type="password" id="box-cadastro-confirmar-senha" name="confirmar-senha" />
+								</div>
+							</div>
+	
+							<div class="control-group">
+								<div class="controls">
+									<button type="submit" class="btn">Cadastrar</button>
 								</div>
 							</div>
 						</form>
