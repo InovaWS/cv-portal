@@ -1,0 +1,36 @@
+#main-content {
+	padding: 0;
+	background: green;
+}
+
+#main-content .container {
+	background-color: #f5f5f5;
+	border-color: #dddddd;
+	border-style: solid;
+	border-width: 0 1px 0 1px;
+	padding: 20px;
+	width: auto;
+}
+
+#main-content .container > .row {
+	background: blue;
+}
+
+#main-content .container > .row > .span3 {
+	background: red;
+}
+
+#main-content .container > .row > .span9 {
+	background: orange;
+}
+
+#main-content #lateral {
+	background: #ffffff;
+}
+
+#main-content #lateral h4 {
+	font-weight: normal;
+	color: #1977aa;
+	border-bottom: 1px solid #cccccc;
+	padding-bottom: 6px;
+}

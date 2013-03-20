@@ -53,7 +53,7 @@ $app->get('/css/all.:data.css', function($data) use($app) {
 			new FileAsset('css/vendor/bootstrap-responsive.css'),
 			new FileAsset('css/vendor/jquery-ui-1.8.18.custom.css'),
 			new FileAsset('css/vendor/prettyGallery.css'),
-			new FileAsset('css/portal.css')
+			new GlobAsset('css/*.css')
 		)
 	);
 	echo $assets->dump();

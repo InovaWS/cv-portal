@@ -1,6 +1,22 @@
 (function($, window, undefined) {
 	
 	$(function() {
+		// Menu collapse
+		if (window.matchMedia) {
+			var onMediaQueryChange = function(mq) {
+				if (mq.matches) {
+					$('#main-header #header-links ul').removeClass('normal').addClass('dropdown-menu');
+				}
+				else {
+					$('#main-header #header-links ul').addClass('normal').removeClass('dropdown-menu');
+				}
+			};
+			
+			var mq = window.matchMedia("(max-width: 639px)");
+			mq.addListener(onMediaQueryChange);
+			onMediaQueryChange(mq);
+		}
+		
 		var onTipoVendedorChange = function() {
 			var tipo = $('#id_tipo_vendedor_fisico').is(':checked') ? 'fisico' : 'juridico';
 			

@@ -22,74 +22,79 @@
 	<meta name="description" content="{{ pagina.descricao }}">
 	{% endif %}
 	
+	<link href="http://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">
 	<link href="{{ url('/css/all.' ~ ('now' | date('Ymd')) ~ '.css') }}" rel="stylesheet" type="text/css" charset="utf-8">
 </head>
 
-<body>
-	<header id="header">
-		<div id="header-links">
+<body id="main-body">
+	<header id="main-header">
+		<div class="first-row">
 			<div class="container">
-				<div class="row">
-					<div class="span3">
-						<div id="header-logo">
-							<a href="{{ url('/') }}" title="Ir para a página inicial"><img src="{{ url('/img/logo.png') }}" alt="Logotipo da Central do Veículo" /></a>
-						</div>
-					</div>
-					<div class="span9">
-						<ul id="header-links-left">
-							<li><a href="{{ url('/') }}" class="header-link-a">notícias</a></li>
-							<li class="separador">|</li>
-							<li><a href="{{ url('/') }}" class="header-link-b">anuncie</a></li>
-							<li class="separador">|</li>
-							<li><a href="{{ url('/') }}" class="header-link-c">entrar</a></li>
-						</ul>
-
-						<div id="header-links-right">
-							Estamos também aqui:
-							<a href="http://www.facebook.com/portalcv" target="_blank" title="Nossa página no Facebook">
-								<img src="{{ url('/img/redes/face.jpg') }}" alt="Facebook" /> /portalcv
-							</a>
-							<a href="http://twitter.com/portalcv" target="_blank" title="Nosso perfil no Twitter">
-								<img src="{{ url('/img/redes/twitter.jpg') }}" alt="Twitter" /> @portalcv
-							</a>
-						</div>
-					</div>
+				<h1 class="logo-place">
+					<a id="logo" href="{{ url('/') }}" title="Ir para a página inicial">
+						Central do Veículo
+					</a>
+				</h1>
+				
+				<div id="header-links" class="dropdown">
+				 	<a href="#" data-toggle="dropdown" class="dropdown-menu-invoker">Menu</a>
+				 					
+					<ul class="normal">
+						<li><a href="{{ url('/') }}" title="Ir para a página inicial">Home</a></li>
+						<li><a href="{{ url('/noticias') }}" title="Ver as notícias">Notícias</a></li>
+						<li><a href="{{ url('/anuncie') }}" title="Veja os motivos para anunciar conosco">Anuncie</a></li>
+						{% if usuario_logado %}
+						<li><a href="{{ url('/logout') }}" title="Encerrar a sua sessão de login">Sair</a></li>
+						{% else %}
+						<li><a href="{{ url('/login') }}" title="Entre no nosso sistema para anunciar">Entrar</a></li>
+						{% endif %}
+					</ul>
+				</div>
+				
+				<div id="social-media">
+					<span class="text">Estamos também aqui:</span>
+					<a href="http://facebook.com/portalcv" title="Página da Central do Veículo no Facebook" target="_blank"><img src="{{ url('/img/redes/facebook-icon.png') }}" alt="Facebook"></a>
+					<a href="http://twitter.com/portalcv" title="Perfil da Central do Veículo no Twitter" target="_blank"><img src="{{ url('/img/redes/twitter-icon.png') }}" alt="Twitter"></a>
 				</div>
 			</div>
 		</div>
-
-		<div id="header-login">
-			<div class="container">
-				{% if usuario_logado %}
-				<div id="usuario-logado">
-					<p class="mensagem">Olá, <strong>{{ usuario_logado.nome }}</strong>!</p>
-					<p class="acoes">
-						{% if vendedor_logado.bloqueado %}
-						<a href="{{ urlFor('/cadastro') }}" title="Completar cadastro">Completar cadastro</a>
-						{% else %}
-						<a href="{{ urlFor('/logout') }}" title="Fazer logout">Sair</a>
-						{% endif %}
-					</p>
-				</div>
-				{% else %}
-				<form action="{{ url('/login') }}" method="post" id="header-login-form" class="clearfix">
-					<div class="pull-right">
-						<input type="text" name="login" placeholder="Usuário" class="input-medium" />
-						<input type="password" name="senha" placeholder="Senha" class="input-medium" />
-						<button type="submit" class="btn btn-cv">Entrar</button>
-						<span><a href={{ url('/login/esqueci-minha-senha') }}>Esqueci minha senha</a> </span>
-					</div>
-				</form>
-				{% endif %}
-				</div>
-			</div>
+		
+		<div class="second-row">
+			
 		</div>
 	</header>
-
-	<div class="container">
-		<div id="conteudo">{% block conteudo %}{% endblock %}</div>
-
-		<footer>
+	
+	<div id="main-content" class="container">
+		<div class="container">
+			<div class="row">
+				<div class="span3">
+					<div id="lateral" class="well well-small">
+						{% if usuario_logado is defined %}
+						{% block lateral %}{% endblock %}
+						{% else %}
+						<h4>Cadastre-se, é <strong>gratuito</strong></h4>
+						<form action="{{ url('/cadastro') }}" method="post" class="form-vertical">
+							<div class="control-group">
+								<label class="control-label">Nome</label>
+								<div class="controls">
+									<input type="text" name="nome">
+								</div>
+							</div>
+						</form>
+						{% endif %}
+					</div>
+				</div>
+				<div class="span9">
+					Teste
+				</div>
+			</div>
+			
+			{% block conteudo %}{% endblock %}
+		</div>
+	</div>
+	
+	<footer id="main-footer">
+		<div class="container">
 			<div class="clearfix">
 				<ul id="footer-menu">
 					<li><a href="{{ url('/') }}">Home</a></li>
@@ -100,10 +105,10 @@
 					<li><a href="#">Twitter</a></li>
 					<li><a href="#">Google+</a></li>
 				</ul>
-
+		
 				<div id="footer-noticias">
 					<h4>Últimas notícias</h4>
-
+		
 					<div class="row-fluid">
 						<div class="span6">
 							<ul>
@@ -180,11 +185,11 @@
 					</div>
 				</div>
 			</div>
-
+		
 			<div id="footer-copyright" class="clearfix">
 				<div class="left"></div>
 				<div class="right"></div>
-
+		
 				<div class="pull-left">
 					<p class="muted">Copyright © 2013 Central do Veículo. Todos os direitos reservados.</p>
 				</div>
@@ -197,8 +202,8 @@
 					</p>
 				</div>
 			</div>
-		</footer>
-	</div>
+		</div>
+	</footer>
 	
 	<script src="{{ url('/js/all.' ~ ('now' | date('Ymd')) ~ '.js') }}"></script>
 	{% block scripts %}{% endblock %}
