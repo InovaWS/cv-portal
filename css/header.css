@@ -60,26 +60,24 @@
 	background: url(../img/logo.png);
 }
 
-#main-header #header-links {
+#main-header #navbar {
 	margin: 0 0 0 230px;
 	padding: 0;
 	line-height: 40px;
 	height: 40px;
-	float: left;
 }
 
-#main-header #header-links ul.normal {
+#main-header #navbar .dropdown {
+	display: none;
+}
+
+#main-header #navbar .links ul {
 	list-style: none;
 	margin: 0;
 	float: left;
 }
 
-#main-header #header-links .dropdown-menu-invoker {
-	display: none;
-	float: left;
-}
-
-#main-header #header-links ul.normal li {
+#main-header #navbar .links ul li {
 	list-style: none;
 	line-height: 20px;
 	height: 20px;
@@ -90,39 +88,38 @@
 	border-left: 1px solid #eeeeee;
 }
 
-#main-header #header-links ul.normal li:first-child {
+#main-header #navbar .links ul li:first-child {
 	border-left: none;
 }
 
-#main-header #header-links ul.normal li:last-child {
+#main-header #navbar .links ul li:last-child {
 	border-right: none;
 }
 
-#main-header #header-links .dropdown-menu-invoker,
-#main-header #header-links ul.normal a {
+#main-header #navbar .links ul a {
 	font-weight: bold;
 	font-size: 120%;
 	text-decoration: none;
 	text-transform: lowercase;
 }
 
-#main-header #header-links ul.normal li:nth-child(1) a {
+#main-header #navbar .links ul li:nth-child(1) a {
 	color: #0D2DEA;
 }
 
-#main-header #header-links ul.normal li:nth-child(2) a {
+#main-header #navbar .links ul li:nth-child(2) a {
 	color: #0D9CEA;
 }
 
-#main-header #header-links ul.normal li:nth-child(3) a {
+#main-header #navbar .links ul li:nth-child(3) a {
 	color: #EA5A0D;
 }
 
-#main-header #header-links ul.normal li:nth-child(4) a {
+#main-header #navbar .links ul li:nth-child(4) a {
 	color: #EAC90D;
 }
 
-#main-header #social-media {
+#main-header #navbar .social-media {
 	margin: 0;
 	padding: 0 20px;
 	line-height: 40px;
@@ -130,26 +127,23 @@
 	float: right;
 }
 
-#main-header #social-media .text {
+#main-header #navbar .social-media .text {
 	color: #999999;
 }
 
-@media (max-width: 979px) {
-	#main-header #header-links ul.normal {
-		padding: 0;
-	}
-	
-	#main-header #header-links ul.normal a {
-		font-size: 100%;
-	}
-	
-	#main-header #social-media .text {
+@media (max-width: 767px) {
+	#main-header #navbar .links,
+	#main-header #navbar .social-media {
 		display: none;
-	} 
+	}
+	
+	#main-header #navbar .dropdown {
+		display: block;
+	}
 }
 
-@media (max-width: 639px) {
-	#main-header #header-links .dropdown-menu-invoker {
-		display: block;
+@media (max-width: 979px) {
+	 #main-header #navbar .social-media .text {
+		display: none;
 	}
 }

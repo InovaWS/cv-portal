@@ -1,9 +1,11 @@
 #main-footer {
 	margin: 0 0 20px 0;
+	overflow: hidden;
 }
 
 #main-footer .container {
 	background: url(../img/rodape-background.png);
+	padding: 0 16px;
 }
 
 #main-footer #footer-menu {
@@ -79,8 +81,8 @@
 	background-color: #111111;
 	font-size: 10px;
 	color: #666666;
-	padding: 12px;
-	margin: 0 -12px;
+	padding: 12px 28px;
+	margin: 0 -28px;
 	position: relative;
 }
 

@@ -36,25 +36,43 @@
 					</a>
 				</h1>
 				
-				<div id="header-links" class="dropdown">
-				 	<a href="#" data-toggle="dropdown" class="dropdown-menu-invoker">Menu</a>
-				 					
-					<ul class="normal">
-						<li><a href="{{ url('/') }}" title="Ir para a página inicial">Home</a></li>
-						<li><a href="{{ url('/noticias') }}" title="Ver as notícias">Notícias</a></li>
-						<li><a href="{{ url('/anuncie') }}" title="Veja os motivos para anunciar conosco">Anuncie</a></li>
-						{% if usuario_logado %}
-						<li><a href="{{ url('/logout') }}" title="Encerrar a sua sessão de login">Sair</a></li>
-						{% else %}
-						<li><a href="{{ url('/login') }}" title="Entre no nosso sistema para anunciar">Entrar</a></li>
-						{% endif %}
-					</ul>
-				</div>
-				
-				<div id="social-media">
-					<span class="text">Estamos também aqui:</span>
-					<a href="http://facebook.com/portalcv" title="Página da Central do Veículo no Facebook" target="_blank"><img src="{{ url('/img/redes/facebook-icon.png') }}" alt="Facebook"></a>
-					<a href="http://twitter.com/portalcv" title="Perfil da Central do Veículo no Twitter" target="_blank"><img src="{{ url('/img/redes/twitter-icon.png') }}" alt="Twitter"></a>
+				<div id="navbar">
+					<div class="dropdown pull-right">
+						<a href="#" data-toggle="dropdown" class="dropdown-menu-invoker">Menu</a>
+					 	
+					 	<ul class="dropdown-menu">
+					 		<li><a href="{{ url('/') }}" title="Ir para a página inicial">Home</a></li>
+							<li><a href="{{ url('/noticias') }}" title="Ver as notícias">Notícias</a></li>
+							<li><a href="{{ url('/anuncie') }}" title="Veja os motivos para anunciar conosco">Anuncie</a></li>
+							{% if usuario_logado %}
+							<li><a href="{{ url('/logout') }}" title="Encerrar a sua sessão de login">Sair</a></li>
+							{% else %}
+							<li><a href="{{ url('/login') }}" title="Entre no nosso sistema para anunciar">Entrar</a></li>
+							{% endif %}
+							<li class="divider"></li>
+							<li><a href="http://facebook.com/portalcv" title="Página da Central do Veículo no Facebook" target="_blank">Facebook <img src="{{ url('/img/redes/facebook-icon.png') }}" alt="Facebook"></a></li>
+							<li><a href="http://twitter.com/portalcv" title="Perfil da Central do Veículo no Twitter" target="_blank">Twitter <img src="{{ url('/img/redes/twitter-icon.png') }}" alt="Twitter"></a></li>
+					 	</ul>
+					</div>
+					
+					<div class="links pull-left">
+						<ul>
+							<li><a href="{{ url('/') }}" title="Ir para a página inicial">Home</a></li>
+							<li><a href="{{ url('/noticias') }}" title="Ver as notícias">Notícias</a></li>
+							<li><a href="{{ url('/anuncie') }}" title="Veja os motivos para anunciar conosco">Anuncie</a></li>
+							{% if usuario_logado %}
+							<li><a href="{{ url('/logout') }}" title="Encerrar a sua sessão de login">Sair</a></li>
+							{% else %}
+							<li><a href="{{ url('/login') }}" title="Entre no nosso sistema para anunciar">Entrar</a></li>
+							{% endif %}
+						</ul>
+					</div>
+					
+					<div class="social-media pull-right">
+						<span class="text">Estamos também aqui:</span>
+						<a href="http://facebook.com/portalcv" title="Página da Central do Veículo no Facebook" target="_blank"><img src="{{ url('/img/redes/facebook-icon.png') }}" alt="Facebook"></a>
+						<a href="http://twitter.com/portalcv" title="Perfil da Central do Veículo no Twitter" target="_blank"><img src="{{ url('/img/redes/twitter-icon.png') }}" alt="Twitter"></a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -66,45 +84,48 @@
 	
 	<div id="main-content">
 		<div class="container">
+			
 			<div class="row">
 				<div class="span3">
-					<div id="lateral" class="well well-small">
+					<div id="lateral">
 						{% if usuario_logado is defined %}
 						{% block lateral %}{% endblock %}
 						{% else %}
 						<h4>Cadastre-se, é <strong>gratuito</strong></h4>
 						<form action="{{ url('/cadastro') }}" method="post" class="form-vertical">
-							<div class="control-group">
-								<label class="control-label" for="box-cadastro-nome">Nome</label>
-								<div class="controls">
-									<input type="text" id="box-cadastro-nome" name="nome">
+							<div class="row-fluid">
+								<div class="control-group">
+									<label class="control-label" for="box-cadastro-nome">Nome</label>
+									<div class="controls controls-row">
+										<input type="text" id="box-cadastro-nome" name="nome" class="span12">
+									</div>
 								</div>
-							</div>
-							
-							<div class="control-group">
-								<label class="control-label" for="box-cadastro-email">E-mail</label>
-								<div class="controls controls-row">
-									<input type="email" id="box-cadastro-email" name="email" />
+								
+								<div class="control-group">
+									<label class="control-label" for="box-cadastro-email">E-mail</label>
+									<div class="controls controls-row">
+										<input type="email" id="box-cadastro-email" name="email" class="span12">
+									</div>
 								</div>
-							</div>
-	
-							<div class="control-group">
-								<label class="control-label" for="box-cadastro-senha">Senha</label>
-								<div class="controls">
-									<input type="password" id="box-cadastro-senha" name="senha" />
+		
+								<div class="control-group">
+									<label class="control-label" for="box-cadastro-senha">Senha</label>
+									<div class="controls">
+										<input type="password" id="box-cadastro-senha" name="senha" class="span12">
+									</div>
 								</div>
-							</div>
-	
-							<div class="control-group">
-								<label class="control-label" for="box-cadastro-confirmar-senha">Confirmar senha</label>
-								<div class="controls">
-									<input type="password" id="box-cadastro-confirmar-senha" name="confirmar-senha" />
+		
+								<div class="control-group">
+									<label class="control-label" for="box-cadastro-confirmar-senha">Confirmar senha</label>
+									<div class="controls">
+										<input type="password" id="box-cadastro-confirmar-senha" name="confirmar-senha" class="span12">
+									</div>
 								</div>
-							</div>
-	
-							<div class="control-group">
-								<div class="controls">
-									<button type="submit" class="btn">Cadastrar</button>
+		
+								<div class="control-group">
+									<div class="controls clearfix">
+										<button type="submit" class="btn pull-right">Cadastrar</button>
+									</div>
 								</div>
 							</div>
 						</form>
@@ -112,11 +133,11 @@
 					</div>
 				</div>
 				<div class="span9">
-					Teste
+					{% block centro %}{% endblock %}
 				</div>
 			</div>
 			
-			{% block conteudo %}{% endblock %}
+			{% block abaixo %}{% endblock %}
 		</div>
 	</div>
 	

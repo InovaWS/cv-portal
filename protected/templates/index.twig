@@ -1,6 +1,35 @@
 {% extends 'base.twig' %}
 
-{% block conteudo %}
+{% block centro %}
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="#busca-carros" data-toggle="tab">Carros</a>
+	</li>
+	<li>
+		<a href="#busca-motos" data-toggle="tab">Motos</a>
+	</li>
+    <li>
+		<a href="#busca-caminhoes" data-toggle="tab">Caminhões</a>
+	</li>
+</ul>
+	
+<div class="tab-content">
+	<div class="tab-pane active" id="busca-carros">Carros</div>
+	<div class="tab-pane" id="busca-motos">Motos</div>
+	<div class="tab-pane" id="busca-caminhoes">Caminhões</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span12">
+		<a href="anuncie" title="Anuncie"> <!-- <img src="//placehold.it/643x90" alt="banner" /> -->
+			<img src="{{ url('/img/banner.jpg') }}" alt="banner" style="width: 100%" />
+		</a>
+	</div>
+</div>
+{% endblock %}
+
+{% block abaixo %}
+
 <div class="row-fluid">
 	<div class="span4">
 		<div id="box-cadastro">
