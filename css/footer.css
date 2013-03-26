@@ -5,10 +5,9 @@
 
 #main-footer .container {
 	background: url(../img/rodape-background.png);
-	padding: 0 16px;
 }
 
-#main-footer #footer-menu {
+#main-footer .footer-menu {
 	list-style: none;
 	margin: 30px 0;
 	padding: 0 30px;
@@ -17,7 +16,7 @@
 	border-right: 1px solid #333333;
 }
 
-#main-footer #footer-menu li {
+#main-footer .footer-menu li {
 	list-style: none;
 	margin: 0;
 	padding: 6px 0;
@@ -25,31 +24,36 @@
 	box-shadow: 0 1px 0 #333333;
 }
 
-#main-footer #footer-menu li a {
+#main-footer .footer-menu li:last-child {
+	border-bottom: none;
+	box-shadow: none;
+}
+
+#main-footer .footer-menu a {
 	color: #666666;
 	font-size: 11px;
 	font-weight: normal;
 	text-decoration: none;
 }
 
-#main-footer #footer-noticias {
+#main-footer .footer-noticias {
 	padding: 30px;
 	color: #FFFFFF;
 	position: relative;
 	overflow: hidden;
 }
 
-#main-footer #footer-noticias h4 {
+#main-footer .footer-noticias h4 {
 	font-weight: normal;
 }
 
-#main-footer #footer-noticias ul {
+#main-footer .footer-noticias ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-#main-footer #footer-noticias li {
+#main-footer .footer-noticias li {
 	list-style: none;
 	margin: 0;
 	padding: 6px 0;
@@ -57,52 +61,58 @@
 	box-shadow: 0 1px 0 #333333;
 }
 
-#main-footer #footer-noticias li a {
+#main-footer .footer-noticias a {
 	color: #FFFFFF;
 	font-size: 11px;
 	font-weight: normal;
 	text-decoration: none;
 }
 
-#main-footer #footer-noticias .imagem {
+#main-footer .footer-noticias .imagem {
 	background: white;
 	width: 32px;
 	height: 32px;
 	float: left;
+	margin-right: 10px;
 }
 
-#main-footer #footer-noticias .titulo {
+#main-footer .footer-noticias .titulo {
 	position: relative;
 	overflow: hidden;
-	padding-left: 10px;
 }
 
-#main-footer #footer-copyright {
-	background-color: #111111;
+#main-footer .footer-copyright {
+	background: #111111;
 	font-size: 10px;
 	color: #666666;
-	padding: 12px 28px;
-	margin: 0 -28px;
+	margin: 0 -16px;
+	padding: 8px 16px;
 	position: relative;
 }
 
-#main-footer #footer-copyright .left,
-#main-footer #footer-copyright .right {
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-width: 6px;
+#main-footer .footer-copyright:before,
+#main-footer .footer-copyright:after {
+	content: "";
+	font: 0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border-width: 8px;
 	border-style: solid;
+	position: absolute;
+	top: -16px;
 }
 
-#main-footer #footer-copyright .left {
-	border-color: transparent #000000 #000000 transparent;
-	top: -12px;
+#main-footer .footer-copyright:before {
+	border-color: transparent black black transparent;
 	left: 0;
 }
 
-#main-footer #footer-copyright .right {
-	border-color: transparent transparent #000000 #000000;
-	top: -12px;
+#main-footer .footer-copyright:after {
+	border-color: transparent transparent black black;
 	right: 0;
+}
+
+.lt-ie8 #main-footer .footer-copyright {
+	margin: 0;
 }

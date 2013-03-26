@@ -39,7 +39,7 @@ $app->get('/css/all(.:data).css', function($data) use($app) {
 	$assets = new AssetCollection(
 		array (
 			new FileAsset('css/vendor/bootstrap.css'),
-			new FileAsset('css/vendor/bootstrap-responsive.css'),
+			#new FileAsset('css/vendor/bootstrap-responsive.css'),
 			new FileAsset('css/vendor/jquery-ui-1.8.18.custom.css'),
 			new FileAsset('css/vendor/prettyGallery.css'),
 			new GlobAsset('css/*.css')

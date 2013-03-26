@@ -1,5 +1,5 @@
 #main-body {
-	background: #E1E1E1;
+	background: #e1e1e1;
 	font-family: Oxygen, Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	margin: 0;
@@ -8,4 +8,21 @@
 
 #main-body a:focus {
 	outline: 1px dotted #cccccc;
+}
+
+::-moz-selection {
+	background: #0994c0;
+	color: #ffffff;
+	text-shadow: none;
+}
+
+::selection {
+	background: #0994c0;
+	color: #ffffff;
+	text-shadow: none;
+	color: #ffffff;
+}
+
+#main-body input {
+	outline: none;
 }
