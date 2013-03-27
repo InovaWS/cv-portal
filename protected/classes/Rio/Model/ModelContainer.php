@@ -3,24 +3,11 @@ namespace Rio\Model;
 
 use Pimple\Pimple;
 
-class ModelContainer
+class ModelContainer extends Pimple
 {
-	
-	private $container;
-	
-	public function __construct()
+	public function appendAccessor($var, $className)
 	{
-		$this->container = new Pimple();
-	}
-	
-	public function getContainer()
-	{
-		return $this->container;
-	}
-	
-	public function appendModelAccessor($var, $className)
-	{
-		$this->container[$var] = Pimple::share(function($container) use($className) {
+		$this[$var] = Pimple::share(function($container) use($className) {
 			$modelAccessor = new $className();
 			$modelAccessor->setContainer($container);
 			return $modelAccessor;
@@ -29,21 +16,21 @@ class ModelContainer
 	
 	public function __isset($var)
 	{
-		return $this->container->offsetExists($var);
+		return $this->offsetExists($var);
 	}
 	
 	public function __unset($var)
 	{
-		return $this->container->offsetUnset($var);
+		return $this->offsetUnset($var);
 	}
 	
 	public function __get($var)
 	{
-		return $this->container->offsetGet($var);
+		return $this->offsetGet($var);
 	}
 	
 	public function __set($var, $value)
 	{
-		return $this->container->offsetSet($var, $value);
+		return $this->offsetSet($var, $value);
 	}
 }

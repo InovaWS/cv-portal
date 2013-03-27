@@ -7,7 +7,7 @@ $app->get('/login', function() use($app) {
 	$app->render('login.twig');
 })->name('/login');
 
-$app->post('/login', function() use($app, $container) {
+$app->post('/login', function() use($app) {
 	$filtro = Filter::create($app->request()->post())
 	          ->fields('login', 'senha')->crop()
 	          ->fields('login')->errorMessage('O campo de login deve ser preenchido.')->length()
@@ -33,7 +33,7 @@ $app->post('/login', function() use($app, $container) {
 	$app->render('login.twig', array('login' => $dados));
 });
 
-$app->get('/logout', function() use($app, $container) {
+$app->get('/logout', function() use($app) {
 	unset($container->sessao->usuario);
 	unset($container->sessao->vendedor);
 	
@@ -44,7 +44,7 @@ $app->get('/cadastro', function() use($app) {
 	$app->redirect($app->request()->getRootUri() . '/login');
 })->name('/cadastro');
 
-$app->post('/cadastro', function() use($app, $container) {
+$app->post('/cadastro', function() use($app) {
 	
 	$filtro = Filter::create($app->request()->post())
 		->fields('nome', 'email', 'senha', 'confirmar-senha')->crop()
@@ -75,14 +75,14 @@ $app->post('/cadastro', function() use($app, $container) {
 	$app->render('login.twig', array('cadastro' => $dados));
 });
 
-$app->get('/cadastro/sucesso', function() use($app, $container) {
+$app->get('/cadastro/sucesso', function() use($app) {
 	if (empty($container->sessao->cadastro) && !is_array($container->sessao->cadastro))
 		$app->redirect($app->urlFor('/'));
 	
 	$app->render('cadastro/sucesso-primeira-etapa.twig', $container->sessao->cadastro);
 })->name('/cadastro/sucesso');
 
-$app->get('/cadastro/sucesso/reenviar', function() use($app, $container) {
+$app->get('/cadastro/sucesso/reenviar', function() use($app) {
 	if (empty($container->sessao->cadastro) && !is_array($container->sessao->cadastro))
 		$app->redirect($app->urlFor('/'));
 	
@@ -92,7 +92,7 @@ $app->get('/cadastro/sucesso/reenviar', function() use($app, $container) {
 	$app->redirect($app->urlFor('/cadastro/sucesso'));
 })->name('/cadastro/sucesso/reenviar');
 
-$app->get('/cadastro/completar', function() use($app, $container) {
+$app->get('/cadastro/completar', function() use($app) {
 	$chave = $app->request()->get('chave');
 	
 	if (empty($chave))
@@ -109,7 +109,7 @@ $app->get('/cadastro/completar', function() use($app, $container) {
 	));
 })->name('/cadastro/completar');
 
-$app->post('/cadastro/completar', function() use($app, $container) {
+$app->post('/cadastro/completar', function() use($app) {
 	$filtro = Filter::create($app->request()->post())
 	                ->fields( 'chave', 'id_tipo', 'cpf', 'cnpj', 'razao_social', 'nome_fantasia', 'endereco',
 	                          'numero', 'complemento', 'bairro', 'uf', 'cidade', 'cep', 'telefone',
@@ -163,7 +163,7 @@ $app->post('/cadastro/completar', function() use($app, $container) {
 	));
 });
 
-$requireLogin = function() use($app, $container) {
+$requireLogin = function() use($app) {
 	if (isset($container->sessao->usuario)) {
 		$container->sessao->usuario = $container->usuarios->get(array('id' => $container->sessao->usuario->id));
 		if (isset($container->sessao->usuario)) {

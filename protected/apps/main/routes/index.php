@@ -15,11 +15,11 @@ use Assetic\Asset\AssetCollection;
 
 use CV\Control\CallableMiddleware;
 
-$app->add(new CallableMiddleware(function(CallableMiddleware $mid) use($app, $container) {
-	if (isset($container->sessao->usuario)) {
+$app->add(new CallableMiddleware(function(CallableMiddleware $mid) use($app) {
+	if (isset($app->model->sessao->usuario)) {
 		$app->view()->appendData(array(
-			'usuario_logado' => $container->sessao->usuario,
-			'vendedor_logado' => $container->sessao->vendedor
+			'usuario_logado' => $app->model->sessao->usuario,
+			'vendedor_logado' => $app->model->sessao->vendedor
 		));
 	}
 	$mid->getNextMiddleware()->call();
@@ -30,12 +30,12 @@ $app->notFound(function() use($app) {
 });
 
 $app->get('/', function() use($app) {
-	$app->render('index.twig');
+	$tiposDeVeiculos = $app->model->veiculos->tipos();
+
+	$app->render('index.twig', array('tipos_de_veiculos' => $tiposDeVeiculos));
 })->name('/');
 
 $app->get('/css/all(.:data).css', function($data) use($app) {
-	$app->contentType('text/css; charset=UTF-8');
-	
 	$assets = new AssetCollection(
 		array (
 			new FileAsset('css/vendor/bootstrap.css'),
@@ -45,12 +45,12 @@ $app->get('/css/all(.:data).css', function($data) use($app) {
 			new GlobAsset('css/*.css')
 		)
 	);
+	
+	$app->contentType('text/css; charset=UTF-8');
 	echo $assets->dump();
 })->conditions(array('data' => '\d+'))->name('/css/all.css');
 
 $app->get('/js/all(.:data).js', function($data) use($app) {
-	$app->contentType('text/javascript; charset=UTF-8');
-
 	$assets = new AssetCollection(
 		array (
 			new FileAsset('js/vendor/modernizr-2.6.2.min.js'),
@@ -64,12 +64,12 @@ $app->get('/js/all(.:data).js', function($data) use($app) {
 			new FileAsset('js/portal.js')
 		)
 	);
+	
+	$app->contentType('text/javascript; charset=UTF-8');
 	echo $assets->dump();
 })->conditions(array('data' => '\d+'))->name('/js/all.js');
 
 $app->get('/js/all.async(.:data).js', function($data) use($app) {
-	$app->contentType('text/javascript; charset=UTF-8');
-	
 	$routes = array();
 	foreach ($app->router()->getNamedRoutes() as $name => $route)
 		$routes[$name] = $route->getPattern();
@@ -105,10 +105,11 @@ $app->get('/js/all.async(.:data).js', function($data) use($app) {
 		)
 	);
 	
+	$app->contentType('text/javascript; charset=UTF-8');
 	echo $assets->dump();
 })->conditions(array('data' => '\d+'))->name('/js/all.async.css');
 
-$app->get('/cidades/:estado', function($estado) use($app, $container) {
+$app->get('/cidades/:estado', function($estado) use($app) {
 	$app->contentType('application/json');
-	echo json_encode($container->cidades->getDoEstado($estado));
+	echo json_encode($app->model->cidades->getDoEstado($estado));
 })->name('/cidades/:estado');

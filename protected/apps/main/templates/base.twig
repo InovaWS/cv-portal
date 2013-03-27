@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<!--[if lt IE 9]>
-	{#}<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>{#}
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<script>
 	for (var elems = 'header,footer'.split(','), elem; elem = elems.shift(); document.createElement(elem));
 	</script>
@@ -25,7 +25,7 @@
 	<meta name="description" content="{{ pagina.descricao }}">
 	{% endif %}
 	
-	{#}<link href="http://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">{#}
+	<link href="http://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">
 	<link href="{{ url('/css/all.' ~ ('now' | date('Ymd')) ~ '.css') }}" rel="stylesheet" type="text/css" charset="utf-8">
 </head>
 
