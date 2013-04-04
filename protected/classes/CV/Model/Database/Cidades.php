@@ -16,11 +16,11 @@ class Cidades extends ModelAccessor
 		return $stmt->fetchAll();
 	}
 	
-	public function getDoEstado($sigla)
+	public function getDoEstado($id_uf)
 	{
 		$stmt = $this->container->db->prepare("SELECT id, nome, cep, id_uf FROM cv2_localizacoes_cidades
-				WHERE id_uf IN (SELECT id FROM cv2_localizacoes_ufs WHERE sigla=:sigla) ORDER BY nome ASC");
-		$stmt->execute(array('sigla' => $sigla));
+				WHERE id_uf=:id_uf ORDER BY nome ASC");
+		$stmt->execute(array('id_uf' => $id_uf));
 	
 		return $stmt->fetchAll();
 	}

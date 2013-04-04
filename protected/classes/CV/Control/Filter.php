@@ -33,7 +33,7 @@ class Filter
 	{
 		$data = array();
 		foreach ($this->fields as $field)
-			$data[$field] = $this->data[$field];
+			$data[$field] = isset($this->data[$field]) ? $this->data[$field] : null;
 		
 		$this->data = $data;
 		
@@ -68,7 +68,89 @@ class Filter
 		$errorMessage = $this->getErrorMessage('email(%field%)');
 		
 		foreach ($this->fields as $field) {
-			if (!preg_match('#^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $this->data[$field])) {
+			if (empty($this->data[$field]) || !preg_match('#^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $this->data[$field])) {
+				$this->data[$field] = null;
+				$this->errors[] = str_replace('%field%', $field, $errorMessage);
+			}
+		}
+		
+		return $this;
+	}
+	
+	public function cpf()
+	{
+		$errorMessage = $this->getErrorMessage('cpf(%field%)');
+		
+		$valido = function($cpf) {
+			$cpf = preg_replace('/[^0-9]/', '', strval($cpf));
+			
+			if (strlen($cpf) != 11)
+				return false;
+			
+			for ($i = 0, $j = 10, $soma = 0; $i < 9; $i++, $j--)
+				$soma += $cpf{$i} * $j;
+			
+			$resto = $soma % 11;
+				
+			if ($cpf{9} != ($resto < 2 ? 0 : 11 - $resto))
+				return false;
+			
+			// Calcula e confere segundo dígito verificador
+			for ($i = 0, $j = 11, $soma = 0; $i < 10; $i++, $j--)
+				$soma += $cpf{$i} * $j;
+					
+			$resto = $soma % 11;
+					
+			return $cpf{10} == ($resto < 2 ? 0 : 11 - $resto);
+		};
+		
+		foreach ($this->fields as $field) {
+			if (empty($this->data[$field]) || !$valido($this->data[$field])) {
+				$this->data[$field] = null;
+				$this->errors[] = str_replace('%field%', $field, $errorMessage);
+			}
+		}
+	
+		return $this;
+	}
+	
+	public function cnpj()
+	{
+		$errorMessage = $this->getErrorMessage('cnpj(%field%)');
+		
+		$valido = function($cnpj) {
+			$cnpj = preg_replace('/[^0-9]/', '', strval($cnpj));
+			
+			// Valida tamanho
+			if (strlen($cnpj) != 14)
+				return false;
+			
+			// Valida primeiro dígito verificador
+			for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++)
+			{
+				$soma += $cnpj{$i} * $j;
+				$j = ($j == 2) ? 9 : $j - 1;
+			}
+			
+			$resto = $soma % 11;
+			
+			if ($cnpj{12} != ($resto < 2 ? 0 : 11 - $resto))
+				return false;
+			
+			// Valida segundo dígito verificador
+			for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++)
+			{
+				$soma += $cnpj{$i} * $j;
+				$j = ($j == 2) ? 9 : $j - 1;
+			}
+			
+			$resto = $soma % 11;
+			
+			return $cnpj{13} == ($resto < 2 ? 0 : 11 - $resto);
+		};
+		
+		foreach ($this->fields as $field) {
+			if (empty($this->data[$field]) || !$valido($this->data[$field])) {
 				$this->data[$field] = null;
 				$this->errors[] = str_replace('%field%', $field, $errorMessage);
 			}

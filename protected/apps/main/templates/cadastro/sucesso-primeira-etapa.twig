@@ -1,0 +1,18 @@
+{% extends 'base.twig' %}
+
+{% block conteudo %}
+<div style="width:980px;margin:auto">
+	<h1 class="TituloSucessoCadastro">Cadastro realizado com sucesso</h1>
+	
+	<div style="padding:15px;font-size:13px;line-height:20px">
+		<span style="font-size:16px;font-weight:bold;display:block;padding-bottom:5px;color:#125994">Bem-vindo Sr(a). {{ nome }}, </span>
+		Seus dados cadastrais assim como o link para completar o seu cadastro foram enviados para seu e-mail{% if flash.reenviado %} <strong>novamente</strong>{% endif %}.<br><br>
+	    Para poder cadastrar seus anúncios é necessario completar seu cadastro através deste link que lhe foi enviado por segurança e para garantir que outra pessoa não esteja utilizando seu e-mail para tal fim.<br><br>
+	    Caso não localize o e-mail na sua caixa de entrada, você pode:
+	    <ul>
+	    	<li>aguardar a chegada do e-mail por mais alguns minutos &mdash; atrasos são comuns;</li>
+	    	<li><a href="{{ urlFor('/cadastro/sucesso/reenviar') }}">reenviar o e-mail</a>, para completar o seu cadastro e já realizar seu anúncio em seguida.</li>
+	    </ul>
+	</div>
+</div>
+{% endblock %}

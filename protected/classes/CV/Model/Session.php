@@ -60,4 +60,12 @@ class Session implements \ArrayAccess
 		return $this->offsetUnset($key);
 	}
 	
+	public function get($key)
+	{
+		if ($this->offsetExists($key))
+			return $this->offsetGet($key);
+		else
+			return null;
+	}
+	
 }

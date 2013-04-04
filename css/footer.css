@@ -1,0 +1,118 @@
+#main-footer {
+	margin: 0 0 20px 0;
+	overflow: hidden;
+}
+
+#main-footer .container {
+	background: url(../img/rodape-background.png);
+}
+
+#main-footer .footer-menu {
+	list-style: none;
+	margin: 30px 0;
+	padding: 0 30px;
+	width: 250px;
+	float: left;
+	border-right: 1px solid #333333;
+}
+
+#main-footer .footer-menu li {
+	list-style: none;
+	margin: 0;
+	padding: 6px 0;
+	border-bottom: 1px solid #000000;
+	box-shadow: 0 1px 0 #333333;
+}
+
+#main-footer .footer-menu li:last-child {
+	border-bottom: none;
+	box-shadow: none;
+}
+
+#main-footer .footer-menu a {
+	color: #666666;
+	font-size: 11px;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+#main-footer .footer-noticias {
+	padding: 30px;
+	color: #FFFFFF;
+	position: relative;
+	overflow: hidden;
+}
+
+#main-footer .footer-noticias h4 {
+	font-weight: normal;
+}
+
+#main-footer .footer-noticias ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#main-footer .footer-noticias li {
+	list-style: none;
+	margin: 0;
+	padding: 6px 0;
+	border-bottom: 1px solid #000000;
+	box-shadow: 0 1px 0 #333333;
+}
+
+#main-footer .footer-noticias a {
+	color: #FFFFFF;
+	font-size: 11px;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+#main-footer .footer-noticias .imagem {
+	background: white;
+	width: 32px;
+	height: 32px;
+	float: left;
+	margin-right: 10px;
+}
+
+#main-footer .footer-noticias .titulo {
+	position: relative;
+	overflow: hidden;
+}
+
+#main-footer .footer-copyright {
+	background: #111111;
+	font-size: 10px;
+	color: #666666;
+	margin: 0 -16px;
+	padding: 8px 16px;
+	position: relative;
+}
+
+#main-footer .footer-copyright:before,
+#main-footer .footer-copyright:after {
+	content: "";
+	font: 0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border-width: 8px;
+	border-style: solid;
+	position: absolute;
+	top: -16px;
+}
+
+#main-footer .footer-copyright:before {
+	border-color: transparent black black transparent;
+	left: 0;
+}
+
+#main-footer .footer-copyright:after {
+	border-color: transparent transparent black black;
+	right: 0;
+}
+
+.lt-ie8 #main-footer .footer-copyright {
+	margin: 0;
+}
