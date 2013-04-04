@@ -1,7 +1,7 @@
 <?php
 namespace CV\Model\Database;
 
-use CV\Model\ModelAccessor;
+use Rio\Model\ModelAccessor;
 
 class Veiculos extends ModelAccessor
 {

@@ -1,14 +1,15 @@
 <?php
 use Slim\Extras\Log\DateTimeFileWriter;
 
-use CV\Model\Session;
-
 use Rio\Slim\Application;
 use Rio\Model\ModelContainer;
 use Slim\Extras\Views\Twig;
 use Rio\Slim\TwigView;
+use Rio\Model\Session;
 
 $app = new Application(array('mode' => $environment));
+
+$app->getLog()->setWriter(new DateTimeFileWriter(array('path' => APPLICATION_DIR . '/logs')));
 
 $app->configureMode('development', function() use($app) {
 	$app->getLog()->setEnabled(true);
@@ -86,17 +87,14 @@ $app->model->appendAccessor('ufs', 'CV\Model\Database\UFs');
 $app->model->appendAccessor('cidades', 'CV\Model\Database\Cidades');
 $app->model->appendAccessor('cadastro', 'CV\Model\Database\Cadastro');
 
-$app->getLog()->setWriter(new DateTimeFileWriter(array(
-	'path' => realpath(APPLICATION_DIR . '/logs')
-)));
-
-
 // routes
+require APPLICATION_DIR . '/routes/base.php';
 require APPLICATION_DIR . '/routes/index.php';
 require APPLICATION_DIR . '/routes/cadastro.php';
 
 // view
 $app->config('templates.path', APPLICATION_DIR . '/templates/');
+$app->config('templates.resources', false);
 $app->view(new TwigView());
 
 return $app;

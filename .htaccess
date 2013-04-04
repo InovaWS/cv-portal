@@ -143,7 +143,7 @@ SetEnvIf brokenvary 1 force-no-vary
 <IfModule mod_rewrite.c>
 	Options +FollowSymlinks
 	RewriteEngine On
-	RewriteBase /github/cv2-portal/
+	RewriteBase /cv2-portal/
 </IfModule>
 
 # ----------------------------------------------------------------------

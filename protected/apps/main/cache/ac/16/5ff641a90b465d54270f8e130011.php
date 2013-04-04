@@ -1,7 +1,7 @@
 <?php
 
 /* base.twig */
-class __TwigTemplate_118de92bdc53c6ae7577d70903e24c32 extends Twig_Template
+class __TwigTemplate_ac165ff641a90b465d54270f8e130011 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -37,12 +37,10 @@ class __TwigTemplate_118de92bdc53c6ae7577d70903e24c32 extends Twig_Template
 \t
 \t";
         // line 18
-        if (isset($context["pagina"])) { $_pagina_ = $context["pagina"]; } else { $_pagina_ = null; }
-        if ($this->getAttribute($_pagina_, "titulo", array(), "any", true, true)) {
+        if ($this->getAttribute((isset($context["pagina"]) ? $context["pagina"] : null), "titulo", array(), "any", true, true)) {
             // line 19
             echo "\t<title>";
-            if (isset($context["pagina"])) { $_pagina_ = $context["pagina"]; } else { $_pagina_ = null; }
-            echo twig_escape_filter($this->env, $this->getAttribute($_pagina_, "titulo"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pagina"]) ? $context["pagina"] : null), "titulo"), "html", null, true);
             echo " &ndash; Portal Central do Veículo</title>
 \t";
         } else {
@@ -54,12 +52,10 @@ class __TwigTemplate_118de92bdc53c6ae7577d70903e24c32 extends Twig_Template
         echo "\t
 \t";
         // line 24
-        if (isset($context["pagina"])) { $_pagina_ = $context["pagina"]; } else { $_pagina_ = null; }
-        if ($this->getAttribute($_pagina_, "descricao", array(), "any", true, true)) {
+        if ($this->getAttribute((isset($context["pagina"]) ? $context["pagina"] : null), "descricao", array(), "any", true, true)) {
             // line 25
             echo "\t<meta name=\"description\" content=\"";
-            if (isset($context["pagina"])) { $_pagina_ = $context["pagina"]; } else { $_pagina_ = null; }
-            echo twig_escape_filter($this->env, $this->getAttribute($_pagina_, "descricao"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pagina"]) ? $context["pagina"] : null), "descricao"), "html", null, true);
             echo "\">
 \t";
         }
@@ -100,8 +96,7 @@ class __TwigTemplate_118de92bdc53c6ae7577d70903e24c32 extends Twig_Template
         echo "\" title=\"Veja os motivos para anunciar conosco\">Anuncie</a></li>
 \t\t\t\t\t\t\t";
         // line 46
-        if (isset($context["usuario_logado"])) { $_usuario_logado_ = $context["usuario_logado"]; } else { $_usuario_logado_ = null; }
-        if ($_usuario_logado_) {
+        if ((isset($context["usuario_logado"]) ? $context["usuario_logado"] : null)) {
             // line 47
             echo "\t\t\t\t\t\t\t<li><a href=\"";
             echo twig_escape_filter($this->env, $this->env->getExtension('Rio\Slim\TwigExtension')->url("/logout"), "html", null, true);
@@ -141,11 +136,9 @@ class __TwigTemplate_118de92bdc53c6ae7577d70903e24c32 extends Twig_Template
 \t<div id=\"main-content\">
 \t\t<div";
         // line 69
-        if (isset($context["pagina"])) { $_pagina_ = $context["pagina"]; } else { $_pagina_ = null; }
-        if ($this->getAttribute($_pagina_, "css_route", array(), "any", true, true)) {
+        if ($this->getAttribute((isset($context["pagina"]) ? $context["pagina"] : null), "css_route", array(), "any", true, true)) {
             echo " id=\"";
-            if (isset($context["pagina"])) { $_pagina_ = $context["pagina"]; } else { $_pagina_ = null; }
-            echo twig_escape_filter($this->env, $this->getAttribute($_pagina_, "css_route"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["pagina"]) ? $context["pagina"] : null), "css_route"), "html", null, true);
             echo "\"";
         }
         echo " class=\"container\">
@@ -302,6 +295,6 @@ class __TwigTemplate_118de92bdc53c6ae7577d70903e24c32 extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  289 => 182,  284 => 70,  279 => 184,  277 => 183,  275 => 182,  271 => 181,  165 => 78,  156 => 71,  154 => 70,  144 => 69,  129 => 57,  125 => 56,  118 => 51,  112 => 49,  106 => 47,  103 => 46,  99 => 45,  95 => 44,  91 => 43,  82 => 37,  71 => 29,  67 => 27,  60 => 25,  57 => 24,  54 => 23,  50 => 21,  43 => 19,  40 => 18,  21 => 1,);
+        return array (  282 => 182,  277 => 70,  272 => 184,  270 => 183,  268 => 182,  264 => 181,  158 => 78,  149 => 71,  147 => 70,  124 => 57,  107 => 49,  101 => 47,  99 => 46,  95 => 45,  91 => 44,  87 => 43,  78 => 37,  67 => 29,  63 => 27,  57 => 25,  55 => 24,  52 => 23,  21 => 1,  301 => 143,  294 => 138,  269 => 126,  258 => 124,  254 => 123,  242 => 113,  231 => 111,  227 => 110,  212 => 97,  201 => 95,  197 => 94,  168 => 68,  161 => 67,  144 => 66,  139 => 69,  120 => 56,  113 => 51,  96 => 58,  89 => 53,  48 => 21,  45 => 14,  42 => 19,  40 => 18,  38 => 11,  33 => 8,  30 => 7,  25 => 3,);
     }
 }

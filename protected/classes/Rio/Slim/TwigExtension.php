@@ -12,22 +12,61 @@ class TwigExtension extends \Twig_Extension
 	{
 		return array(
 			'url' => new \Twig_Function_Method($this, 'url'),
-			'resource' => new \Twig_Function_Method($this, 'resource')
+			'currentPath' => new \Twig_Function_Method($this, 'currentPath'),
+			'currentUrl' => new \Twig_Function_Method($this, 'currentUrl'),
+			'currentRouteName' => new \Twig_Function_Method($this, 'currentRouteName'),
+			'referer' => new \Twig_Function_Method($this, 'referer')
 		);
 	}
 
-	public function url($uri, $complete = false, $appName = 'default')
+	public function url($uri, array $params = null, $complete = false, $appName = 'default')
 	{
-		$request = \Slim\Slim::getInstance($appName)->request();
-
-		if ($complete)
-			return $request->getScheme() . '://' . $request->getHost() . $request->getRootUri() . $uri;
+		$app = \Slim\Slim::getInstance($appName);
+		
+		if ($app->router()->hasNamedRoute($uri))
+			$uri = $app->router()->urlFor($uri, $params === null ? array() :  $params);
+		elseif (is_file(INVOKER_DIR . $uri))
+			$uri = $app->request()->getRootUri() . $uri;
+		elseif ($app->config('templates.validate'))
+			throw new \RuntimeException('resource not found: ' . $uri);
 		else
-			return $request->getRootUri() . $uri;
+			$uri = $app->request()->getRootUri() . $uri;
+		
+		if ($complete)
+			$uri = $app->request()->getScheme() . '://' . $app->request()->getHost() . $uri;
+		
+		return $uri;
 	}
 	
-	public function resource($path, $appName = 'default')
+	public function currentPath()
 	{
-		return file_get_contents(getcwd() . $path);
+		$app = \Slim\Slim::getInstance($appName);
+		$request = $app->request();
+		
+		return $request->getPath();
+	}
+	
+	public function currentUrl()
+	{
+		$app = \Slim\Slim::getInstance($appName);
+		$request = $app->request();
+	
+		return $request->getUrl();
+	}
+	
+	public function currentRouteName()
+	{
+		$app = \Slim\Slim::getInstance($appName);
+		$router = $app->router();
+		
+		return $router->getCurrentRoute()->getName();
+	}
+	
+	public function referer()
+	{
+		$app = \Slim\Slim::getInstance($appName);
+		$request = $app->request();
+		
+		return $request->getReferer();
 	}
 }

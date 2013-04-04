@@ -14,7 +14,7 @@ class ClosureMiddleware extends Middleware
 	
 	public function call()
 	{
-		return call_user_func_array($this->closure, func_get_args());
+		return call_user_func_array($this->closure, array_merge(array($this), func_get_args()));
 	}
 
 }

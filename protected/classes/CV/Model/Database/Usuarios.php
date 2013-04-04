@@ -1,9 +1,9 @@
 <?php
 namespace CV\Model\Database;
 
-use CV\Model\ModelAccessor;
 use CV\Control\Filter;
 use CV\Model\EntityWriter;
+use Rio\Model\ModelAccessor;
 
 class Usuarios extends ModelAccessor
 {
