@@ -166,4 +166,4 @@ pip-log.txt
 logs/
 arquivos/
 _*/
-**/cache/
+protected/apps/main/cache/
