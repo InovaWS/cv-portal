@@ -1,9 +1,8 @@
 <?php
 use Slim\Extras\Log\DateTimeFileWriter;
-
+use Slim\Extras\Views\Twig;
 use Rio\Slim\Application;
 use Rio\Model\ModelContainer;
-use Slim\Extras\Views\Twig;
 use Rio\Slim\TwigView;
 use Rio\Model\Session;
 
@@ -49,9 +48,9 @@ $app->configureMode('development', function() use($app) {
 $app->configureMode('test', function() use($app) {
 	$app->model->db = $app->share(function() {
 		$pdo = new PDO(
-			'mysql:host=mysql.centraldoveiculo.com.br;dbname=centraldoveicu',
-			'centraldoveicu',
-			's3nh4central',
+			'mysql:host=mysql.centraldoveiculo.com.br;dbname=centraldoveicu01',
+			'centraldoveicu01',
+			'hesoyam22',
 			array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 		);
 		
@@ -66,9 +65,9 @@ $app->configureMode('test', function() use($app) {
 $app->configureMode('production', function() use($app) {
 	$app->model->db = $app->share(function() {
 		$pdo = new PDO(
-			'mysql:host=mysql.centraldoveiculo.com.br;dbname=centraldoveicu',
-			'centraldoveicu',
-			's3nh4central',
+			'mysql:host=mysql.centraldoveiculo.com.br;dbname=centraldoveicu01',
+			'centraldoveicu01',
+			'hesoyam22',
 			array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
 		);
 		
