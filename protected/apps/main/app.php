@@ -79,12 +79,15 @@ $app->configureMode('production', function() use($app) {
 	});
 });
 
-$app->model->appendAccessor('usuarios', 'CV\Model\Database\Usuarios');
-$app->model->appendAccessor('vendedores', 'CV\Model\Database\Vendedores');
-$app->model->appendAccessor('veiculos', 'CV\Model\Database\Veiculos');
-$app->model->appendAccessor('ufs', 'CV\Model\Database\UFs');
-$app->model->appendAccessor('cidades', 'CV\Model\Database\Cidades');
-$app->model->appendAccessor('cadastro', 'CV\Model\Database\Cadastro');
+$app->model->appendAccessor('veiculos', 'CV\Model\Veiculos');
+$app->model->appendAccessor('tiposDeVeiculos', 'CV\Model\TiposDeVeiculos');
+$app->model->appendAccessor('marcas', 'CV\Model\Marcas');
+
+$app->model->appendAccessor('usuarios', 'CV\Model\Usuarios');
+$app->model->appendAccessor('vendedores', 'CV\Model\Vendedores');
+$app->model->appendAccessor('ufs', 'CV\Model\UFs');
+$app->model->appendAccessor('cidades', 'CV\Model\Cidades');
+$app->model->appendAccessor('cadastro', 'CV\Model\Cadastro');
 
 // routes
 require APPLICATION_DIR . '/routes/base.php';

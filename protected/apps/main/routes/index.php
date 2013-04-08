@@ -10,14 +10,18 @@ use CV\Control\CallableMiddleware;
 
 
 $app->get('/', function() use($app) {
-	$tiposDeVeiculos = $app->model->veiculos->tipos();
+	$tipos_de_veiculo = $app->model->veiculos->tipos;
+	$estados = $app->model->ufs->getAll();
 
-	$app->render('index.twig', array('tipos_de_veiculos' => $tiposDeVeiculos));
+	$app->render('index.twig', compact('tipos_de_veiculo', 'estados'));
 })->name('/');
 
+$app->get('/anuncie', function() use($app) {
+	$app->render('anuncie.twig');
+})->name('/anuncie');
 
-
-$app->get('/cidades/:estado', function($estado) use($app) {
+$app->get('/cidades/:id_uf', function($id_uf) use($app) {
 	$app->contentType('application/json');
-	echo json_encode($app->model->cidades->getDoEstado($estado));
-})->name('/cidades/:estado');
+	
+	echo json_encode(array_map(function($a) { return $a->data(); }, $app->model->ufs[$id_uf]->cidades));
+})->name('/cidades');

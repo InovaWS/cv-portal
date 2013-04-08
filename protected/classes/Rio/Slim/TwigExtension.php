@@ -24,7 +24,7 @@ class TwigExtension extends \Twig_Extension
 		$app = \Slim\Slim::getInstance($appName);
 		
 		if ($app->router()->hasNamedRoute($uri))
-			$uri = $app->router()->urlFor($uri, $params === null ? array() :  $params);
+			$uri = $app->urlFor($uri, $params === null ? array() :  $params);
 		elseif (is_file(INVOKER_DIR . $uri))
 			$uri = $app->request()->getRootUri() . $uri;
 		elseif ($app->config('templates.validate'))
@@ -38,7 +38,7 @@ class TwigExtension extends \Twig_Extension
 		return $uri;
 	}
 	
-	public function currentPath()
+	public function currentPath($appName = 'default')
 	{
 		$app = \Slim\Slim::getInstance($appName);
 		$request = $app->request();
@@ -46,7 +46,7 @@ class TwigExtension extends \Twig_Extension
 		return $request->getPath();
 	}
 	
-	public function currentUrl()
+	public function currentUrl($appName = 'default')
 	{
 		$app = \Slim\Slim::getInstance($appName);
 		$request = $app->request();
@@ -54,7 +54,7 @@ class TwigExtension extends \Twig_Extension
 		return $request->getUrl();
 	}
 	
-	public function currentRouteName()
+	public function currentRouteName($appName = 'default')
 	{
 		$app = \Slim\Slim::getInstance($appName);
 		$router = $app->router();
@@ -62,7 +62,7 @@ class TwigExtension extends \Twig_Extension
 		return $router->getCurrentRoute()->getName();
 	}
 	
-	public function referer()
+	public function referer($appName = 'default')
 	{
 		$app = \Slim\Slim::getInstance($appName);
 		$request = $app->request();

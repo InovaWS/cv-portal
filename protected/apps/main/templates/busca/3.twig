@@ -1,0 +1,89 @@
+<form action="{{ url('/busca') }}" method="get" class="form-vertical clearfix">
+	<h4>Busca por caminhões</h4>
+	
+	<div class="row-fluid">
+		<div class="span4">
+			<div class="control-group">
+				<label class="control-label" for="busca-{{ tipo_de_veiculo.id }}-descricao">Descrição</label>
+				<div class="controls">
+					<input type="text" id="busca-{{ tipo_de_veiculo.id }}-descricao" name="descricao" placeholder="Qualquer descrição" class="span12">
+				</div>
+			</div>
+		</div>
+		
+		<div class="span4">
+			<div class="control-group">
+				<label class="control-label" for="busca-{{ tipo_de_veiculo.id }}-marca">Marca</label>
+				<div class="controls">
+					<select id="busca-{{ tipo_de_veiculo.id }}-marca" name="marca" class="span12">
+						<option value="">Todas</option>
+						{% for marca in tipo_de_veiculo.marcas  %}
+						<option value="{{ marca.id }}">{{ marca.descricao }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="span4">
+			<div class="control-group">
+				<label class="control-label" for="busca-{{ tipo_de_veiculo.id }}-ano">Ano</label>
+				<div class="controls">
+					<select id="busca-{{ tipo_de_veiculo.id }}-ano" name="ano" class="span12">
+						<option value="">Todos</option>
+						{% for ano in range('now' | date('Y'), 1960) %}
+						<option value="{{ ano }}">{{ ano }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<h4>Localizados em</h4>
+	
+	<div class="row-fluid">
+		<div class="span4">
+			<div class="control-group">
+				<label class="control-label" for="busca-{{ tipo_de_veiculo.id }}-estado">Estado</label>
+				<div class="controls">
+					<select id="busca-{{ tipo_de_veiculo.id }}-estado" name="estado" data-select-cidades="#busca-{{ tipo_de_veiculo.id }}-cidade" class="span12">
+						<option value="">Todos</option>
+						{% for estado in estados %}
+						<option value="{{ estado.id }}">{{ estado.nome }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+				
+		<div class="span4">
+			<div class="control-group">
+				<label class="control-label" for="busca-{{ tipo_de_veiculo.id }}-cidade">Cidade</label>
+				<div class="controls">
+					<select id="busca-{{ tipo_de_veiculo.id }}-cidade" name="cidade" class="span12">
+						<option value="">Todas</option>
+						{% for cidade in cidades %}
+						<option value="{{ cidade.id }}">{{ cidade.descricao }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="span4">
+			<div class="control-group">
+				<label class="control-label">&nbsp;</label>
+				<div class="controls">
+					<label class="checkbox"><input type="checkbox" name="apenas-lojas" value="1"> Apenas lojas</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="clearfix">
+		<div class="pull-left">
+			<button type="submit" class="btn btn-primary">Buscar</button>
+		</div>
+	</div>
+</form>

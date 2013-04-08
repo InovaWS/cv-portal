@@ -1,5 +1,5 @@
 #main-body {
-	background: #e1e1e1;
+	background: #f5f5f5;
 	font-family: Oxygen, Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	margin: 0;
@@ -36,6 +36,5 @@ h5,
 h6 {
 	font-weight: normal;
 	color: #1977aa;
-	padding-bottom: 12px;
 	margin: 0 0 12px 0;
 }

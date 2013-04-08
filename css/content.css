@@ -1,16 +1,9 @@
-#main-content {
-	
-}
-
-#main-content .container {
-	border-style: solid;
-	border-color: #dddddd;
-	border-width: 0 1px 0 1px;
-	background: #f5f5f5;
-}
-
 #main-content .content-block {
 	margin: 20px 10px;
+}
+
+#main-content .content-block.extra-margin-top {
+	margin: 50px 10px;
 }
 
 #home .lateral,
@@ -64,4 +57,8 @@
 	border-style: solid;
 	border-color: #dddddd;
 	border-width: 0 1px 1px 1px;
+}
+
+#page {
+	margin: 50px auto;
 }

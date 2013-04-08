@@ -1,5 +1,5 @@
 <?php
-namespace CV\Model\Database;
+namespace CV\Model;
 
 use CV\Model\MailSender;
 

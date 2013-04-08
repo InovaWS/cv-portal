@@ -1,6 +1,28 @@
 (function($, window, undefined) {
 	
 	$(function() {
+		var selectEstadoChanged = function(selectEstado) {
+			$selectEstado = $(selectEstado);
+			$selectCidades = $($selectEstado.data('select-cidades'));
+			
+			$selectCidades.find('option[value!=""]').remove();
+			
+			if ($selectEstado.val()) {
+				$selectCidades.stop(true, true).fadeTo(400, .5, function() {
+					$.get(urlFor('/cidades', {id_uf: $selectEstado.val()}), function(result) {
+						for (var i = 0; i < result.length; ++i) {
+							var $option = $('<option>').attr('value', result[i].id).text(result[i].nome);
+							$selectCidades.append($option);
+						}
+						$selectCidades.stop(true, true).fadeTo(400, 1);
+					});
+				});
+			}
+		};
+		
+		$(window.document).on('change keyup', '[data-select-cidades]', function(event) {selectEstadoChanged(this);});
+		$('[data-select-cidades]').each(function () {selectEstadoChanged(this);});
+		
 		var onTipoVendedorChange = function() {
 			var tipo = $('#id_tipo_vendedor_fisico').is(':checked') ? 'fisico' : 'juridico';
 			
@@ -13,28 +35,7 @@
 		
 		$('[data-toggle=popover]').popover({html: true, trigger: 'focus'});
 
-		var onUFChange = function() {
-			var $uf = $('#uf');
-			var $cidade = $('#cidade');
-			
-			$cidade.find('option[value!=""]').remove();
-			
-			if ($uf.val()) {
-				$cidade.stop(true, true).fadeTo(400, .5, function() {
-					$.get(url('/cidades/' + $uf.val()), function(result) {
-						for (var i = 0; i < result.length; ++i) {
-							var $option = $('<option>').attr('value', result[i].id).text(result[i].nome);
-							$cidade.append($option);
-						}
-						$cidade.stop(true, true).fadeTo(400, 1);
-					});
-				});
-			}
-		};
 		
-		$(document).on('change keyup', '#uf', function(event) { onUFChange(); });
-		if ($('#cidade option').size() == 1)
-			onUFChange();
 	});
 	
 })(jQuery, window);

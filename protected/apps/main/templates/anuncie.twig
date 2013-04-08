@@ -1,0 +1,48 @@
+{% extends 'base.twig' %}
+
+{% set pagina = {
+	titulo: 'Anuncie',
+	css_route: 'page'
+} %}
+
+{% block conteudo %}
+<div class="page-header">
+	<h2>Anuncie</h2>
+</div>
+
+<p>
+O portal Central do Veículo tem como compromisso, levar aos seus usuários e cliente qualidade
+em anúncios veiculares e navegabilidade, através de cadastro fácil, rápido e seguro onde, com
+poucos cliques, você terá seu veículo anunciado.
+</p>
+
+<p>
+Sem surpresas desagradáveis, o portal Central do Veículo tem uma tabela de preços única para
+todos os anunciantes, ou seja, todos pagaram de forma igual pelos seus anúncios. A cobrança
+é feita por anúncio, logo só existem duas formas de anúncios: o anúncio simples e anúncio
+com destaque para pessoas físicas.
+</p>
+
+<p>
+Para revendedores de veículos (pessoa jurídica) temos planos especiais onde os anúncios no
+portal Central do Veículo são gratuitos.
+<a href="{{ url('/anuncie/juridico') }}">Saiba mais</a>.
+</p>
+
+<p>
+Mais do que apenas anunciar seu veículo, temos a preocupação em levar até nossos usuários e
+clientes outras formas de divulgar seu anúncio, como por exemplo, redes sociais, oferecendo
+formas de qualquer um compartilhar e divulgar seu anúncio.
+</p>
+
+<p>
+Não vendemos quaisquer tipos de veículos ou produtos, apenas divulgamos seu veículo como uma
+forma de aproximar mais quem procura um veículo, assim aumentando suas chances de sucesso no
+seu negócio.
+</p>
+
+<p>
+<a href="{{ url('/cadastro') }}">Cadastre-se</a> já gratuitamente e anuncie seu veículo em
+nosso portal Central do Veículo, onde você encontra o veículo que procura.
+</p>
+{% endblock %}

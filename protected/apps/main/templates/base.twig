@@ -9,10 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<!--[if lt IE 9]>
-	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<script>
-	for (var elems = 'header,footer'.split(','), elem; elem = elems.shift(); document.createElement(elem));
-	</script>
+	{#}<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>{#}
 	<![endif]-->
 	
 	{% if pagina.titulo is defined %}
@@ -25,7 +22,7 @@
 	<meta name="description" content="{{ pagina.descricao }}">
 	{% endif %}
 	
-	<link href="http://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">
+	{#}<link href="http://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">{#}
 	<link href="{{ url('/css/all.' ~ ('now' | date('Ymd')) ~ '.css') }}" rel="stylesheet" type="text/css" charset="utf-8">
 </head>
 
@@ -73,101 +70,58 @@
 	
 	<footer id="main-footer">
 		<div class="container">
-			<div class="clearfix">
-				<ul class="footer-menu">
-					<li><a href="{{ url('/') }}">Home</a></li>
-					<li><a href="#">Notícias</a></li>
-					<li><a href="#">Anuncie</a></li>
-					<li><a href="#">Entrar</a></li>
-					<li><a href="#">Facebook</a></li>
-					<li><a href="#">Twitter</a></li>
-					<li><a href="#">Google+</a></li>
-				</ul>
-		
-				<div class="footer-noticias">
-					<h4>Últimas notícias</h4>
-		
-					<div class="row-fluid">
-						<div class="span6">
-							<ul>
-								<li>
-									<div class="clearfix">
-										<div class="imagem"></div>
-										<div class="titulo">
-											<a href="#">Título da notícia aqui, resumido.</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="clearfix">
-										<div class="imagem"></div>
-										<div class="titulo">
-											<a href="#">Título da notícia aqui, resumido.</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="clearfix">
-										<div class="imagem"></div>
-										<div class="titulo">
-											<a href="#">Título da notícia aqui, resumido.</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="clearfix">
-										<div class="imagem"></div>
-										<div class="titulo">
-											<a href="#">Título da notícia aqui, resumido.</a>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<div class="span6">
-							<ul>
-								<li>
-									<div class="clearfix">
-										<div class="imagem"></div>
-										<div class="titulo">
-											<a href="#">Título da notícia aqui, resumido.</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="clearfix">
-										<div class="imagem"></div>
-										<div class="titulo">
-											<a href="#">Título da notícia aqui, resumido.</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="clearfix">
-										<div class="imagem"></div>
-										<div class="titulo">
-											<a href="#">Título da notícia aqui, resumido.</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="clearfix">
-										<div class="imagem"></div>
-										<div class="titulo">
-											<a href="#">Título da notícia aqui, resumido.</a>
-										</div>
-									</div>
-								</li>
-							</ul>
+			<div class="row-fluid">
+				<div class="span4">
+					<ul class="footer-menu">
+						<li><a href="{{ url('/') }}">Home</a></li>
+						<li><a href="#">Notícias</a></li>
+						<li><a href="#">Anuncie</a></li>
+						<li><a href="#">Entrar</a></li>
+						<li><a href="#">Facebook</a></li>
+						<li><a href="#">Twitter</a></li>
+						<li><a href="#">Google+</a></li>
+					</ul>
+				</div>
+				
+				<div class="span8">
+					<div class="footer-noticias">
+						<h4>Últimas notícias</h4>
+						
+						<div class="row-fluid">
+							<div class="span6">
+								<ul>
+									{% for i in range(1, 4) %}
+									<li>
+										<img data-src="//placehold.it/32x32" class="imagem">
+										<a href="#">Título da notícia aqui, resumido.</a>
+									</li>
+									{% endfor %}
+								</ul>
+								
+								
+							</div>
+							
+							<div class="span6">
+								<ul>
+									{% for i in range(1, 4) %}
+									<li>
+										<img data-src="//placehold.it/32x32" class="imagem">
+										<a href="#">Título da notícia aqui, resumido</a>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		
-			<div class="footer-copyright">
+		<div class="footer-copyright">
+			<div class="container">
 				<div class="clearfix">
-					<div class="pull-left muted">Copyright © 2013 Central do Veículo. Todos os direitos reservados.</div>
-					<div class="pull-right muted">
+					<div class="pull-left">Copyright © 2013 Central do Veículo. Todos os direitos reservados.</div>
+					<div class="pull-right">
 						Portal
 						<a href="http://www.centraldoveiculo.com.br/" title="Central do Veículo">centraldoveiculo.com.br</a> &mdash;
 						Um produto
