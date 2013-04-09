@@ -1,11 +1,80 @@
 {% extends 'base.twig' %}
 
 {% set pagina = {
-	titulo: 'Cadastro e Login',
-	css_route: 'cadastro-e-login'
+	titulo: 'Login',
+	css_route: 'page'
 } %}
 
 {% block conteudo %}
+<div class="page-header">
+	<h2>Login</h2>
+</div>
+
+<div class="row">
+	<div class="span4">
+		
+	</div>
+	<div class="span4">
+		{% if mensagens is not empty %}
+		{% if mensagens.errors is not empty %}
+		<div class="alert alert-error">
+			<ul class="unstyled">
+			{% for error in mensagens.errors %}
+				<li>{{ error | capitalize }}</li>
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+			
+		{% if mensagens.warnings is not empty %}
+		<div class="alert alert-warning">
+			<ul class="unstyled">
+				{% for warning in mensagens.warnings %}
+				<li>{{ warning | capitalize }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+		{% endif %}
+		
+		<form action="{{ url('/login') }}" method="post" name="login" class="form-vertical well">
+			<div class="control-group">
+				<label class="control-label" for="login-login">Login</label>
+				<div class="controls">
+					<div class="row-fluid">
+						<input type="text" id="login-login" name="login"{% if form %} value="{{ form.login }}"{% endif %} class="span12">
+					</div>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="login-senha">Senha</label>
+				<div class="controls">
+					<div class="row-fluid">
+						<input type="password" id="login-senha" name="senha" class="span12">
+					</div>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<div class="controls">
+					<div class="row-fluid">
+						<button type="submit" class="btn btn-primary offset4 span4">Entrar</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div class="span4">
+		<p>Entre com seus dados de usuário para acessar seu painel e cadastrar seus veículos.</p>
+		<ul class="unstyled">
+			<li><a href="{{ url('/esqueci-minha-senha') }}" data-scrollto="true">Esqueceu sua senha?</a></li>
+			<li><a href="{{ url('/cadastro') }}" data-scrollto="true">Não é cadastrado?</a></li>
+		</ul>
+	</div>
+</div>
+{#}
 <div class="row">
 	<div class="span6">
 		<div class="content-block">
@@ -106,4 +175,5 @@
 		</div>
 	</div>
 </div>
+{#}
 {% endblock %}

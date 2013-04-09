@@ -26,7 +26,7 @@ $app->configureMode('production', function() use($app) {
 
 // model
 $app->model = new ModelContainer();
-$app->model->sessao = new Session();
+$app->model->session = new Session();
 	
 $app->configureMode('development', function() use($app) {
 	$app->model->db = $app->share(function() {
@@ -92,6 +92,7 @@ $app->model->appendAccessor('cadastro', 'CV\Model\Cadastro');
 // routes
 require APPLICATION_DIR . '/routes/base.php';
 require APPLICATION_DIR . '/routes/index.php';
+require APPLICATION_DIR . '/routes/login.php';
 require APPLICATION_DIR . '/routes/cadastro.php';
 
 // view

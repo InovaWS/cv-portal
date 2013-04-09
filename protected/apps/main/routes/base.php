@@ -1,6 +1,4 @@
 <?php
-use Assetic\Filter\CssMinFilter;
-
 use Assetic\Asset\AssetCollection;
 use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
@@ -15,19 +13,17 @@ $authenticateForRole = function($role = 'visitante') use($app) {
 	return function() use($app, $role) {
 		switch ($role) {
 			case 'usuario':
-				if (empty($app->model->sessao->usuario))
+				if (empty($app->model->session->usuario))
 					$forbidden();
 				break;
 				
 			case 'admin':
-				if (empty($app->model->sessao->usuario) || $app->model->sessao->usuario->id == 1)
+				if (empty($app->model->session->usuario) || $app->model->session->usuario->id == 1)
 					$forbidden();
 				break;
 		}
 		
-		$app->view()->appendData(array(
-			'usuario_logado' => $app->model->usuarios->logado()
-		));
+		$app->view()->appendData(array('usuario_logado' => $app->model->usuarios->logado()));
 	};
 };
 

@@ -1,15 +1,5 @@
 <?php
-use Assetic\Asset\StringAsset;
-use Assetic\Filter\CssMinFilter;
-use Assetic\Filter\Yui\CssCompressorFilter;
-use Assetic\Asset\FileAsset;
-use Assetic\Filter\CssRewriteFilter;
-use Assetic\Asset\GlobAsset;
-use Assetic\Asset\AssetCollection;
-use CV\Control\CallableMiddleware;
-
-
-$app->get('/', function() use($app) {
+$app->get('/', $authenticateForRole(), function() use($app) {
 	$tipos_de_veiculo = $app->model->veiculos->tipos;
 	$estados = $app->model->ufs->getAll();
 

@@ -6,6 +6,10 @@
 	margin: 50px 10px;
 }
 
+.alert .unstyled {
+	margin: 0;
+}
+
 #home .lateral,
 #home .central,
 #home .downside {

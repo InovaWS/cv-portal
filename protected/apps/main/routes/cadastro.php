@@ -1,44 +1,7 @@
 <?php
 use Slim\Environment;
-
 use CV\Control\Filter;
 
-$app->get('/login', function() use($app) {
-	$app->render('login.twig');
-})->name('/login');
-
-$app->post('/login', function() use($app) {
-	$filtro = Filter::create($app->request()->post())
-	          ->fields('login', 'senha')->crop()
-	          ->fields('login')->errorMessage('O campo de login deve ser preenchido.')->length()
-	          ->fields('senha')->errorMessage('O campo de senha deve ser preenchido.')->length();
-	
-	$erros = $filtro->errors();
-	$dados = $filtro->data();
-	
-	if (empty($erros)) {
-		$usuario = $container->usuarios->get(array('usuario' => $dados['login'], 'senha' => $dados['senha'], 'status' => 1));
-		if (empty($usuario))
-			$erros[] = 'login e/ou senha inválido(s)';
-		else {
-			$vendedor = $container->vendedores->get(array('id' => $usuario->id_vendedor));
-				
-			$container->sessao->usuario = $usuario;
-			$container->sessao->vendedor = $vendedor;
-			$app->redirect($app->urlFor('/'));
-		}
-	}
-	
-	$app->flashNow('erros_login', $erros);
-	$app->render('login.twig', array('login' => $dados));
-});
-
-$app->get('/logout', function() use($app) {
-	unset($container->sessao->usuario);
-	unset($container->sessao->vendedor);
-	
-	$app->redirect($app->urlFor('/'));
-})->name('/logout');
 
 $app->get('/cadastro', function() use($app) {
 	$app->redirect($app->request()->getRootUri() . '/login');
