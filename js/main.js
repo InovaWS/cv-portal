@@ -9,12 +9,18 @@
 			
 			if ($selectEstado.val()) {
 				$selectCidades.stop(true, true).fadeTo(400, .5, function() {
-					$.get(urlFor('/cidades', {id_uf: $selectEstado.val()}), function(result) {
-						for (var i = 0; i < result.length; ++i) {
-							var $option = $('<option>').attr('value', result[i].id).text(result[i].nome);
-							$selectCidades.append($option);
+					$.ajax({
+						type: 'GET',
+						url: urlFor('/cidades', {id_uf: $selectEstado.val()}),
+						success: function(result) {
+							for (var i = 0; i < result.length; ++i) {
+								var $option = $('<option>').attr('value', result[i].id).text(result[i].nome);
+								$selectCidades.append($option);
+							}
+						},
+						complete: function() {
+							$selectCidades.stop(true, true).fadeTo(400, 1);
 						}
-						$selectCidades.stop(true, true).fadeTo(400, 1);
 					});
 				});
 			}

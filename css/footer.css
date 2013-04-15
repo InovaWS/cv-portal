@@ -1,7 +1,7 @@
 #main-footer {
-	background: #99B2BF;
 	margin: 0;
 	padding-top: 30px;
+	overflow: hidden;
 }
 
 #main-footer .footer-menu {

@@ -1,0 +1,40 @@
+#main-body {
+	background: #99B2BF;
+	font-family: Oxygen, Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+#main-body a:focus {
+	outline: 1px dotted #cccccc;
+}
+
+::-moz-selection {
+	background: #0994c0;
+	color: #ffffff;
+	text-shadow: none;
+}
+
+::selection {
+	background: #0994c0;
+	color: #ffffff;
+	text-shadow: none;
+	color: #ffffff;
+}
+
+#main-body input {
+	outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	color: #1977aa;
+	margin: 0 0 12px 0;
+}

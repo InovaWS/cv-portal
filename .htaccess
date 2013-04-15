@@ -216,9 +216,9 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 </IfModule>
 
 <IfModule mod_rewrite.c>
-	RewriteRule ^protected\/ index.php [L,QSA]
-	
+	RewriteRule ^protected\/ index.php [L,QSA,E=app:portal,E=appMode:development]
+	RewriteRule ^$ index.php [L,QSA,E=app:portal,E=appMode:development]
 	RewriteCond %{SCRIPT_FILENAME} !-d
 	RewriteCond %{SCRIPT_FILENAME} !-f
-	RewriteRule ^(.*)$ index.php [L,QSA]
+	RewriteRule ^(.*)$ index.php [L,QSA,E=app:portal,E=appMode:development]
 </IfModule>

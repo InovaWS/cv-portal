@@ -3,9 +3,10 @@ namespace Rio\Model;
 
 class Session implements \ArrayAccess
 {
-
-	private $data;
-
+	const DEFAULT_INSTANCE_NAME = 'default';
+	
+	private $values;
+	
 	public function __construct(array &$data = null)
 	{
 		if ($data === null) {
@@ -14,58 +15,18 @@ class Session implements \ArrayAccess
 				session_start();
 			}
 
-			$this->data = &$_SESSION;
+			$this->values = &$_SESSION;
 		}
 		else
-			$this->data = &$data;
+			$this->values = &$data;
 	}
 
-	public function offsetExists($key)
-	{
-		return array_key_exists($key, $this->data);
-	}
-
-	public function offsetGet($key)
-	{
-		return $this->data[$key];
-	}
-
-	public function offsetSet($key, $value)
-	{
-		return $this->data[$key] = $value;
-	}
-
-	public function offsetUnset($key)
-	{
-		unset($this->data[$key]);
-	}
-
-	public function __isset($key)
-	{
-		return $this->offsetExists($key);
-	}
-
-	public function __get($key)
-	{
-		return $this->offsetGet($key);
-	}
-
-	public function __set($key, $value)
-	{
-		return $this->offsetSet($key, $value);
-	}
-
-	public function __unset($key)
-	{
-		return $this->offsetUnset($key);
-	}
-
-	public function get($key)
-	{
-		if ($this->offsetExists($key))
-			return $this->offsetGet($key);
-		else
-			return null;
-	}
-
+	public function offsetExists($id) { return array_key_exists($id, $this->values); }
+	public function offsetUnset($id) { unset($this->values[$id]); }
+	public function offsetGet($id) { return $this->offsetExists($id) ? $this->values[$id] : null; }
+	public function offsetSet($id, $value) { return $this->values[$id] = $value; }
+	public function __isset($id) { return $this->offsetExists($id); }
+	public function __unset($id) { return $this->offsetUnset($id); }
+	public function __get($id) { return $this->offsetGet($id); }
+	public function __set($id, $value) { return $this->offsetSet($id, $value); }	
 }

@@ -1,0 +1,80 @@
+{% extends 'base.twig' %}
+
+{% set pagina = {
+	titulo: 'Meus dados',
+	css_route: 'page'
+} %}
+
+{% block conteudo %}
+<div class="page-header">
+	<h2>Meus dados</h1>
+	<p class="muted">Abaixo estão todos os seus dados cadastrais. Caso necessite alterar algum dado, basta clicar em
+	<strong>modificar informações</strong> para obter a tela de edição de seus dados.</p>
+</div>
+
+<h3>Dados de usuário</h3>
+<dl class="dl-horizontal well">
+	<dt>Login / e-mail</dt>
+	<dd>{{ usuario_logado.usuario }}</dd>
+	
+	<dt>Senha</dt>
+	<dd>{{ '&#8226;' | repeat(usuario_logado.senha | length) | raw }}</dd>
+	
+	<dt>Nome</dt>
+	<dd>{{ usuario_logado.nome }}</dd>
+</dl>
+
+<p><a href="{{ url('/meus-dados/modificar-usuario') }}">Modificar estes dados</a></p>
+
+<h3>Dados de vendedor</h3>
+{% set vendedor = usuario_logado.vendedor %}
+{% set tipo_vendedor = vendedor.tipo %}
+<dl class="dl-horizontal well">
+	<dt>Tipo</dt>
+	<dd>{{ tipo_vendedor.descricao }}</dd>
+	
+	{% if vendedor.id_tipo == 1 %}
+	<dt>Nome</dt>
+	<dd>{{ vendedor.nome }}</dd>
+	
+	<dt>CPF</dt>
+	<dd>{{ coalesce(vendedor.cpf, '-') }}</dd>
+	{% else %}
+	<dt>Nome fantasia</dt>
+	<dd>{{ coalesce(vendedor.nome_fantasia, '-') }}</dd>
+	
+	<dt>Razão social</dt>
+	<dd>{{ coalesce(vendedor.razao_social, '-') }}</dd>
+	
+	<dt>CNPJ</dt>
+	<dd>{{ coalesce(vendedor.cnpj, '-') }}</dd>
+	{% endif %}
+	
+	<dt>Telefone fixo</dt>
+	<dd>{{ coalesce(vendedor.telefone, '-') }}</dd>
+	
+	<dt>Telefone celular</dt>
+	<dd>{{ coalesce(vendedor.celular, '-') }}</dd>
+	
+	<dt>E-mail</dt>
+	<dd>{{ coalesce(vendedor.email, '-') }}</dd>
+</dl>
+
+<p><a href="{{ url('/meus-dados/modificar-vendedor') }}">Modificar estes dados</a></p>
+
+<h3>Endereços</h3>
+{% set enderecos = vendedor.enderecos.findMany %}
+{% if enderecos is empty %}
+<p>Não há endereços registrados. <a href="{{ url('/meus-dados/adicionar-endereco') }}">Adicionar um endereço</a></p>
+{% else %}
+<a href="{{ url('/meus-dados/adicionar-endereco') }}">Adicionar um novo endereço</a>
+<ul>
+	{% for endereco in enderecos %}
+	<li>
+		{{ endereco }}
+	</li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

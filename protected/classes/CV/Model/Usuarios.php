@@ -69,7 +69,7 @@ class Usuarios extends EntityRepository
 	
 	public function logado()
 	{
-		return $this->getContainer()->session->get('usuario');
+		return $this->getContainer()->session->usuario;
 	}
 	
 	public function existe(array $params)

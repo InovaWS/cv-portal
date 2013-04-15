@@ -6,7 +6,7 @@ class TiposDeVeiculos extends EntityRepository
 	
 	public function exists($id)
 	{
-		$stmt = $this->container->db->query("SELECT COUNT(id) AS count FROM cv2_veiculos_tipos WHERE id=:id");
+		$stmt = $this->getContainer()->db->query("SELECT COUNT(id) AS count FROM cv2_veiculos_tipos WHERE id=:id");
 		$stmt->bindValue('id', $id);
 		$stmt->execute();
 		
@@ -15,7 +15,7 @@ class TiposDeVeiculos extends EntityRepository
 	
 	public function get($id)
 	{
-		$stmt = $this->container->db->query("SELECT id, descricao FROM cv2_veiculos_tipos WHERE id=:id");
+		$stmt = $this->getContainer()->db->query("SELECT id, descricao FROM cv2_veiculos_tipos WHERE id=:id");
 		$stmt->bindValue('id', $id);
 		$stmt->execute();
 		
@@ -24,7 +24,7 @@ class TiposDeVeiculos extends EntityRepository
 	
 	public function getAll()
 	{
-		$stmt = $this->container->db->query("SELECT id, descricao FROM cv2_veiculos_tipos ORDER BY id ASC");
+		$stmt = $this->getContainer()->db->query("SELECT id, descricao FROM cv2_veiculos_tipos ORDER BY id ASC");
 		$stmt->execute();
 		
 		return $this->fetchEntities($stmt, 'CV\Model\TipoDeVeiculo');
